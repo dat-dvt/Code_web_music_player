@@ -2,6 +2,8 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const PLAYER_STORAGE_KEY = 'VIK_PLAYER';
+const MUSIC_STORAGE_KEY = 'VIK_MUSIC';
+const SONG_STORAGE_KEY = 'VIK_SONG'
 
 
 const player = $('.player');
@@ -20,15 +22,23 @@ const optionBtn = $('.option');
 
 const app = {
 
-    currentIndex: 0,
+    currentIndex: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)) ||0,
+    indexArray: [],
+
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
+    isSeeking: false,
 
     songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY)) || [],
     
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+
+    setSetting: function() {
+        localStorage.setItem(SONG_STORAGE_KEY, JSON.stringify(this.currentIndex));
+        localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(data));
+    },
 
     setConfig: function(key, value) {
         this.config[key] = value;
@@ -106,6 +116,8 @@ const app = {
         })
         
         playList.innerHTML = htmls.join('');
+        this.scrollToActiveSong();
+
 
     },
 
@@ -167,16 +179,34 @@ const app = {
 
         // When the song progress changes
         audio.ontimeupdate = function() {
-            if(audio.duration){
-                progress.value = Math.floor(audio.currentTime / audio.duration * 100);
-            }
-            
-            // Handling when seek
-            progress.onchange = function(e) {
-                const seekTime = e.target.value * audio.duration / 100;
-                audio.currentTime = seekTime;
+            if (!_this.isSeeking) {
+                    if(audio.duration){
+                        progress.value = Math.floor(audio.currentTime / audio.duration * 100);
+                    }
+            } else {
+                // Handling when seek
+                progress.onchange = function(e) {
+                    const seekTime = e.target.value * audio.duration / 100;
+                    audio.currentTime = seekTime;
+                }
             }
         }
+
+        function seekStart() {
+            _this.isSeeking = true;
+        }
+
+        function seekEnd() {
+            _this.isSeeking = false;
+        }
+        
+        progress.ontouchstart = seekStart;
+
+        progress.ontouchend = seekEnd;
+
+        progress.onmousedown = seekStart;
+
+        progress.onmouseup = seekEnd;
         
 
         //  Handle CD spins / stops
@@ -262,6 +292,7 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         audio.src = `${this.currentSong.path}`;
+        this.setSetting();
     },
 
     
@@ -290,10 +321,15 @@ const app = {
         let newIndex;
         do {
             newIndex = Math.floor(Math.random() * this.songs.length);
-        } while (newIndex === this.currentIndex)
+        } while (newIndex === this.currentIndex || this.indexArray.includes(newIndex))
+        this.indexArray.push(newIndex);
+        console.log(this.indexArray);
         this.currentIndex = newIndex;
         this.loadCurrentSong();
-    },
+        if(this.indexArray.length === this.songs.length) {
+            this.indexArray = [];
+        }
+},
 
     scrollToActiveSong: function() {
         setTimeout(function() {

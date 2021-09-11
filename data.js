@@ -1,4 +1,3 @@
-const MUSIC_STORAGE_KEY = 'VIK_MUSIC';
 
 var data = [
         {
@@ -87,5 +86,3 @@ var data = [
         },
 ];
 
-
-localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(data));
