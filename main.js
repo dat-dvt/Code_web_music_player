@@ -16,6 +16,7 @@ const nextBtn = $('.btn-next');
 const prevBtn = $('.btn-prev');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
+const optionBtn = $('.option');
 
 const app = {
 
@@ -109,7 +110,7 @@ const app = {
             path:
                 "./assets/music/song12.mp3",
             image: "https://i.ytimg.com/vi/ftEKBUobyxA/mqdefault.jpg"
-            },
+        },
     ],
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
@@ -136,15 +137,15 @@ const app = {
                                 <ul class="option__download">
                                     <div class="option__download-list">
                                         <button class="option__download-btn">
-                                            <i class="ti-download option__download-icon"></i>
+                                            <i class="ti-download"></i>
                                             <span>Tải xuống</span>
                                         </button>
                                         <button class="option__download-btn">
-                                            <i class="ti-layout-media-overlay option__download-icon"></i>
+                                            <i class="ti-write"></i>
                                             <span>Lời bài hát</span>
                                         </button>
                                         <button class="option__download-btn">
-                                            <i class="ti-help option__download-icon"></i>
+                                            <i class="ti-help"></i>
                                             <span>Trợ giúp</span>
                                         </button>
                                     </div>
@@ -315,6 +316,7 @@ const app = {
         playList.onclick = function(e) {
             const songNode = e.target.closest('.song:not(.active)');
             const optionNode = e.target.closest('.option')
+            const activeOption = $('.option.active');
             if( songNode || optionNode) {
                 // Handle when clicking on the song
                 if(songNode) {
@@ -326,7 +328,16 @@ const app = {
                 }
 
                 // Handle when clicking on the song option
+                if(optionNode) {
+                    optionNode.classList.add('active');
+                }
             }
+
+            if(activeOption && !e.target.closest('.option__block')) {
+                activeOption.classList.remove('active');
+            }
+
+
         }
 
     },
@@ -371,7 +382,7 @@ const app = {
 
     scrollToActiveSong: function() {
         setTimeout(function() {
-            if(app.currentIndex <= 4) {
+            if(app.currentIndex <= 6) {
                 $('.song.active').scrollIntoView({
                     behavior: 'smooth',
                     block: 'end'
