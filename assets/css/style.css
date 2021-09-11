@@ -122,7 +122,7 @@
     width: 100%;
     -webkit-appearance: none;
     height: 6px;
-    background: #d3d3d3;
+    background: #fff;
     outline: none;
     opacity: 0.7;
     -webkit-transition: 0.2s;
@@ -134,7 +134,7 @@
     appearance: none;
     width: 12px;
     height: 6px;
-    background-color: #ffffff;
+    background-color: #642364;
     cursor: pointer;
   }
   
