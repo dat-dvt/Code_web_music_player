@@ -296,11 +296,13 @@ const app = {
         //Handle adjust volume change
         volumeBtn.onmousedown =function(e) {
             _this.isVolumeChange = true;
+            changeVolume();
         }
 
 
         volumeBtn.addEventListener('touchstart', function() {
             _this.isVolumeChange = true;
+            changeVolume();
         })
         
         function changeVolume() {
