@@ -3,7 +3,9 @@ const $$ = document.querySelectorAll.bind(document);
 
 const PLAYER_STORAGE_KEY = 'VIK_PLAYER';
 const MUSIC_STORAGE_KEY = 'VIK_MUSIC';
-const SONG_STORAGE_KEY = 'VIK_SONG'
+const SONG_STORAGE_KEY = 'VIK_SONG';
+const VOLUME_STORAGE_KEY = 'VIK_VOLUME';
+
 
 
 const player = $('.player');
@@ -14,21 +16,30 @@ const heading = $('header h2');
 const audio = $('#audio');
 const playBtn = $('.btn-toggle-play');
 const progress = $('#progress');
+const progressBlock = $('.progress-block');
 const nextBtn = $('.btn-next');
 const prevBtn = $('.btn-prev');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
 const optionBtn = $('.option');
+const volumeBtn = $('.volume')
+const volume = $('.volume__range')
+const dashboard = $('.dashboard') 
+console.log([dashboard.offsetWidth, dashboard.offsetHeight])
+
+
 
 const app = {
 
     currentIndex: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)) ||0,
     indexArray: [],
+    currentVolume: JSON.parse(localStorage.getItem(VOLUME_STORAGE_KEY)) || 1,
 
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
+    isVolumeChange: false,
 
     songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY)) || [],
     
@@ -142,6 +153,12 @@ const app = {
                     width: newCdWidth > 0 ? newCdWidth + 'px' : 0,
                     opacity: newCdWidth / cdWidth
                 });
+            console.log( newCdWidth > 0 ? 331 - newCdWidth + 'px' : 32 + '', cdWidth);
+            if(newCdWidth < cdWidth) {
+                volume.classList.add('horizontal');
+            } else {
+                volume.classList.remove('horizontal');
+            }
         }
 
 
@@ -179,15 +196,16 @@ const app = {
 
         // When the song progress changes
         audio.ontimeupdate = function() {
-            if (!_this.isSeeking) {
-                    if(audio.duration){
-                        progress.value = Math.floor(audio.currentTime / audio.duration * 100);
-                    }
+            if (!_this.isSeeking && audio.duration) {
+                
+                progress.value = Math.floor(audio.currentTime / audio.duration * 100);
+
             } else {
                 // Handling when seek
                 progress.onchange = function(e) {
                     const seekTime = e.target.value * audio.duration / 100;
                     audio.currentTime = seekTime;
+                    _this.isSeeking = false;
                 }
             }
         }
@@ -196,17 +214,12 @@ const app = {
             _this.isSeeking = true;
         }
 
-        function seekEnd() {
-            _this.isSeeking = false;
-        }
         
-        progress.ontouchstart = seekStart;
+        progressBlock.ontouchstart = seekStart;
 
-        progress.ontouchend = seekEnd;
 
-        progress.onmousedown = seekStart;
+        progressBlock.onmousedown = seekStart;
 
-        progress.onmouseup = seekEnd;
         
 
         //  Handle CD spins / stops
@@ -281,9 +294,40 @@ const app = {
             if(activeOption && !e.target.closest('.option__block')) {
                 activeOption.classList.remove('active');
             }
-
-
         }
+
+        //Handle adjust volume change
+        volumeBtn.onmousedown =function() {
+            _this.isVolumeChange = true;
+        }
+        volumeBtn.ontouchstart = function() {
+            _this.isVolumeChange = true;
+        }
+        
+        function changeVolume() {
+            if(_this.isVolumeChange) {
+                audio.volume = volume.value / 100;
+                localStorage.setItem(VOLUME_STORAGE_KEY, JSON.stringify(audio.volume))
+                if (!audio.volume) {
+                    volumeBtn.classList.remove('ti-volume');
+                    volumeBtn.classList.add('fas', 'fa-volume-mute')
+                } else {
+                    volumeBtn.classList.add('ti-volume');
+                    volumeBtn.classList.remove('fas', 'fa-volume-mute')
+                }
+            }
+        }
+
+        volumeBtn.onmousemove = function(e) {
+            e.stopPropagation();
+            changeVolume();
+        }
+
+        volumeBtn.ontouchmove = function(e) {
+            e.stopPropagation();
+            changeVolume();
+        }
+
 
     },
 
@@ -299,6 +343,9 @@ const app = {
     loadConfig: function() {
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
+        audio.volume = this.currentVolume;
+        volume.value = this.currentVolume * 100;
+        console.log(audio.volume)
     },
 
     nextSong: function() {
