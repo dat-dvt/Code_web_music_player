@@ -72,15 +72,15 @@ const app = {
                                 <ul class="option__download">
                                     <div class="option__download-list">
                                         <button class="option__download-btn">
-                                            <i class="ti-download"></i>
+                                            <i class="fas fa-arrow-down"></i>
                                             <span>Tải xuống</span>
                                         </button>
                                         <button class="option__download-btn">
-                                            <i class="ti-write"></i>
+                                            <i class="fas fa-poll-h"></i>
                                             <span>Lời bài hát</span>
                                         </button>
                                         <button class="option__download-btn">
-                                            <i class="ti-help"></i>
+                                            <i class="fas fa-question"></i>
                                             <span>Trợ giúp</span>
                                         </button>
                                     </div>
@@ -88,35 +88,35 @@ const app = {
                                 <ul class="option__list">
                                     <li class="option__item">
                                         <div class="option__item-block">
-                                            <i class="ti-plus option__item-icon"></i>
+                                            <i class="fas fa-plus option__item-icon"></i>
                                             <p class="option__item-content">Thêm vào playlist</p>
                                         </div>
-                                        <i class="ti-angle-right option__item-icon"></i>
+                                        <i class="fas fa-chevron-right option__item-icon"></i>
                                     </li>
                                     <li class="option__item">
                                         <div class="option__item-block">
-                                            <i class="ti-microphone-alt option__item-icon"></i>
+                                            <i class="fas fa-microphone option__item-icon"></i>
                                             <p class="option__item-content">Phát cùng lời bài hát</p>
                                         </div>
                                     </li>
                                     <li class="option__item">
                                         <div class="option__item-block">
-                                            <i class="ti-comments-smiley option__item-icon"></i>
+                                            <i class="far fa-comment option__item-icon"></i>
                                             <p class="option__item-content">Bình luận</p>
                                         </div>
                                     </li>
                                     <li class="option__item">
                                         <div class="option__item-block">
-                                            <i class="ti-link option__item-icon"></i>
+                                            <i class="fas fa-link option__item-icon"></i>
                                             <p class="option__item-content">Sao chép link</p>
                                         </div>
                                     </li>
                                     <li class="option__item">
                                         <div class="option__item-block">
-                                            <i class="ti-share option__item-icon"></i>
+                                            <i class="far fa-share-square option__item-icon"></i>
                                             <p class="option__item-content">Chia sẻ</p>
                                         </div>
-                                        <i class="ti-angle-right option__item-icon"></i>
+                                        <i class="fas fa-chevron-right option__item-icon"></i>
                                     </li>
                                 </ul>
                                 </div>
@@ -310,11 +310,11 @@ const app = {
                 audio.volume = volume.value / 100;
                 localStorage.setItem(VOLUME_STORAGE_KEY, JSON.stringify(audio.volume))
                 if (!audio.volume) {
-                    volumeBtn.classList.remove('ti-volume');
-                    volumeBtn.classList.add('fas', 'fa-volume-mute')
+                    volumeBtn.classList.remove('fa-volume-up');
+                    volumeBtn.classList.add('fa-volume-mute')
                 } else {
-                    volumeBtn.classList.add('ti-volume');
-                    volumeBtn.classList.remove('fas', 'fa-volume-mute')
+                    volumeBtn.classList.add('fa-volume-up');
+                    volumeBtn.classList.remove('fa-volume-mute')
                 }
             }
         }
