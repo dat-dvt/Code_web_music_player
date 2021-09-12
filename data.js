@@ -84,5 +84,25 @@ var data = [
                 "./assets/music/song12.mp3",
             image: "https://i.ytimg.com/vi/ftEKBUobyxA/mqdefault.jpg"
         },
+        {
+            name: "Cheating on You",
+            singer: "Charlie Puth",
+            path:
+                "./assets/music/song13.mp3",
+            image: "https://i.ytimg.com/vi/pDyywe5MChY/maxresdefault.jpg"
+        },{
+            name: "Peaches",
+            singer: "Justin Bieber ft. Daniel Caesar, Giveon",
+            path:
+                "./assets/music/song14.mp3",
+            image: "https://i.ytimg.com/vi/kGcoKuK08-c/maxresdefault.jpg"
+        },
+        {
+            name: "STAY",
+            singer: "The Kid LAROI ft. Justin Bieber",
+            path:
+                "./assets/music/song15.mp3",
+            image: "https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg"
+        },
 ];
 

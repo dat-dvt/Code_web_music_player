@@ -295,11 +295,13 @@ const app = {
         }
 
         //Handle adjust volume change
-        volumeBtn.onmousedown =function() {
+        volumeBtn.onmousedown =function(e) {
             _this.isVolumeChange = true;
+            e.stopPropagation();
         }
-        volumeBtn.ontouchstart = function() {
+        volumeBtn.ontouchstart = function(e) {
             _this.isVolumeChange = true;
+            e.stopPropagation();
         }
         
         function changeVolume() {
