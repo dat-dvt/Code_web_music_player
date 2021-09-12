@@ -212,8 +212,7 @@ const app = {
             _this.isSeeking = true;
         }
 
-        
-        progressBlock.ontouchstart = seekStart;
+        progressBlock.addEventListener('touchstart', seekStart);
 
 
         progressBlock.onmousedown = seekStart;
@@ -297,12 +296,12 @@ const app = {
         //Handle adjust volume change
         volumeBtn.onmousedown =function(e) {
             _this.isVolumeChange = true;
-            e.stopPropagation();
         }
-        volumeBtn.ontouchstart = function(e) {
+
+
+        volumeBtn.addEventListener('touchstart', function() {
             _this.isVolumeChange = true;
-            e.stopPropagation();
-        }
+        })
         
         function changeVolume() {
             if(_this.isVolumeChange) {
@@ -322,12 +321,11 @@ const app = {
             e.stopPropagation();
             changeVolume();
         }
-
-        volumeBtn.ontouchmove = function(e) {
+        //Use addEventListener to fix the bug in the first loading
+        volume.addEventListener('touchmove', function(e) {
             e.stopPropagation();
             changeVolume();
-        }
-
+        })
 
     },
 
