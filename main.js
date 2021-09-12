@@ -5,6 +5,7 @@ const PLAYER_STORAGE_KEY = 'VIK_PLAYER';
 const MUSIC_STORAGE_KEY = 'VIK_MUSIC';
 const SONG_STORAGE_KEY = 'VIK_SONG';
 const VOLUME_STORAGE_KEY = 'VIK_VOLUME';
+const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 
@@ -22,17 +23,20 @@ const prevBtn = $('.btn-prev');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
 const optionBtn = $('.option');
-const volumeBtn = $('.volume')
-const volume = $('.volume__range')
-const dashboard = $('.dashboard') 
+const volumeBtn = $('.volume');
+const volume = $('.volume__range');
+const dashboard = $('.dashboard');
+const trackTime = $('#tracktime');
+const durationTime = $('#durationtime');
 
 
 
 const app = {
 
     currentIndex: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)) ||0,
-    indexArray: [],
     currentVolume: JSON.parse(localStorage.getItem(VOLUME_STORAGE_KEY)) || 1,
+    currentDuration: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY)) || 0,
+    indexArray: [],
 
     isPlaying: false,
     isRandom: false,
@@ -127,6 +131,7 @@ const app = {
         
         playList.innerHTML = htmls.join('');
         this.scrollToActiveSong();
+        durationTime.textContent = this.audioCalTime(this.currentDuration);
 
 
     },
@@ -192,21 +197,34 @@ const app = {
             audio.play();
         }
 
+
         // When the song progress changes
         audio.ontimeupdate = function() {
             if (!_this.isSeeking && audio.duration) {
-                
+                trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                 progress.value = Math.floor(audio.currentTime / audio.duration * 100);
-
+                localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(audio.duration));
+                durationTime.innerHTML = _this.audioCalTime(audio.duration);
             } else {
                 // Handling when seek
                 progress.onchange = function(e) {
                     const seekTime = e.target.value * audio.duration / 100;
                     audio.currentTime = seekTime;
+                    trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                     _this.isSeeking = false;
                 }
             }
         }
+        
+        function currentTime() {
+            const seekTime = progress.value * audio.duration / 100;
+            if(audio.duration) {
+                trackTime.innerText = _this.audioCalTime(seekTime);
+            }
+        }
+
+        progress.addEventListener('touchmove', currentTime);
+        progress.addEventListener('mousemove', currentTime);
 
         function seekStart() {
             _this.isSeeking = true;
@@ -340,11 +358,20 @@ const app = {
     },
 
     
+    audioCalTime: function(time) {
+        const minute = Math.floor(time / 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+        const second = Math.floor(time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+        return `${minute}:${second}`;
+    },
+
     loadConfig: function() {
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
+        audio.duration = this.currentDuration;
         audio.volume = this.currentVolume;
         volume.value = this.currentVolume * 100;
+        randomBtn.classList.toggle('active', this.isRandom);
+        repeatBtn.classList.toggle('active', this.isRepeat);
     },
 
     nextSong: function() {
@@ -413,8 +440,6 @@ const app = {
         // Load the first song information into the UI when running the app
         this.loadCurrentSong();
         
-        randomBtn.classList.toggle('active', this.isRandom);
-        repeatBtn.classList.toggle('active', this.isRepeat);
     }
 
 }

@@ -186,28 +186,45 @@
     opacity: 0.8;
   }
 
+  .progress-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #durationtime,
+  #tracktime {
+    color: #fff;
+    font-size: 12px;
+    display: block;
+    width: 30px;
+  }
   
   .progress {
-    width: 100%;
-    -webkit-appearance: none;
-    height: 6px;
+    width: 75%;
+    height: 3px;
     background: #fff;
-    outline: none;
     opacity: 1;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    outline: none;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
   }
+
 
   
   .progress::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 6px;
     background-color: #a39a9a;
     cursor: pointer;
   }
+
+
   
   /* PLAYLIST */
   .playlist {
