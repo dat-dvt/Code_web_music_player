@@ -25,7 +25,6 @@ const optionBtn = $('.option');
 const volumeBtn = $('.volume')
 const volume = $('.volume__range')
 const dashboard = $('.dashboard') 
-console.log([dashboard.offsetWidth, dashboard.offsetHeight])
 
 
 
@@ -153,7 +152,6 @@ const app = {
                     width: newCdWidth > 0 ? newCdWidth + 'px' : 0,
                     opacity: newCdWidth / cdWidth
                 });
-            console.log( newCdWidth > 0 ? 331 - newCdWidth + 'px' : 32 + '', cdWidth);
             if(newCdWidth < cdWidth) {
                 volume.classList.add('horizontal');
             } else {
@@ -345,7 +343,6 @@ const app = {
         this.isRepeat = this.config.isRepeat;
         audio.volume = this.currentVolume;
         volume.value = this.currentVolume * 100;
-        console.log(audio.volume)
     },
 
     nextSong: function() {
@@ -370,7 +367,6 @@ const app = {
             newIndex = Math.floor(Math.random() * this.songs.length);
         } while (newIndex === this.currentIndex || this.indexArray.includes(newIndex))
         this.indexArray.push(newIndex);
-        console.log(this.indexArray);
         this.currentIndex = newIndex;
         this.loadCurrentSong();
         if(this.indexArray.length === this.songs.length) {
