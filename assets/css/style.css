@@ -102,6 +102,24 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  .volume__background {
+    content: "";
+    display: none;
+    width: 134%;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #353535;
+    position: absolute;
+    top: -37px;
+    right: -16%;
+    z-index: -1;
+  }
+
+  .volume:active .volume__range.horizontal ~ .volume__background,
+  .volume:hover .volume__range.horizontal ~ .volume__background {
+    display:block;
+  }
+
   .volume__range {
     position: absolute;
     top: 5px;
@@ -117,6 +135,7 @@
     transition: opacity 0.2s, rotate 0.2s, translateX 0.2s;
     display: none;
     cursor: pointer;
+    z-index: 10;
   }
 
   .volume .volume__range.horizontal {
