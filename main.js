@@ -131,9 +131,6 @@ const app = {
         
         playList.innerHTML = htmls.join('');
         this.scrollToActiveSong();
-        durationTime.textContent = this.audioCalTime(this.currentDuration);
-
-
     },
 
     defineProperties: function() {
@@ -374,6 +371,7 @@ const app = {
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
         audio.duration = this.currentDuration;
+        durationTime.textContent = this.audioCalTime(this.currentDuration);
         audio.volume = this.currentVolume;
         volume.value = this.currentVolume * 100;
         randomBtn.classList.toggle('active', this.isRandom);
