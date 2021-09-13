@@ -322,6 +322,12 @@ const app = {
             _this.isVolumeChange = true;
             changeVolume();
         })
+        volumeBtn.addEventListener('touchend', function() {
+            _this.isVolumeChange = true;
+            changeVolume();
+        })
+
+
         
         function changeVolume() {
             if(_this.isVolumeChange) {

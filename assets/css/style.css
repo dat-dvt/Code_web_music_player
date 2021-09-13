@@ -98,6 +98,8 @@
   .volume__icon {
     color: #fff;
     font-size: 14px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .volume__range {
@@ -114,6 +116,7 @@
     -webkit-transition: 0.2s;
     transition: opacity 0.2s, rotate 0.2s, translateX 0.2s;
     display: none;
+    cursor: pointer;
   }
 
   .volume .volume__range.horizontal {
@@ -160,6 +163,9 @@
     color: #fff;
     padding: 18px;
     font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   
   .control .btn.active {
@@ -169,7 +175,6 @@
   .control .btn-toggle-play {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
     font-size: 24px;
     color: #fff;
     display: flex;
@@ -179,11 +184,22 @@
     border:2px solid #fff;
   }
 
-  .control .btn-repeat:active,
-  .control .btn-random:active,
-  .control .btn-next:active,
-  .control .btn-prev:active {
-    opacity: 0.8;
+  .control .btn-repeat,
+  .control .btn-random,
+  .control .btn-next,
+  .control .btn-prev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+  }
+
+  .control .btn-repeat:hover,
+  .control .btn-random:hover,
+  .control .btn-next:hover,
+  .control .btn-prev:hover {
+    background-color: #282231;
   }
 
   .progress-block {
@@ -210,6 +226,8 @@
     outline: none;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
 
@@ -241,6 +259,8 @@
     padding: 8px 16px;
     border-radius: 5px;
     box-shadow: 0 2px 3px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   
   .song.active {
@@ -294,6 +314,7 @@
     border-radius: 8px;
     z-index: 5;
     background-color: #432275;
+    cursor: default;
   }
 
   
@@ -324,6 +345,8 @@
       background-color: #563983;
       border: none;
       color: #fff;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
   }
 
   .option__download-btn:hover {
@@ -350,6 +373,8 @@
     align-items: center;
     list-style: none;
     justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .option__item {
