@@ -2,7 +2,6 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const PLAYER_STORAGE_KEY = 'VIK_PLAYER';
-const MUSIC_STORAGE_KEY = 'VIK_MUSIC';
 const SONG_STORAGE_KEY = 'VIK_SONG';
 const VOLUME_STORAGE_KEY = 'VIK_VOLUME';
 const DURATION_STORAGE_KEY = 'VIK_DURATION';
@@ -51,7 +50,6 @@ const app = {
 
     setSetting: function() {
         localStorage.setItem(SONG_STORAGE_KEY, JSON.stringify(this.currentIndex));
-        localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(data));
     },
 
     setConfig: function(key, value) {
