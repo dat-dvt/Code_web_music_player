@@ -1,0 +1,49 @@
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: rgba(255, 255, 255, 0.8);
+    --primary-color: #170f23;
+    --active-color: #69387e;
+    --bg-color: #231b2e;
+    --content-color: #2f2739;
+    --header-height: 70px;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    height: 38px;
+    border-radius: 20px;
+    line-height: 3.8rem;
+    font-size: 1.4rem;
+    padding: 0;
+    color: var(--white-color);
+    background-color: #7200a1;
+    text-decoration: none;
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn {
+    color: #fff;
+    padding: 12px;
+    margin: 0 7px;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
