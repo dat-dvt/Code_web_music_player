@@ -8,13 +8,16 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 
+
 const player = $('.player');
-const playList = $('.playlist');
-const cd = $('.cd');
-const cdThumb = $('.cd-thumb');
-const heading = $('header h2');
+const playList = $('.playlist__list');
+const cd = $('.content__thumb-img')
+const cdThumb = $('.player__song-thumb');
+const thumbPlay = $('.content__thumb-play')
+const songTitle = $('.player__song-title');
+const author = $('.player__song-author');
 const audio = $('#audio');
-const playBtn = $('.btn-toggle-play');
+const playBtns = $$('.btn-toggle-play');
 const progress = $('#progress');
 const progressBlock = $('.progress-block');
 const nextBtn = $('.btn-next');
@@ -22,9 +25,7 @@ const prevBtn = $('.btn-prev');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
 const optionBtn = $('.option');
-const volumeBtn = $('.volume');
 const volume = $('.volume__range');
-const dashboard = $('.dashboard');
 const trackTime = $('#tracktime');
 const durationTime = $('#durationtime');
 
@@ -32,19 +33,19 @@ const durationTime = $('#durationtime');
 
 const app = {
 
-    currentIndex: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)) ||0,
+    currentIndex: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)) || 0,
     currentVolume: JSON.parse(localStorage.getItem(VOLUME_STORAGE_KEY)) || 1,
-    currentDuration: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY)) || 0,
     indexArray: [],
-
+    
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
     isVolumeChange: false,
-
-    songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY)) || [],
     
+    songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY)) || [],
+
+    durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY)) || [],
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
 
@@ -61,69 +62,22 @@ const app = {
     render : function() {
         const htmls = this.songs.map(function(song,index){
             return `
-                        <div class="song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
-                            <div class="thumb" style="background-image: url('${song.image}')">
-                            </div>
-                            <div class="body">
-                                <h3 class="title">${song.name}</h3>
-                                <p class="author">${song.singer}</p>
-                            </div>
-                            <div class="option">
-                                <i class="fas fa-ellipsis-h"></i>
-                                <div class="option__block">
-                                <ul class="option__download">
-                                    <div class="option__download-list">
-                                        <button class="option__download-btn">
-                                            <i class="fas fa-arrow-down"></i>
-                                            <span>Tải xuống</span>
-                                        </button>
-                                        <button class="option__download-btn">
-                                            <i class="fas fa-poll-h"></i>
-                                            <span>Lời bài hát</span>
-                                        </button>
-                                        <button class="option__download-btn">
-                                            <i class="fas fa-question"></i>
-                                            <span>Trợ giúp</span>
-                                        </button>
-                                    </div>
-                                </ul>
-                                <ul class="option__list">
-                                    <li class="option__item">
-                                        <div class="option__item-block">
-                                            <i class="fas fa-plus option__item-icon"></i>
-                                            <p class="option__item-content">Thêm vào playlist</p>
-                                        </div>
-                                        <i class="fas fa-chevron-right option__item-icon"></i>
-                                    </li>
-                                    <li class="option__item">
-                                        <div class="option__item-block">
-                                            <i class="fas fa-microphone option__item-icon"></i>
-                                            <p class="option__item-content">Phát cùng lời bài hát</p>
-                                        </div>
-                                    </li>
-                                    <li class="option__item">
-                                        <div class="option__item-block">
-                                            <i class="far fa-comment option__item-icon"></i>
-                                            <p class="option__item-content">Bình luận</p>
-                                        </div>
-                                    </li>
-                                    <li class="option__item">
-                                        <div class="option__item-block">
-                                            <i class="fas fa-link option__item-icon"></i>
-                                            <p class="option__item-content">Sao chép link</p>
-                                        </div>
-                                    </li>
-                                    <li class="option__item">
-                                        <div class="option__item-block">
-                                            <i class="far fa-share-square option__item-icon"></i>
-                                            <p class="option__item-content">Chia sẻ</p>
-                                        </div>
-                                        <i class="fas fa-chevron-right option__item-icon"></i>
-                                    </li>
-                                </ul>
-                                </div>
-                            </div>
+                <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
+                    <div class="playlist__song-info">
+                        <i class="bi bi-music-note-beamed"></i>
+                        <div class="playlist__song-thumb" style="background: url('${song.image}') no-repeat center center / cover"></div>
+                        <div class="playlist__song-body">
+                            <span class="playlist__song-title">${song.name}</span>
+                            <p class="playlist__song-author">${song.singer}</p>
                         </div>
+                    </div>
+                    <span class="playlist__song-time">${app.durationList[index]}</span>
+                    <div class="playlist__song-option">
+                        <i class="playlist__option-icon bi bi-mic-fill"></i>
+                        <i class="playlist__option-icon bi bi-suit-heart"></i>
+                        <i class="playlist__option-icon bi bi-three-dots"></i>
+                    </div>
+                </div>
             `;
         })
         
@@ -143,44 +97,36 @@ const app = {
 
     handleEvents: function() {
         const _this = this;
-        // Handles CD enlargement / reduction
-        document.onscroll = function() {
-            const cdWidth = 200;
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            newCdWidth = cdWidth - scrollTop;
-            Object.assign(cd.style,  {
-                    width: newCdWidth > 0 ? newCdWidth + 'px' : 0,
-                    opacity: newCdWidth / cdWidth
-                });
-            if(newCdWidth < cdWidth) {
-                volume.classList.add('horizontal');
-            } else {
-                volume.classList.remove('horizontal');
-            }
-        }
 
 
         // Handle when click play
-        playBtn.onclick = function() {
-            if(_this.isPlaying) {
-                audio.pause();
-            } else {
-                audio.play();
+        Array.from(playBtns).forEach(playBtn => {
+            playBtn.onclick = function() {
+                if(_this.isPlaying) {
+                    audio.pause();
+                } else {
+                    audio.play();
+                }
             }
-        }
+        })
 
         // When the song is played
         audio.onplay = function() {
             _this.isPlaying = true;
             player.classList.add('playing');
+            thumbPlay.classList.add('playing');
             cdThumbAnimate.play();
+            cdAnimate.play();
+            console.log(cd)
         }
 
         // When the song is paused
         audio.onpause = function() {
             _this.isPlaying = false;
             player.classList.remove('playing');
+            thumbPlay.classList.remove('playing');
             cdThumbAnimate.pause();
+            cdAnimate.pause();
         }
 
         // Handle next song when audio ended
@@ -193,13 +139,19 @@ const app = {
         }
 
 
-        // When the song progress changes
-        audio.ontimeupdate = function() {
+//         // When the song progress changes
+        audio.ontimeupdate = function(e) {
             if (!_this.isSeeking && audio.duration) {
+                const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
+
                 trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                 progress.value = Math.floor(audio.currentTime / audio.duration * 100);
-                localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(audio.duration));
-                durationTime.innerHTML = _this.audioCalTime(audio.duration);
+                if(listDurationTime.innerText === '--/--') {
+                    _this.durationList.splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
+                    localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(_this.durationList));
+                    listDurationTime.innerHTML = _this.durationList[_this.currentIndex];
+                    durationTime.innerHTML = _this.durationList[_this.currentIndex];
+                }
             } else {
                 // Handling when seek
                 progress.onchange = function(e) {
@@ -239,7 +191,15 @@ const app = {
             duration: 10000, // 10000 seconds
             iterations: Infinity
         })
+
         cdThumbAnimate.pause()
+        const cdAnimate = cd.animate([
+            { transform: 'rotate(360deg)'}
+        ], {
+            duration: 10000, // 10000 seconds
+            iterations: Infinity
+        })
+        cdAnimate.pause()
 
 
         // When next song
@@ -282,7 +242,7 @@ const app = {
 
         // Listen to playlist clicks
         playList.onclick = function(e) {
-            const songNode = e.target.closest('.song:not(.active)');
+            const songNode = e.target.closest('.playlist__list-song:not(.active)');
             const optionNode = e.target.closest('.option')
             const activeOption = $('.option.active');
             if( songNode || optionNode) {
@@ -290,7 +250,7 @@ const app = {
                 if(songNode) {
                     _this.currentIndex = Number(songNode.dataset.index);
                     _this.loadCurrentSong();
-                    $('.song.active').classList.remove('active');
+                    $('.playlist__list-song.active').classList.remove('active');
                     songNode.classList.add('active');
                     audio.play();
                 }
@@ -307,17 +267,17 @@ const app = {
         }
 
         //Handle adjust volume change
-        volumeBtn.onmousedown =function(e) {
+        volume.onmousedown =function(e) {
             _this.isVolumeChange = true;
             changeVolume();
         }
 
 
-        volumeBtn.addEventListener('touchstart', function() {
+        volume.addEventListener('touchstart', function() {
             _this.isVolumeChange = true;
             changeVolume();
         })
-        volumeBtn.addEventListener('touchend', function() {
+        volume.addEventListener('touchend', function() {
             _this.isVolumeChange = true;
             changeVolume();
         })
@@ -329,16 +289,16 @@ const app = {
                 audio.volume = volume.value / 100;
                 localStorage.setItem(VOLUME_STORAGE_KEY, JSON.stringify(audio.volume))
                 if (!audio.volume) {
-                    volumeBtn.classList.remove('fa-volume-up');
-                    volumeBtn.classList.add('fa-volume-mute')
+                    volume.classList.remove('fa-volume-up');
+                    volume.classList.add('fa-volume-mute')
                 } else {
-                    volumeBtn.classList.add('fa-volume-up');
-                    volumeBtn.classList.remove('fa-volume-mute')
+                    volume.classList.add('fa-volume-up');
+                    volume.classList.remove('fa-volume-mute')
                 }
             }
         }
 
-        volumeBtn.onmousemove = function(e) {
+        volume.onmousemove = function(e) {
             e.stopPropagation();
             changeVolume();
         }
@@ -352,9 +312,12 @@ const app = {
 
 
     loadCurrentSong: function() {
-        heading.textContent = this.currentSong.name;
+        songTitle.textContent = this.currentSong.name;
+        author.textContent = this.currentSong.singer
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
+        cd.style.backgroundImage = `url(${this.currentSong.image})`
         audio.src = `${this.currentSong.path}`;
+        durationTime.innerHTML = this.durationList[this.currentIndex];
         this.setSetting();
     },
 
@@ -374,6 +337,12 @@ const app = {
         volume.value = this.currentVolume * 100;
         randomBtn.classList.toggle('active', this.isRandom);
         repeatBtn.classList.toggle('active', this.isRepeat);
+    },
+
+    setUpRender: function() {
+        if(this.durationList.length === 0) {
+            this.songs.forEach((song, index) => this.durationList.push('--/--'))
+        }
     },
 
     nextSong: function() {
@@ -408,12 +377,12 @@ const app = {
     scrollToActiveSong: function() {
         setTimeout(function() {
             if(app.currentIndex <= 6) {
-                $('.song.active').scrollIntoView({
+                $('.playlist__list-song.active').scrollIntoView({
                     behavior: 'smooth',
                     block: 'end'
                 })
             } else {
-                $('.song.active').scrollIntoView({
+                $('.playlist__list-song.active').scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest'
                 })
@@ -422,21 +391,23 @@ const app = {
     },
 
     start: function() {
-        
+        //Setup duration time to render
+        this.setUpRender()
+
         // Assign configuration from config to application
         this.loadConfig();
         
         
         // Define properties for the object
         this.defineProperties();
+        
+        // Render playlist
+        this.render();
 
         
         // Listening / handling events (DOM events)
         this.handleEvents();
         
-
-        // Render playlist
-        this.render();
         
         
         // Load the first song information into the UI when running the app
