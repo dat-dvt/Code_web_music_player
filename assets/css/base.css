@@ -3,9 +3,11 @@
     --black-color: #000;
     --text-color: rgba(255, 255, 255, 0.8);
     --primary-color: #170f23;
+    --purple-primary: #7200a1;
     --active-color: #69387e;
     --bg-color: #231b2e;
-    --content-color: #2f2739;
+    --bg-content-color: #2f2739;
+    --border-color: rgba(255, 255, 255, 0.1);
     --header-height: 70px;
 }
 
@@ -21,22 +23,39 @@ html {
 }
 
 .button {
+    padding: 0;
+    height: 38px;
+    font-size: 1.4rem;
+    min-width: 170px;
+    border-radius: 20px;
+    line-height: 3.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 170px;
-    height: 38px;
-    border-radius: 20px;
-    line-height: 3.8rem;
-    font-size: 1.4rem;
-    padding: 0;
-    color: var(--white-color);
-    background-color: #7200a1;
     text-decoration: none;
-    text-transform: uppercase;
     outline: none;
     cursor: pointer;
+    text-transform: uppercase;
+    color: var(--white-color);
+    background-color: #4e4552;
 }
+
+.button.is-small {
+    font-size: 1.2rem;
+    height: 27px;
+    min-width: 125px;
+    padding: 6px 19px;
+}
+
+.button.button-gold {
+    background-color: #f8e71c;
+    color: var(--black-color);
+}
+
+.button.button-primary {
+    background-color: #7200a1;
+}
+
 
 .btn {
     color: #fff;
