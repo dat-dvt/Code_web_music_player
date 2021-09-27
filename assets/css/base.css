@@ -1,7 +1,7 @@
 :root {
     --white-color: #fff;
     --black-color: #000;
-    --text-color: rgba(255, 255, 255, 0.8);
+    --text-color: #f4f3f4;
     --primary-color: #170f23;
     --purple-primary: #7200a1;
     --active-color: #69387e;
@@ -9,6 +9,11 @@
     --bg-content-color: #2f2739;
     --border-color: rgba(255, 255, 255, 0.1);
     --header-height: 70px;
+    --scale-rate-second: calc( 196 / 230);
+    --scale-rate-third: calc( 162 / 230);
+    --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
+    --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
+
 }
 
 * {
@@ -26,7 +31,6 @@ html {
     padding: 0;
     height: 38px;
     font-size: 1.4rem;
-    min-width: 170px;
     border-radius: 20px;
     line-height: 3.8rem;
     display: flex;
@@ -35,19 +39,25 @@ html {
     text-decoration: none;
     outline: none;
     cursor: pointer;
+    border: none;
     text-transform: uppercase;
     color: var(--white-color);
     background-color: #4e4552;
 }
 
+.button.is-medium {
+    font-size: 1.4rem;
+    padding: 9px 24px;
+}
+
 .button.is-small {
     font-size: 1.2rem;
     height: 27px;
-    min-width: 125px;
     padding: 6px 19px;
 }
 
 .button.button-gold {
+    color: #39383b;
     background-color: #f8e71c;
     color: var(--black-color);
 }
@@ -57,12 +67,20 @@ html {
 }
 
 
-.btn {
+.control-btn {
     color: #fff;
-    padding: 12px;
-    margin: 0 7px;
-    font-size: 16px;
+    padding: 11px;
+    margin: 0 4px;
+    font-size: 2.4rem;
     border-radius: 50%;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn.is-small {
+    font-size: 1.6rem;
+}
+
+i.primary {
+    color: var(--purple-primary);
 }

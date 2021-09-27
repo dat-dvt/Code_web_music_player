@@ -9,9 +9,7 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 const player = $('.player');
 const playList = $('.playlist__list');
-const cd = $('.content__thumb-img')
 const cdThumb = $('.player__song-thumb');
-const thumbPlay = $('.content__thumb-play')
 const songTitle = $('.player__song-title');
 const author = $('.player__song-author');
 const audio = $('#audio');
@@ -27,6 +25,8 @@ const volumeBtn = $('.volume .player__options-icon')
 const volume = $('.volume__range');
 const trackTime = $('#tracktime');
 const durationTime = $('#durationtime');
+const slideImgs = $$('.content__slide-item:not(.fourth)')
+
 
 
 
@@ -55,7 +55,6 @@ const app = {
             return `
                 <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
                     <div class="playlist__song-info">
-                        <i class="bi bi-music-note-beamed"></i>
                         <div class="playlist__song-thumb" style="background: url('${song.image}') no-repeat center center / cover"></div>
                         <div class="playlist__song-body">
                             <span class="playlist__song-title">${song.name}</span>
@@ -65,7 +64,7 @@ const app = {
                     <span class="playlist__song-time">${app.durationList[index]}</span>
                     <div class="playlist__song-option">
                         <i class="playlist__option-icon bi bi-mic-fill"></i>
-                        <i class="playlist__option-icon bi bi-suit-heart"></i>
+                        <i class="playlist__option-icon bi bi-heart-fill primary"></i>
                         <i class="playlist__option-icon bi bi-three-dots"></i>
                     </div>
                 </div>
@@ -105,18 +104,14 @@ const app = {
         audio.onplay = function() {
             _this.isPlaying = true;
             player.classList.add('playing');
-            thumbPlay.classList.add('playing');
             cdThumbAnimate.play();
-            cdAnimate.play();
         }
         
         // When the song is paused
         audio.onpause = function() {
             _this.isPlaying = false;
             player.classList.remove('playing');
-            thumbPlay.classList.remove('playing');
             cdThumbAnimate.pause();
-            cdAnimate.pause();
         }
 
         // Handle next song when audio ended
@@ -176,20 +171,13 @@ const app = {
 
         //  Handle CD spins / stops
         const cdThumbAnimate = cdThumb.animate([
-            { transform: 'rotate(180deg)'}
-        ], {
-            duration: 10000, // 10000 seconds
-            iterations: 1,
-        })
-        cdThumbAnimate.pause()
-
-        const cdAnimate = cd.animate([
             { transform: 'rotate(360deg)'}
         ], {
             duration: 10000, // 10000 seconds
-            iterations: Infinity
+            iterations: Infinity,
         })
-        cdAnimate.pause()
+        cdThumbAnimate.pause()
+
 
 
         // When next song
@@ -284,6 +272,31 @@ const app = {
             changeVolume();
         })
 
+
+        //Handle slide show
+        let imgIndex = 2;
+        function slideShow() {
+            const slideImgFirst = $('.content__slide-item.first')
+            const slideImgSecond = $('.content__slide-item.second')
+            const slideImgThird = slideImgs[imgIndex]
+            const slideImgFourth = slideImgs[imgIndex === slideImgs.length -1 ?  0 : imgIndex + 1]
+            // slideImgFourth.classList.add('appear')
+            // slideImgThird.classList.remove('appear')
+            slideImgThird.classList.replace('third', 'second')
+            slideImgSecond.classList.replace('second', 'first')
+            slideImgFirst.classList.replace('first', 'third')
+            imgIndex++;
+            if(imgIndex >= slideImgs.length) { //imgIndex: 0-7, slideImgs.length: 8
+                imgIndex = 0;
+            }
+            setTimeout(slideShow, 2000)
+        }
+
+        slideShow();
+
+
+        
+
     },
 
 
@@ -291,7 +304,6 @@ const app = {
         songTitle.textContent = this.currentSong.name;
         author.textContent = this.currentSong.singer
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
-        cd.style.backgroundImage = `url(${this.currentSong.image})`
         audio.src = `${this.currentSong.path}`;
         durationTime.innerHTML = this.durationList[this.currentIndex];
         this.setConfig('currentIndex', this.currentIndex);
