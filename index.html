@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zing MP3</title>
+    <link rel="icon" href="./assets/img/favicon/icon_zing_mp3.png" type="image/x-icon" />
+    <title>Zing MP3 - Nghe tải nhạc chất lượng cao trên desktop, mobile và TV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -248,7 +249,7 @@
                             </button>
                         </li>
                         <li class="header__nav-item">
-                            <img src="./assets/img/avatar.jpg" alt="" class="header__nav-btn">
+                            <img src="./assets/img/avatarImg/avatar.jpg" alt="" class="header__nav-btn">
                         </li>
                     </ul>
                 </div>
@@ -258,7 +259,7 @@
                 <div class="app__header-container">
                     <div class="app__header_user">
                         <div class="app__user-avatar">
-                            <img src="./assets/img/avatar.jpg" alt="" class="app__user-img">
+                            <img src="./assets/img/avatarImg/avatar.jpg" alt="" class="app__user-img">
                         </div>
                         <span class="app__user-name">My Vân</span>
                     </div>
@@ -270,7 +271,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="app__header-bg" style="background: url('./assets/img/avatar.jpg') no-repeat center center / cover;"></div>
+                <div class="app__header-bg" style="background: url('./assets/img/avatarImg/avatar.jpg') no-repeat center center / cover;"></div>
             </div>
 
             
@@ -300,61 +301,208 @@
                         </li>
                     </ul>
                 </div>
-                <div class="content__header">
-                    <a href="" class="content__header-title">
-                        <h3>Bài Hát&nbsp;</h3>
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                    <div class="content__header-actions">
-                        <button class="button is-small content__header-btn">
-                            <i class="bi bi-upload"></i>
-                            <span>Tải lên</span>
-                        </button>
-                        <button class="button is-small button-primary content__header-btn">
-                            <i class="bi bi-play-fill"></i>
-                            <span>Phát tất cả</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="content__playmusic row">
-                        <div class="content__slide">
-                            <div class="content__slide-show">
-                                <div class="content__slide-item fourth">
-                                    <div style="background: url('https://event.mediacdn.vn/2020/8/14/st-15973999489741584015103.jpg') no-repeat center center / cover" class="content__slide-img"></div>
+                <div class="content__container">
+                    <div class="grid">
+                        <div class="container__control row no-gutters">
+                            <div class="container__header col l-12">
+                                <a href="" class="container__header-title">
+                                    <h3>Bài Hát&nbsp;</h3>
+                                    <i class="bi bi-chevron-right container__header-icon"></i>
+                                </a>
+                                <div class="container__header-actions">
+                                    <button class="button is-small container__header-btn">
+                                        <input type="file" name="upload song" id="container__header-input">
+                                        <i class="bi bi-upload container__header-icon"></i>
+                                        <span>Tải lên</span>
+                                    </button>
+                                    <button class="button is-small button-primary container__header-btn">
+                                        <i class="bi bi-play-fill container__header-icon"></i>
+                                        <span>Phát tất cả</span>
+                                    </button>
                                 </div>
-                                <div class="content__slide-item first">
-                                    <div style="background: url('https://event.mediacdn.vn/2020/8/14/st-15973999489741584015103.jpg') no-repeat center center / cover" class="content__slide-img"></div>
+                            </div>
+                            <div class="container__playmusic col l-12">
+                                <div class="container__slide">
+                                    <div class="container__slide-show">
+                                        <div class="container__slide-item first">
+                                            <div style="background: url('./assets/img/songImg/song1.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item second">
+                                            <div style="background: url('./assets/img/songImg/song2.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item third">
+                                            <div style="background: url('./assets/img/songImg/song3.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/songImg/song4.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/songImg/song5.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/songImg/song6.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/songImg/song8.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/songImg/song9.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="content__slide-item second">
-                                    <div style="background: url('https://yt3.ggpht.com/ytc/AKedOLQUTCVb5f5qA8l-tqhkkOI_I4zJQ2Wu-6wTUyJTYg=s900-c-k-c0x00ffffff-no-rj') no-repeat center center / cover" class="content__slide-img"></div>
-                                </div>
-                                <div class="content__slide-item third">
-                                    <div style="background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png') no-repeat center center / cover" class="content__slide-img"></div>
-                                </div>
-                                <div class="content__slide-item third">
-                                    <div style="background: url('https://ss-images.saostar.vn/pc/1614305674704/unnamed1.jpg') no-repeat center center / cover" class="content__slide-img"></div>
-                                </div>
-                                <div class="content__slide-item third">
-                                    <div style="background: url('https://reviewdao.vn/wp-content/uploads/2020/12/tim-hieu-ve-ca-nhac-si-son-tung-mtp-4-491x275.jpg  ') no-repeat center center / cover" class="content__slide-img"></div>
+                                <div class="container__playlist">
+                                    <div class="playlist__list">
+                                        <div class="playlist__list-song">
+                                            <div class="playlist__song-info">
+                                                <div class="playlist__song-thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
+                                                <div class="playlist__song-body">
+                                                    <span class="playlist__song-title">Music Name</span>
+                                                    <p class="playlist__song-author">Singer</p>
+                                                </div>
+                                            </div>
+                                            <span class="playlist__song-time">--/--</span>
+                                            <div class="playlist__song-option">
+                                                <div class="playlist__song-btn">
+                                                    <i class="option-icon bi bi-mic-fill"></i>
+                                                </div>
+                                                <div class="playlist__song-btn">
+                                                    <i class="option-icon bi bi-suit-heart"></i>
+                                                </div>
+                                                <div class="playlist__song-btn">
+                                                    <i class="option-icon bi bi-three-dots"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="content__playlist">
-                            <div class="playlist__list">
-                                <div class="playlist__list-song">
-                                    <div class="playlist__song-info">
-                                        <div class="playlist__song-thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
-                                        <div class="playlist__song-body">
-                                            <span class="playlist__song-title">Music Name</span>
-                                            <p class="playlist__song-author">Singer</p>
+                        <div class="row">
+                            <div class="container__header col l-12 mb-16">
+                                <a href="" class="container__header-title">
+                                    <h3>Playlist&nbsp;</h3>
+                                    <i class="bi bi-chevron-right container__header-icon"></i>
+                                </a>
+                                <div class="container__header-actions">
+                                    <div class="container__move-btn">
+                                        <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                    </div>
+                                    <div class="container__move-btn">
+                                        <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12">
+                                <div class="row">
+                                    <div class="col l-2-4 row__item">
+                                        <div class="row__item-container row__item-create">
+                                            <i class="bi bi-plus-lg album__create-icon"></i>
+                                            <span class="album__create-annotate">Tạo playlist mới</span>
                                         </div>
                                     </div>
-                                    <span class="playlist__song-time">--/--</span>
-                                    <div class="playlist__song-option">
-                                        <i class="playlist__option-icon bi bi-mic-fill"></i>
-                                        <i class="playlist__option-icon bi bi-suit-heart"></i>
-                                        <i class="playlist__option-icon bi bi-three-dots"></i>
+                                    <div class="col l-2-4 row__item">
+                                        <div class="row__item-container row__item-playlist">
+                                            <div class="row__item-display">
+                                                <div class="row__item-img" style="background: url('./assets/img/playlistImg/playlist1.jpg') no-repeat center center / cover"></div>
+                                                <div class="row__item-actions">
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-x-lg"></i>
+                                                    </button>
+                                                    <div class="playlist-play">
+                                                        <div class="control-btn btn-toggle-play">
+                                                            <i class="bi bi-pause icon-pause"></i>
+                                                            <i class="bi bi-play-fill icon-play"></i>
+                                                        </div>
+                                                    </div>
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-three-dots"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="overlay"></div>
+                                            </div>
+                                            <div class="row__item-info">
+                                                <a href="#" class="row__info-name">Những Bài Hát Hay Nhất Của SOOBIN</a>
+                                                <h3 class="row__info-creator">Zing MP3</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col l-2-4 row__item">
+                                        <div class="row__item-container row__item-playlist">
+                                            <div class="row__item-display">
+                                                <div class="row__item-img" style="background: url('./assets/img/playlistImg/playlist2.jpg') no-repeat center center / cover"></div>
+                                                <div class="row__item-actions">
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-x-lg"></i>
+                                                    </button>
+                                                    <div class="playlist-play">
+                                                        <div class="control-btn btn-toggle-play">
+                                                            <i class="bi bi-pause icon-pause"></i>
+                                                            <i class="bi bi-play-fill icon-play"></i>
+                                                        </div>
+                                                    </div>
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-three-dots"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="overlay"></div>
+                                            </div>
+                                            <div class="row__item-info">
+                                                <a href="#" class="row__info-name">Thế Giới V-Pop Vol 3</a>
+                                                <h3 class="row__info-creator">Zing MP3</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col l-2-4 row__item">
+                                        <div class="row__item-container row__item-playlist">
+                                            <div class="row__item-display">
+                                                <div class="row__item-img" style="background: url('./assets/img/playlistImg/playlist3.jpg') no-repeat center center / cover"></div>
+                                                <div class="row__item-actions">
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-x-lg"></i>
+                                                    </button>
+                                                    <div class="playlist-play">
+                                                        <div class="control-btn btn-toggle-play">
+                                                            <i class="bi bi-pause icon-pause"></i>
+                                                            <i class="bi bi-play-fill icon-play"></i>
+                                                        </div>
+                                                    </div>
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-three-dots"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="overlay"></div>
+                                            </div>
+                                            <div class="row__item-info">
+                                                <a href="#" class="row__info-name">Dance Việt Hay Nhất</a>
+                                                <h3 class="row__info-creator">Zing MP3</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col l-2-4 row__item">
+                                        <div class="row__item-container row__item-playlist">
+                                            <div class="row__item-display">
+                                                <div class="row__item-img" style="background: url('./assets/img/playlistImg/playlist4.jpg') no-repeat center center / cover"></div>
+                                                <div class="row__item-actions">
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-x-lg"></i>
+                                                    </button>
+                                                    <div class="playlist-play">
+                                                        <div class="control-btn btn-toggle-play">
+                                                            <i class="bi bi-pause icon-pause"></i>
+                                                            <i class="bi bi-play-fill icon-play"></i>
+                                                        </div>
+                                                    </div>
+                                                    <button class="action-btn">
+                                                        <i class="bi bi-three-dots"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="overlay"></div>
+                                            </div>
+                                            <div class="row__item-info">
+                                                <a href="#" class="row__info-name">Nhạc Việt Được Nghe Nhiều Nhất</a>
+                                                <h3 class="row__info-creator">Zing MP3</h3>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -372,8 +520,12 @@
                         <div class="player__song-author">Author</div>
                     </div>
                     <div class="player__song-options">
-                        <i class="playlist__option-icon bi bi-heart-fill primary"></i>
-                        <i class="playlist__option-icon bi bi-three-dots"></i>
+                        <div class="player__song-btn">
+                            <i class="option-icon bi bi-heart-fill primary"></i>
+                        </div>
+                        <div class="player__song-btn">
+                            <i class="option-icon bi bi-three-dots"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="player__control">
@@ -402,15 +554,15 @@
                     </div>
                 </div>
                 <div class="player__options">
-                    <button class="player__options-btn">
-                        <i class="bi bi-camera-video player__options-icon"></i>
-                    </button>
-                    <button class="player__options-btn">
-                        <i class="bi bi-mic player__options-icon"></i>
-                    </button>
-                    <button class="player__options-btn volume">
-                        <i class="bi bi-volume-up player__options-icon"></i>
-                    </button>
+                    <div class="player__options-btn">
+                        <i class="bi bi-camera-video option-icon"></i>
+                    </div>
+                    <div class="player__options-btn">
+                        <i class="bi bi-mic option-icon"></i>
+                    </div>
+                    <div class="player__options-btn volume">
+                        <i class="bi bi-volume-up option-icon"></i>
+                    </div>
                     <div class="player__volume-progress">
                         <input type="range" class="volume__range" value="100" step="1" min="0" max="100">
                         <span class="volume__background"></span>

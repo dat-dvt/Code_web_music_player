@@ -278,8 +278,8 @@
 /* PC medium resolution > */
 @media (min-width: 1113px) {
     .row {
-        margin-left: -12px;
-        margin-right: -12px;
+        margin-left: -15px;
+        margin-right: -15px;
     }
 
     .row.sm-gutter {
@@ -288,8 +288,8 @@
     }
 
     .col {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
     .row.sm-gutter .col {
