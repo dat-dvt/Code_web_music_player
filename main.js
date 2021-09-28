@@ -79,7 +79,7 @@ const app = {
         })
         
         playList.innerHTML = htmls.join('');
-        // this.scrollToActiveSong();
+        this.scrollToActiveSong();
     },
 
     defineProperties: function() {
@@ -196,7 +196,7 @@ const app = {
             }
             audio.play();
             _this.render()
-            // _this.scrollToActiveSong();
+            _this.scrollToActiveSong();
         }
 
         // When prev song
@@ -208,7 +208,7 @@ const app = {
             }
             audio.play();
             _this.render()
-            // _this.scrollToActiveSong();
+            _this.scrollToActiveSong();
         };
 
         // Handling on / off random song
@@ -327,7 +327,7 @@ const app = {
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
-        volume.value = this.config.currentVolume || 1;
+        volume.value = this.config.currentVolume || 100;
         durationTime.textContent = this.audioCalTime(this.durationList[this.currentIndex]);
         randomBtn.classList.toggle('active', this.isRandom);
         repeatBtn.classList.toggle('active', this.isRandom);
@@ -369,21 +369,21 @@ const app = {
         }
 },
 
-    // scrollToActiveSong: function() {
-    //     setTimeout(function() {
-    //         if(app.currentIndex <= 6) {
-    //             $('.playlist__list-song.active').scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'end'
-    //             })
-    //         } else {
-    //             $('.playlist__list-song.active').scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'nearest'
-    //             })
-    //         }
-    //     }, 200)
-    // },
+    scrollToActiveSong: function() {
+        setTimeout(function() {
+            if(app.currentIndex <= 6) {
+                $('.playlist__list-song.active').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'end'
+                })
+            } else {
+                $('.playlist__list-song.active').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                })
+            }
+        }, 200)
+    },
 
     start: function() {
         //Setup duration time to render
