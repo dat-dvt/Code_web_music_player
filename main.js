@@ -79,7 +79,7 @@ const app = {
         })
         
         playList.innerHTML = htmls.join('');
-        this.scrollToActiveSong();
+        // this.scrollToActiveSong();
     },
 
     defineProperties: function() {
@@ -196,7 +196,7 @@ const app = {
             }
             audio.play();
             _this.render()
-            _this.scrollToActiveSong();
+            // _this.scrollToActiveSong();
         }
 
         // When prev song
@@ -208,7 +208,7 @@ const app = {
             }
             audio.play();
             _this.render()
-            _this.scrollToActiveSong();
+            // _this.scrollToActiveSong();
         };
 
         // Handling on / off random song
@@ -367,23 +367,23 @@ const app = {
         if(this.indexArray.length === this.songs.length) {
             this.indexArray = [];
         }
-},
-
-    scrollToActiveSong: function() {
-        setTimeout(function() {
-            if(app.currentIndex <= 6) {
-                $('.playlist__list-song.active').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'end'
-                })
-            } else {
-                $('.playlist__list-song.active').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                })
-            }
-        }, 200)
     },
+
+    // scrollToActiveSong: function() {
+    //     setTimeout(function() {
+    //         if(app.currentIndex <= 6) {
+    //             $('.playlist__list-song.active').scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'end'
+    //             })
+    //         } else {
+    //             $('.playlist__list-song.active').scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'nearest'
+    //             })
+    //         }
+    //     }, 200)
+    // },
 
     start: function() {
         //Setup duration time to render
