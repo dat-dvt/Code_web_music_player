@@ -29,9 +29,30 @@ html {
 }
 
 /* Common variables */
+.pd-l-20 {
+    padding-left: 20px !important;
+}
+
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+.mb-15 {
+    margin-bottom: 15px !important;
+}
+
 .mb-16 {
     margin-bottom: 16px !important;
 }
+
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+
 
 .mt-15 {
     margin-top: 15px !important;
@@ -63,11 +84,11 @@ html {
 
 
 .br-5 {
-    border-radius: 5px;
+    border-radius: 5px !important;
 }
 
 .is-rounded {
-    border-radius: 50%;
+    border-radius: 50% !important;
 }
 
 .text-center {
@@ -173,11 +194,11 @@ i.primary {
     align-items: center;
 }
 
-.row--playlist {
+.row__item--playlist {
     height: 245.36px;
 }
 
-.row--artist {
+.row__item--artist {
     height: 297.33px;
 }
 
@@ -214,17 +235,37 @@ i.primary {
     width: 100%;
     cursor: pointer;
     position: relative;
+    transform-style: preserve-3d;
     overflow: hidden;
 }
 
+
+/* Error */
 .row__item-img {
     width: 100%;
     padding-top: 100%;
-    transition: transform linear 0.4s;
+    filter: blur(0) !important;
+    animation: zoomBack linear 0.4s;
 }
 
 .row__item-display:hover .row__item-img {
-    transform: scale(1.12, 1.12);
+    animation: zoomInOut linear 0.4s forwards;
+}
+
+@keyframes zoomInOut {
+    from {
+        transform: scale(1, 1);
+    } to {
+        transform: scale(1.12, 1.12);
+    }
+}
+
+@keyframes zoomBack {
+    from {
+        transform: scale(1.12, 1.12);
+    } to {
+        transform: scale(1, 1);
+    }
 }
 
 .row__item-actions {

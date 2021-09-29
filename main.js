@@ -56,8 +56,8 @@ const app = {
         const htmls = this.songs.map(function(song,index){
             return `
                 <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
-                    <div class="playlist__song-info">
-                        <div class="playlist__song-thumb" style="background: url('${song.image}') no-repeat center center / cover"></div>
+                    <div class="playlist__song-info mr-10">
+                        <div class="playlist__song-thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
                         <div class="playlist__song-body">
                             <span class="playlist__song-title">${song.name}</span>
                             <p class="playlist__song-author">${song.singer}</p>
@@ -82,9 +82,13 @@ const app = {
         const htmlTabSecond = this.songs.map(function(song,index){
             return `
                 <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
-                    <div class="playlist__song-info">
-                        <i class="bi bi-music-note-beamed"></i>
-                        <div class="playlist__song-thumb" style="background: url('${song.image}') no-repeat center center / cover"></div>
+                    <div class="playlist__song-info mr-10">
+                        <div class="playlist__song-check">
+                            <input type="checkbox" name="" id="playlist__check-${index}" class="mr-10" style="display: none">
+                            <label for="playlist__check-${index}"></label>
+                        </div>
+                        <i class="bi bi-music-note-beamed mr-10"></i>
+                        <div class="playlist__song-thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
                         <div class="playlist__song-body">
                             <span class="playlist__song-title">${song.name}</span>
                             <p class="playlist__song-author">${song.singer}</p>
@@ -109,7 +113,6 @@ const app = {
         playLists.forEach((playList, index) => {
             if(index === 1) {
                 playList.innerHTML = htmlTabSecond.join('');
-                console.log(playList)
             } else {
                 playList.innerHTML = htmls.join('');
             }
@@ -170,7 +173,6 @@ const app = {
         audio.ontimeupdate = function(e) {
             if (!_this.isSeeking && audio.duration) {
                 const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
-
                 trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                 progress.value = Math.floor(audio.currentTime / audio.duration * 100);
                 if(listDurationTime.innerText === '--/--') {
@@ -263,10 +265,11 @@ const app = {
         // Listen to playlist clicks
         playLists.forEach(playList => {
             playList.onclick = function(e) {
+                const checkNode = e.target.closest('.playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.option')
                 const activeOption = $('.option.active');
-                if( songNode || optionNode) {
+                if( songNode || optionNode || checkNode) {
                     // Handle when clicking on the song
                     if(songNode) {
                         _this.currentIndex = Number(songNode.dataset.index);
@@ -279,6 +282,13 @@ const app = {
                             songActive.classList.add('active');
                         })
                         audio.play();
+                    }
+
+                    //Handle when click on song checkbox
+                    if(checkNode) {
+                        checkNode.onclick = function(e) {
+                            e.stopPropagation()
+                        }
                     }
     
                     // Handle when clicking on the song option
