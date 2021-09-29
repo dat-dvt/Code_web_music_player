@@ -293,8 +293,8 @@ i.primary {
     font-size: 3rem;
     font-weight: 400;
     border-radius: 999px;
-    line-height: normal;
     border: 0;
+    line-height: normal;
     text-transform: none;
     text-align: center;
     cursor: pointer;

@@ -8,12 +8,10 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 const player = $('.player');
-const playList = $('.playlist__list');
 const cdThumb = $('.player__song-thumb');
 const songTitle = $('.player__song-title');
 const author = $('.player__song-author');
 const audio = $('#audio');
-const playBtns = $$('.btn-toggle-play');
 const progress = $('#progress');
 const progressBlock = $('.progress-block');
 const nextBtn = $('.btn-next');
@@ -25,8 +23,11 @@ const volumeBtn = $('.volume .option-icon')
 const volume = $('.volume__range');
 const trackTime = $('#tracktime');
 const durationTime = $('#durationtime');
-const slideImgs = $$('.container__slide-item')
-console.log(randomBtn, repeatBtn)
+const slideImgs = $$('.container__slide-item');
+const playBtns = Array.from($$('.btn-toggle-play'));
+const playLists = Array.from($$('.playlist__list'));
+const navbarItems = Array.from($$('.content__navbar-item'));
+const containerTabs = $$('.container__tab')
 
 
 
@@ -77,8 +78,42 @@ const app = {
                 </div>
             `;
         })
+
+        const htmlTabSecond = this.songs.map(function(song,index){
+            return `
+                <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
+                    <div class="playlist__song-info">
+                        <i class="bi bi-music-note-beamed"></i>
+                        <div class="playlist__song-thumb" style="background: url('${song.image}') no-repeat center center / cover"></div>
+                        <div class="playlist__song-body">
+                            <span class="playlist__song-title">${song.name}</span>
+                            <p class="playlist__song-author">${song.singer}</p>
+                        </div>
+                    </div>
+                    <span class="playlist__song-time">${app.durationList[index]}</span>
+                    <div class="playlist__song-option">
+                        <div class="playlist__song-btn">
+                            <i class="option-icon bi bi-mic-fill"></i>
+                        </div>
+                        <div class="playlist__song-btn">
+                            <i class="option-icon bi bi-heart-fill primary"></i>
+                        </div>
+                        <div class="playlist__song-btn">
+                            <i class="option-icon bi bi-three-dots"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+        })
         
-        playList.innerHTML = htmls.join('');
+        playLists.forEach((playList, index) => {
+            if(index === 1) {
+                playList.innerHTML = htmlTabSecond.join('');
+                console.log(playList)
+            } else {
+                playList.innerHTML = htmls.join('');
+            }
+        })
         // this.scrollToActiveSong();
     },
 
@@ -97,7 +132,7 @@ const app = {
 
 
         // Handle when click play
-        Array.from(playBtns).forEach(playBtn => {
+        playBtns.forEach(playBtn => {
             playBtn.onclick = function() {
                 if(_this.isPlaying) {
                     audio.pause();
@@ -226,30 +261,37 @@ const app = {
         }
 
         // Listen to playlist clicks
-        playList.onclick = function(e) {
-            const songNode = e.target.closest('.playlist__list-song:not(.active)');
-            const optionNode = e.target.closest('.option')
-            const activeOption = $('.option.active');
-            if( songNode || optionNode) {
-                // Handle when clicking on the song
-                if(songNode) {
-                    _this.currentIndex = Number(songNode.dataset.index);
-                    _this.loadCurrentSong();
-                    $('.playlist__list-song.active').classList.remove('active');
-                    songNode.classList.add('active');
-                    audio.play();
+        playLists.forEach(playList => {
+            playList.onclick = function(e) {
+                const songNode = e.target.closest('.playlist__list-song:not(.active)');
+                const optionNode = e.target.closest('.option')
+                const activeOption = $('.option.active');
+                if( songNode || optionNode) {
+                    // Handle when clicking on the song
+                    if(songNode) {
+                        _this.currentIndex = Number(songNode.dataset.index);
+                        const songActives = $$(`.playlist__list-song[data-index="${_this.currentIndex}"]`)
+                        _this.loadCurrentSong();
+                        Array.from($$('.playlist__list-song.active')).forEach(songActive => {
+                            songActive.classList.remove('active');
+                        })
+                        Array.from(songActives).forEach(songActive => {
+                            songActive.classList.add('active');
+                        })
+                        audio.play();
+                    }
+    
+                    // Handle when clicking on the song option
+                    if(optionNode) {
+                        optionNode.classList.add('active');
+                    }
                 }
-
-                // Handle when clicking on the song option
-                if(optionNode) {
-                    optionNode.classList.add('active');
+    
+                if(activeOption && !e.target.closest('.option__block')) {
+                    activeOption.classList.remove('active');
                 }
             }
-
-            if(activeOption && !e.target.closest('.option__block')) {
-                activeOption.classList.remove('active');
-            }
-        }
+        })
 
         //Handle adjust volume change
         function changeVolume() {
@@ -302,6 +344,17 @@ const app = {
 
 
         
+        // Handle when click on navbar
+        navbarItems.forEach((navbarItem, index) => {
+            navbarItem.onclick = function() {
+                $('.content__navbar-item.active').classList.remove('active')
+                navbarItem.classList.add('active')
+                
+                $('.container__tab.active').classList.remove('active')
+                containerTabs[index].classList.add('active')
+            }
+        })
+
 
     },
 
