@@ -321,14 +321,15 @@ i.primary {
 }
 
 .row__info-name {
-    display: block;
     width: 100%;
     margin: 8px 0 4px;
     font-size: 1.4rem;
-    font-weight: 500;
     line-height: 1.9rem;
+    font-weight: 500;
+    cursor: pointer;
     color: var(--text-color);
-    text-decoration: none;
+    text-decoration: inherit;
+    position: relative;
 }
 
 .row__info-name:hover .row__info-icon,
@@ -337,13 +338,33 @@ i.primary {
     text-decoration: underline;
 }
 
+
 .row__info-icon {
     color: var(--text-color);
+    height: 13px;
+    padding: 0 0 3px 0;
     font-size: 1rem;
-    line-height: 2.1rem;
+    line-height: 1rem;
     display: inline-block;
-    transform: translateY(-1px);
+    position: relative;
+    transform: translateY(-2.1px);
 }
+
+.icon-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid #c662ef;
+    display: none;
+}
+
+.row__info-name:hover .icon-overlay {
+    display: block;
+}
+
+
 
 .row__info-creator {
     width: 100%;
