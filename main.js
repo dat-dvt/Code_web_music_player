@@ -27,8 +27,10 @@ const slideImgs = $$('.container__slide-item');
 const playBtns = Array.from($$('.btn-toggle-play'));
 const playLists = Array.from($$('.playlist__list'));
 const navbarItems = Array.from($$('.content__navbar-item'));
-const containerTabs = $$('.container__tab')
-
+const containerTabs = $$('.container__tab');
+const playAllBtns = $$('.btn--play-all');
+const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
+const homeMVs = $$('.tab-home.mv-container .row__item.item-mv--height')
 
 
 
@@ -60,7 +62,7 @@ const app = {
                         <div class="playlist__song-thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
                         <div class="playlist__song-body">
                             <span class="playlist__song-title">${song.name}</span>
-                            <p class="playlist__song-author">${song.singer}</p>
+                            <p class="playlist__song-author is-ghost">${song.singer}</p>
                         </div>
                     </div>
                     <span class="playlist__song-time">${app.durationList[index]}</span>
@@ -91,7 +93,7 @@ const app = {
                         <div class="playlist__song-thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
                         <div class="playlist__song-body">
                             <span class="playlist__song-title">${song.name}</span>
-                            <p class="playlist__song-author">${song.singer}</p>
+                            <p class="playlist__song-author is-ghost">${song.singer}</p>
                         </div>
                     </div>
                     <span class="playlist__song-time">${app.durationList[index]}</span>
@@ -117,7 +119,7 @@ const app = {
                 playList.innerHTML = htmls.join('');
             }
         })
-        // this.scrollToActiveSong();
+        this.scrollToActiveSong();
     },
 
     defineProperties: function() {
@@ -142,6 +144,23 @@ const app = {
                 } else {
                     audio.play();
                 }
+            }
+        })
+
+        // Handle when click play all
+        playAllBtns.forEach(playAllBtn => {
+            playAllBtn.onclick = function() {
+                _this.currentIndex = 0;
+                const songActives = $$(`.playlist__list-song[data-index="${_this.currentIndex}"]`)
+                _this.loadCurrentSong();
+                Array.from($$('.playlist__list-song.active')).forEach(songActive => {
+                    songActive.classList.remove('active');
+                })
+                Array.from(songActives).forEach(songActive => {
+                    songActive.classList.add('active');
+                })
+                _this.loadCurrentSong();
+                audio.play();
             }
         })
 
@@ -233,7 +252,7 @@ const app = {
             }
             audio.play();
             _this.render()
-            // _this.scrollToActiveSong();
+            _this.scrollToActiveSong();
         }
 
         // When prev song
@@ -245,7 +264,7 @@ const app = {
             }
             audio.play();
             _this.render()
-            // _this.scrollToActiveSong();
+            _this.scrollToActiveSong();
         };
 
         // Handling on / off random song
@@ -366,6 +385,30 @@ const app = {
         })
 
 
+        // Handle when click button move MV
+        let mvIndex = 0;
+        mvScrollBtns[1].onclick = function() {
+            mvIndex = mvIndex + 3 >= homeMVs.length - 1 ? homeMVs.length - 1 : mvIndex + 3;
+            if(mvIndex >= homeMVs.length - 1) {
+                this.classList.add('button--disabled')
+            } else {
+                mvScrollBtns[0].classList.remove('button--disabled')
+            }
+            _this.scrollItemIntoView(homeMVs, mvIndex);
+        }
+        
+        mvScrollBtns[0].onclick = function() {
+            mvIndex = mvIndex - 3 < 0 ? 0 : mvIndex - 3;
+            if(mvIndex === 0) {
+                this.classList.add('button--disabled')
+            } else {
+                mvScrollBtns[1].classList.remove('button--disabled')
+            }
+            _this.scrollItemBackToView(homeMVs, mvIndex);
+        }
+        
+
+
     },
 
 
@@ -432,21 +475,40 @@ const app = {
         }
     },
 
-    // scrollToActiveSong: function() {
-    //     setTimeout(function() {
-    //         if(app.currentIndex <= 6) {
-    //             $('.playlist__list-song.active').scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'end'
-    //             })
-    //         } else {
-    //             $('.playlist__list-song.active').scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'nearest'
-    //             })
-    //         }
-    //     }, 200)
-    // },
+    scrollToActiveSong: function() {
+        setTimeout(function() {
+            if(app.currentIndex <= 6) {
+                $('.playlist__list-song.active').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'end'
+                })
+            } else {
+                $('.playlist__list-song.active').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                })
+            }
+        }, 200)
+    },
+
+    scrollItemIntoView: function(listItem, index) {
+        console.log(index)
+        listItem[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start'
+        })
+    },
+
+    scrollItemBackToView: function(listItem, index) {
+        console.log(index)
+        listItem[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'end'
+        })
+    },
+    
 
     start: function() {
         //Setup duration time to render
