@@ -7,31 +7,37 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 
-const player = $('.player');
-const cdThumb = $('.player__song-thumb');
-const songTitle = $('.player__song-title');
-const author = $('.player__song-author');
 const audio = $('#audio');
+const author = $('.player__song-author');
+const albumLists = Array.from($$('.album--container'));
+const albumScrollBtns = $$('.container__move-btn.move-btn--album');
+const artistLists = Array.from($$('.artist--container'));
+const cdThumb = $('.player__song-thumb');
+const containerTabs = $$('.container__tab');
+const durationTime = $('#durationtime');
+const homeMVs = $$('.tab-home.mv--container .row__item.item-mv--height');
+const player = $('.player');
+const playAllBtns = $$('.btn--play-all');
+const playlistLists = Array.from($$('.playlist--container'));
+const playlistScrollBtns = $$('.container__move-btn.move-btn--playlist');
+const playBtns = Array.from($$('.btn-toggle-play'));
+const prevBtn = $('.btn-prev');
 const progress = $('#progress');
 const progressBlock = $('.progress-block');
-const nextBtn = $('.btn-next');
-const prevBtn = $('.btn-prev');
-const randomBtn = $('.btn-random');
-const repeatBtn = $('.btn-repeat');
-const optionBtn = $('.option');
-const volumeBtn = $('.volume .option-icon')
-const volume = $('.volume__range');
-const trackTime = $('#tracktime');
-const durationTime = $('#durationtime');
-const slideImgs = $$('.container__slide-item');
-const playBtns = Array.from($$('.btn-toggle-play'));
-const playLists = Array.from($$('.playlist__list'));
-const navbarItems = Array.from($$('.content__navbar-item'));
-const containerTabs = $$('.container__tab');
-const playAllBtns = $$('.btn--play-all');
+const mvLists = Array.from($$('.mv--container'));
 const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
-const homeMVs = $$('.tab-home.mv-container .row__item.item-mv--height')
-
+const navbarItems = Array.from($$('.content__navbar-item'));
+const nextBtn = $('.btn-next');
+const optionBtn = $('.option');
+const slideImgs = $$('.container__slide-item');
+const songLists = Array.from($$('.playlist__list'));
+const songTitle = $('.player__song-title');
+const repeatBtn = $('.btn-repeat');
+const randomBtn = $('.btn-random');
+const trackTime = $('#tracktime');
+const volume = $('.volume__range');
+const volumeBtn = $('.volume .option-icon')
+console.log(albumScrollBtns)
 
 
 const app = {
@@ -40,8 +46,18 @@ const app = {
     isRepeat: false,
     isSeeking: false,
     indexArray: [],
+    slideIndexs: [ 1, 1, 1, 1],
+    slideSelectors: [
+        '.tab-home.playlist--container .row__item.item-playlist--height',
+        '.tab-home.album--container .row__item.item-album--height',
+        '.tab-home.mv--container .row__item.item-mv--height',
+    ],
     
     songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY) || '[]'),
+
+    playlists: JSON.parse(localStorage.getItem(PLAYLIST_STORAGE_KEY) || '[]'),
+
+    albums: JSON.parse(localStorage.getItem(ALBUM_STORAGE_KEY) || '[]'),
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || '["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]'),
 
@@ -54,71 +70,132 @@ const app = {
     },
 
     
+
+    html([first, ...string], ...values) {
+        return values.reduce(
+            (acc, cur) => acc.concat(cur, string.shift())
+            , [first]
+        )
+        .filter(x => x && x !== true || x === 0)
+        .join('')       
+    },
+    
+
+    
     render : function() {
-        const htmls = this.songs.map(function(song,index){
-            return `
-                <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
-                    <div class="playlist__song-info mr-10">
-                        <div class="playlist__song-thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
-                        <div class="playlist__song-body">
-                            <span class="playlist__song-title">${song.name}</span>
-                            <p class="playlist__song-author is-ghost">${song.singer}</p>
+        // Render songs
+        songLists.forEach((songList, songIndex) => {
+            songList.innerHTML = app.html`${app.songs.map(function(song,index) {
+                return app.html`
+                    <div class="playlist__list-song media ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
+                        <div class="playlist__song-info media__left mr-10">
+                            ${songIndex === 1 && app.html`
+                            <div class="playlist__song-check">
+                                <input type="checkbox" name="" id="playlist__check-${index}" class="mr-10" style="display: none">
+                                <label for="playlist__check-${index}"></label>
+                            </div>
+                            <i class="bi bi-music-note-beamed mr-10"></i>
+                            `}
+                            <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
+                            <div class="playlist__song-body media__info">
+                                <span class="playlist__song-title info__title">${song.name}</span>
+                                <p class="playlist__song-author info__author">
+                                    <a href="#" class="is-ghost">${song.singer}</a>
+                                </p>
+                            </div>
+                        </div>
+                        <span class="playlist__song-time">${app.durationList[index]}</span>
+                        <div class="playlist__song-option">
+                            <div class="playlist__song-btn">
+                                <i class="option-icon bi bi-mic-fill"></i>
+                            </div>
+                            <div class="playlist__song-btn">
+                                <i class="option-icon bi bi-heart-fill primary"></i>
+                            </div>
+                            <div class="playlist__song-btn">
+                                <i class="option-icon bi bi-three-dots"></i>
+                            </div>
                         </div>
                     </div>
-                    <span class="playlist__song-time">${app.durationList[index]}</span>
-                    <div class="playlist__song-option">
-                        <div class="playlist__song-btn">
-                            <i class="option-icon bi bi-mic-fill"></i>
-                        </div>
-                        <div class="playlist__song-btn">
-                            <i class="option-icon bi bi-heart-fill primary"></i>
-                        </div>
-                        <div class="playlist__song-btn">
-                            <i class="option-icon bi bi-three-dots"></i>
-                        </div>
-                    </div>
-                </div>
-            `;
+                `
+            })}`
         })
 
-        const htmlTabSecond = this.songs.map(function(song,index){
-            return `
-                <div class="playlist__list-song ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
-                    <div class="playlist__song-info mr-10">
-                        <div class="playlist__song-check">
-                            <input type="checkbox" name="" id="playlist__check-${index}" class="mr-10" style="display: none">
-                            <label for="playlist__check-${index}"></label>
-                        </div>
-                        <i class="bi bi-music-note-beamed mr-10"></i>
-                        <div class="playlist__song-thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
-                        <div class="playlist__song-body">
-                            <span class="playlist__song-title">${song.name}</span>
-                            <p class="playlist__song-author is-ghost">${song.singer}</p>
-                        </div>
-                    </div>
-                    <span class="playlist__song-time">${app.durationList[index]}</span>
-                    <div class="playlist__song-option">
-                        <div class="playlist__song-btn">
-                            <i class="option-icon bi bi-mic-fill"></i>
-                        </div>
-                        <div class="playlist__song-btn">
-                            <i class="option-icon bi bi-heart-fill primary"></i>
-                        </div>
-                        <div class="playlist__song-btn">
-                            <i class="option-icon bi bi-three-dots"></i>
-                        </div>
+        // Render playlist
+        playlistLists.forEach((playlistList, playlistIndex) => {
+            playlistList.innerHTML = app.html`
+                <div class="col l-2-4 row__item ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
+                    <div class="row__item-container flex--center item-create--properties">
+                        <i class="bi bi-plus-lg album__create-icon"></i>
+                        <span class="album__create-annotate">Tạo playlist mới</span>
                     </div>
                 </div>
-            `;
+                ${app.playlists.map((playlist, index) => {
+                    return app.html`
+                        <div class="col l-2-4 row__item ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
+                            <div class="row__item-container flex--top-left">
+                                <div class="row__item-display br-5">
+                                    <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
+                                    <div class="row__item-actions">
+                                        <button class="action-btn">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                        <div class="playlist-play">
+                                            <div class="control-btn btn-toggle-play">
+                                                <i class="bi bi-play-fill icon-play"></i>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="row__item-info">
+                                    <a href="#" class="row__info-name">${playlist.name}</a>
+                                    <h3 class="row__info-creator">${playlist.creator}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}`
+        })
+
+        // Render albums
+        albumLists.forEach((albumList, albumIndex) => {
+            albumList.innerHTML = app.html`
+                ${app.albums.map((album,index) => {
+                    return app.html`
+                        <div class="col l-2-4 row__item item-album--height ${albumIndex === 1 && 'mb-30'}">
+                            <div class="row__item-container flex--top-left">
+                                <div class="row__item-display br-5">
+                                    <div class="row__item-img img--square" style="background: url('${album.image}') no-repeat center center / cover"></div>
+                                    <div class="row__item-actions">
+                                        <button class="action-btn">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                        <div class="playlist-play">
+                                            <div class="control-btn btn-toggle-play">
+                                                <i class="bi bi-play-fill icon-play"></i>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="row__item-info">
+                                    <a href="#" class="row__info-name">${album.name}</a>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
         })
         
-        playLists.forEach((playList, index) => {
-            if(index === 1) {
-                playList.innerHTML = htmlTabSecond.join('');
-            } else {
-                playList.innerHTML = htmls.join('');
-            }
-        })
+
         this.scrollToActiveSong();
     },
 
@@ -218,14 +295,14 @@ const app = {
             }
         }
 
-        progress.addEventListener('touchmove', currentTime);
+        // progress.addEventListener('touchmove', currentTime);
         progress.addEventListener('mousemove', currentTime);
 
         function seekStart() {
             _this.isSeeking = true;
         }
 
-        progressBlock.addEventListener('touchstart', seekStart);
+        // progressBlock.addEventListener('touchstart', seekStart);
 
 
         progressBlock.onmousedown = seekStart;
@@ -282,8 +359,8 @@ const app = {
         }
 
         // Listen to playlist clicks
-        playLists.forEach(playList => {
-            playList.onclick = function(e) {
+        songLists.forEach(songList => {
+            songList.onclick = function(e) {
                 const checkNode = e.target.closest('.playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.option')
@@ -345,10 +422,10 @@ const app = {
             changeVolume();
         }
         //Use addEventListener to fix the bug in the first loading
-        volume.addEventListener('touchmove', function(e) {
-            e.stopPropagation();
-            changeVolume();
-        })
+        // volume.addEventListener('touchmove', function(e) {
+        //     e.stopPropagation();
+        //     changeVolume();
+        // })
 
 
         //Handle slide show
@@ -385,27 +462,34 @@ const app = {
         })
 
 
-        // Handle when click button move MV
-        let mvIndex = 0;
-        mvScrollBtns[1].onclick = function() {
-            mvIndex = mvIndex + 3 >= homeMVs.length - 1 ? homeMVs.length - 1 : mvIndex + 3;
-            if(mvIndex >= homeMVs.length - 1) {
-                this.classList.add('button--disabled')
-            } else {
-                mvScrollBtns[0].classList.remove('button--disabled')
-            }
-            _this.scrollItemIntoView(homeMVs, mvIndex);
+        //**  Handle when click button move MV, Playlist on tab HOME
+        // Playlist
+        playlistScrollBtns[0].onclick = function() {
+            _this.plusSlides(-5, 0, playlistScrollBtns)
+        }
+
+        playlistScrollBtns[1].onclick = function() {
+            _this.plusSlides(5, 0, playlistScrollBtns)
+        }
+
+        // Album
+        albumScrollBtns[0].onclick = function() {
+            _this.plusSlides(-5, 1, albumScrollBtns)
+        }
+
+        albumScrollBtns[1].onclick = function() {
+            _this.plusSlides(5, 1, albumScrollBtns)
+        }
+
+        // MV
+        mvScrollBtns[0].onclick = function() {
+            _this.plusSlides(-3, 2, mvScrollBtns)
         }
         
-        mvScrollBtns[0].onclick = function() {
-            mvIndex = mvIndex - 3 < 0 ? 0 : mvIndex - 3;
-            if(mvIndex === 0) {
-                this.classList.add('button--disabled')
-            } else {
-                mvScrollBtns[1].classList.remove('button--disabled')
-            }
-            _this.scrollItemBackToView(homeMVs, mvIndex);
+        mvScrollBtns[1].onclick = function() {
+            _this.plusSlides(3, 2, mvScrollBtns)
         }
+        
         
 
 
@@ -491,24 +575,47 @@ const app = {
         }, 200)
     },
 
-    scrollItemIntoView: function(listItem, index) {
-        console.log(index)
-        listItem[index].scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'start'
-        })
+    getSlideIndex(currentIndex, slideOrder, listItems) {
+        if (currentIndex > listItems.length) {
+            this.slideIndexs[slideOrder] = listItems.length;
+        }
+        if (currentIndex < 1) {
+            this.slideIndexs[slideOrder] = 1;
+        }
+        return currentIndex
     },
 
-    scrollItemBackToView: function(listItem, index) {
-        console.log(index)
-        listItem[index].scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'end'
-        })
+    plusSlides(step, slideOrder, listBtns) {
+        const listItems = $$(this.slideSelectors[slideOrder])
+        const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems);
+
+        if (currentIndex + step > listItems.length) {
+            listBtns[1].classList.add('button--disabled')
+        } else if (currentIndex + step < 1) {
+            listBtns[0].classList.add('button--disabled')
+        } else {
+            Array.from(listBtns).forEach(itemBtn => {
+                itemBtn.classList.remove('button--disabled')
+            })
+        }
+
+        // Scroll Into View
+        if( step > 0) {
+            listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            })
+        } else if (step < 0) {
+            listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'end'
+            })
+        }
     },
-    
+
+
 
     start: function() {
         //Setup duration time to render

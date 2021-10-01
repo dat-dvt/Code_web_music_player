@@ -1,5 +1,5 @@
 
-var data = [
+var listSong = [
     {
         name: "Nevada",
         singer: "Vicetone",
@@ -101,4 +101,4 @@ var data = [
 
 const MUSIC_STORAGE_KEY = 'VIK_MUSIC';
 
-localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(data));
+localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(listSong));

@@ -14,8 +14,15 @@
     --scale-rate-third: calc( 162 / 230);
     --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
     --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
-
+    --playlist--height: 245.36px;
+    --playlist-tab--height: 226.33px;
+    --album--height: 229.41px;
+    --mv--height: 239.38px;
+    --artist--height: 297.33px;
+    --display-img--height: 179.34px;
+    --artist-btn-height: 59px;
 }
+
 
 * {
     box-sizing: inherit;
@@ -228,7 +235,9 @@ i.primary {
 
 /* Media CSS */
 .media {
-    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
     border-radius: 5px;
     -webkit-tap-highlight-color: transparent;
 }
@@ -236,7 +245,9 @@ i.primary {
 .media__left {
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .media__thumb {
@@ -313,19 +324,31 @@ i.primary {
 }
 
 .item-playlist--height {
-    height: 245.36px;
+    height: var(--playlist--height);
+}
+
+.item-tab-playlist--height {
+    height: var(--playlist-tab--height);
+    /* height: 226.33px; */
 }
 
 .item-album--height {
-    height: 229.41px;
+    height: var(--album--height)
+    /* height: 229.41px; */
 }
 
 .item-mv--height {
-    height: 239.38px;
+    height: var(--mv--height)
+    /* height: 239.38px; */
 }
 
 .item-artist--height {
-    height: 297.33px;
+    height: var(--artist--height)
+    /* height: 297.33px; */
+}
+
+.artist-info--height {
+    height: calc(100% - var(--display-img--height) - var(--artist-btn-height)) !important;
 }
 
 
@@ -334,7 +357,8 @@ i.primary {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-} 
+}
+
 
 .flex--top-left {
     display: flex;
@@ -346,7 +370,7 @@ i.primary {
 /* Playlist display */
 .row__item-display {
     width: 100%;
-    height: auto;
+    height: var(--display-img--height);
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -354,7 +378,7 @@ i.primary {
 
 
 .row__item-img {
-    width: 100%;
+    width: 100%;    
     transform: perspective(1px) translateZ(0);
     backface-visibility: hidden;
     transition: transform 0.7s;
@@ -479,11 +503,12 @@ i.primary {
 
 /* Playlist info */
 .row__item-info {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    height: calc(100% - var(--display-img--height));
+    padding: 10px 0;
+}
+
+.row__item-info  .media__left {
+    flex-basis: 100%;
 }
 
 .row__info-name {
