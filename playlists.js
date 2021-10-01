@@ -1,21 +1,21 @@
 var listPlaylist = [
     {
-        name: "Thế Giới V-Pop Vol. 3",
+        name: "V-Pop: The A-List",
         creator: "Zing MP3",
         image: "./assets/img/playlists/playlist1.jpg"
     },
     {
-        name: "Những Bài Hát Hay Nhất Của SOOBIN",
-        creator: "Zing MP3",
+        name: "Playlist #1",
+        creator: "Nal",
         image: "./assets/img/playlists/playlist2.jpg"
     },
     {
-        name: "Dance Việt Hay Nhất",
-        creator: "Zing MP3",
+        name: "Playlist #1",
+        creator: "Ngọc Trâm",
         image: "./assets/img/playlists/playlist3.jpg"
     },
     {
-        name: "Nhạc Việt Được Nghe Nhiều Nhất",
+        name: "Thế Giới V-Pop Vol. 3",
         creator: "Zing MP3",
         image: "./assets/img/playlists/playlist4.jpg"
     },
@@ -51,8 +51,8 @@ var listPlaylist = [
         image: "./assets/img/playlists/playlist10.jfif"
     },
     {
-        name: "V-Pop: The A-List",
-        creator: "Zing MP3",
+        name: "Playlist #5",
+        creator: "TVĐ (GK)",
         image: "./assets/img/playlists/playlist11.jpg"
     },
     {
@@ -99,24 +99,19 @@ var listPlaylist = [
         image: "./assets/img/playlists/playlist20.jfif"
     },
     {
-        name: "Playlist #1",
-        creator: "Ngọc Trâm",
+        name: "Dance Việt Hay Nhất",
+        creator: "Zing MP3",
         image: "./assets/img/playlists/playlist21.jpg"
     },
     {
-        name: "Playlist #1",
-        creator: "Nal",
+        name: "Nhạc Việt Được Nghe Nhiều Nhất",
+        creator: "Zing MP3",
         image: "./assets/img/playlists/playlist22.jpg"
     },
     {
         name: "Playlist #1",
         creator: "Lâm Huy",
         image: "./assets/img/playlists/playlist23.jpg"
-    },
-    {
-        name: "Playlist #5",
-        creator: "TVĐ (GK)",
-        image: "./assets/img/playlists/playlist24.jpg"
     },
 ];
 

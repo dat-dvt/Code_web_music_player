@@ -45,6 +45,7 @@ const app = {
     isRepeat: false,
     isSeeking: false,
     scrollToRight: true,
+    currentPlaylist: 1,
     indexArray: [],
     slideIndexs: [ 1, 1, 1, 1],
     slideSelectors: [
@@ -54,7 +55,7 @@ const app = {
         '.tab-home.artist--container .row__item.item-artist--height',
     ],
     
-    songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY) || '[]'),
+    songPlaylists: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY) || '[]'),
 
     playlists: JSON.parse(localStorage.getItem(PLAYLIST_STORAGE_KEY) || '[]'),
 
@@ -63,8 +64,11 @@ const app = {
     mvs: JSON.parse(localStorage.getItem(MV_STORAGE_KEY) || '[]'),
 
     artists: JSON.parse(localStorage.getItem(ARTIST_STORAGE_KEY) || '[]'),
-
-    durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || '["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]'),
+    durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
+        [
+            ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"], 
+            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42"],
+        ]`),
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || '{}'),
 
@@ -85,10 +89,8 @@ const app = {
         .join('')       
     },
     
-
-    
-    render : function() {
-        // Render songs
+    renderSong() {
+        this.songs = this.songPlaylists[this.currentPlaylist]
         songLists.forEach((songList, songIndex) => {
             songList.innerHTML = app.html`${app.songs.map(function(song,index) {
                 return app.html`
@@ -113,7 +115,7 @@ const app = {
                                 </p>
                             </div>
                         </div>
-                        <span class="playlist__song-time">${app.durationList[index]}</span>
+                        <span class="playlist__song-time">${app.durationList[app.currentPlaylist][index]}</span>
                         <div class="playlist__song-option">
                             <div class="playlist__song-btn">
                                 <i class="option-icon bi bi-mic-fill"></i>
@@ -129,11 +131,12 @@ const app = {
                 `
             })}`
         })
+    },
 
-        // Render playlist
+    renderPlaylist() {
         playlistLists.forEach((playlistList, playlistIndex) => {
             playlistList.innerHTML = app.html`
-                <div class="col l-2-4 row__item ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
+                <div class="col l-2-4 row__item  playlist--create ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
                     <div class="row__item-container flex--center item-create--properties">
                         <i class="bi bi-plus-lg album__create-icon"></i>
                         <span class="album__create-annotate">Tạo playlist mới</span>
@@ -169,8 +172,8 @@ const app = {
                     `
                 })}`
         })
-
-        // Render albums
+    },
+    renderAlbum() {
         albumLists.forEach((albumList, albumIndex) => {
             albumList.innerHTML = app.html`
                 ${app.albums.map((album,index) => {
@@ -203,8 +206,8 @@ const app = {
                 })}
             `
         })
-        
-        // Render MV
+    },
+    renderMV() {
         mvLists.forEach((mvList, mvIndex) => {
             mvList.innerHTML = app.html`
                 ${app.mvs.map((mv, index) => {
@@ -247,8 +250,8 @@ const app = {
                 })}
             `
         })
-
-        //Render artist
+    },
+    renderArtist() {
         artistLists.forEach((artistList, artistIndex) => {
             artistList.innerHTML = app.html`
                 ${app.artists.map((artist, index) => {
@@ -295,6 +298,24 @@ const app = {
                 })}
             `
         })
+    },
+
+    
+    render : function() {
+        // Render songs
+        this.renderSong()
+
+        // Render playlist
+        this.renderPlaylist()
+
+        // Render albums
+        this.renderAlbum()
+        
+        // Render MV
+        this.renderMV()
+
+        //Render artist
+        this.renderArtist()
 
         this.scrollToActiveSong();
     },
@@ -371,11 +392,11 @@ const app = {
                 const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
                 trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                 progress.value = Math.floor(audio.currentTime / audio.duration * 100);
-                if(listDurationTime.innerText === '--/--') {
-                    _this.durationList.splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
+                if(listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
+                    _this.durationList[_this.currentPlaylist].splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
                     localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(_this.durationList));
-                    listDurationTime.innerHTML = _this.durationList[_this.currentIndex];
-                    durationTime.innerHTML = _this.durationList[_this.currentIndex];
+                    listDurationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
+                    durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
                 }
             } else {
                 // Handling when seek
@@ -428,7 +449,7 @@ const app = {
                 _this.nextSong();
             }
             audio.play();
-            _this.render()
+            _this.renderSong()
             _this.scrollToActiveSong();
         }
 
@@ -440,7 +461,7 @@ const app = {
                 _this.prevSong();
             }
             audio.play();
-            _this.render()
+            _this.renderSong()
             _this.scrollToActiveSong();
         };
 
@@ -602,18 +623,37 @@ const app = {
             _this.plusSlides(5, 3, artistScrollBtns)
         }
         
-        
-
+        // Handle when click on Playlist Item
+        const playlistItems = $$('.tab-home.playlist--container .row__item.item-playlist--height:not(.playlist--create)')
+        console.log(playlistItems)
+        Array.from(playlistItems).forEach((playlist, index) => {
+            playlist.onclick = (e) => {
+                const playlistBtn = e.target.closest('.playlist-play')
+                if(playlistBtn) {
+                    _this.currentPlaylist = index;
+                    _this.loadCurrentSongPlaylist(_this.currentPlaylist)
+                    _this.setConfig('currentPlaylist', _this.currentPlaylist)
+                }
+            }
+        })
 
     },
 
+    loadCurrentSongPlaylist (index) {
+        this.songs = this.songPlaylists[index]
+        this.currentIndex = 0
+        this.loadCurrentSong();
+        this.renderSong()
+        audio.play()
+    },
 
     loadCurrentSong: function() {
+        console.log(this.currentSong)
         songTitle.textContent = this.currentSong.name;
         author.textContent = this.currentSong.singer
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         audio.src = `${this.currentSong.path}`;
-        durationTime.innerHTML = this.durationList[this.currentIndex];
+        durationTime.innerHTML = this.durationList[this.currentPlaylist][this.currentIndex];
         this.setConfig('currentIndex', this.currentIndex);
     },
 
@@ -628,16 +668,17 @@ const app = {
         this.isRandom = this.config.isRandom || false;
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
+        this.currentPlaylist = this.config.currentPlaylist || 0;
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         volume.value = this.config.currentVolume || 100;
-        durationTime.textContent = this.audioCalTime(this.durationList[this.currentIndex]);
+        durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
         randomBtn.classList.toggle('active', this.isRandom);
         repeatBtn.classList.toggle('active', this.isRandom);
     },
 
     setUpRender: function() {
-        if(this.durationList.length === 0) {
-            this.songs.forEach((song, index) => this.durationList.push('--/--'))
+        if(this.durationList[this.currentPlaylist].length === 0) {
+            this.songs.forEach((song, index) => this.durationList[this.currentPlaylist].push('--/--'))
         }
     },
 
@@ -717,14 +758,12 @@ const app = {
 
         // Scroll Into View
         if( this.scrollToRight === true) {
-            console.log(1)
             listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
                 inline: 'start'
             })
         } else if (this.scrollToRight === false) {
-            console.log(0)
             listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
