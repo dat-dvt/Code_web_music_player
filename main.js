@@ -12,6 +12,7 @@ const author = $('.player__song-author');
 const albumLists = Array.from($$('.album--container'));
 const albumScrollBtns = $$('.container__move-btn.move-btn--album');
 const artistLists = Array.from($$('.artist--container'));
+const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
 const cdThumb = $('.player__song-thumb');
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
@@ -37,20 +38,20 @@ const randomBtn = $('.btn-random');
 const trackTime = $('#tracktime');
 const volume = $('.volume__range');
 const volumeBtn = $('.volume .option-icon')
-console.log(albumScrollBtns)
-
 
 const app = {
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
+    scrollToRight: true,
     indexArray: [],
     slideIndexs: [ 1, 1, 1, 1],
     slideSelectors: [
         '.tab-home.playlist--container .row__item.item-playlist--height',
         '.tab-home.album--container .row__item.item-album--height',
         '.tab-home.mv--container .row__item.item-mv--height',
+        '.tab-home.artist--container .row__item.item-artist--height',
     ],
     
     songs: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY) || '[]'),
@@ -58,6 +59,10 @@ const app = {
     playlists: JSON.parse(localStorage.getItem(PLAYLIST_STORAGE_KEY) || '[]'),
 
     albums: JSON.parse(localStorage.getItem(ALBUM_STORAGE_KEY) || '[]'),
+
+    mvs: JSON.parse(localStorage.getItem(MV_STORAGE_KEY) || '[]'),
+
+    artists: JSON.parse(localStorage.getItem(ARTIST_STORAGE_KEY) || '[]'),
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || '["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]'),
 
@@ -100,7 +105,11 @@ const app = {
                             <div class="playlist__song-body media__info">
                                 <span class="playlist__song-title info__title">${song.name}</span>
                                 <p class="playlist__song-author info__author">
-                                    <a href="#" class="is-ghost">${song.singer}</a>
+                                    ${song.singer.map((singer,index) => {
+                                        return app.html`
+                                        <a href="#" class="is-ghost">${singer}</a>${index < song.singer.length - 1 && ','}
+                                        `
+                                    })}
                                 </p>
                             </div>
                         </div>
@@ -195,6 +204,97 @@ const app = {
             `
         })
         
+        // Render MV
+        mvLists.forEach((mvList, mvIndex) => {
+            mvList.innerHTML = app.html`
+                ${app.mvs.map((mv, index) => {
+                    return app.html`
+                        <div class="col l-4 row__item item-mv--height ${mvIndex === 1 && 'mb-30'}">
+                            <div class="row__item-container flex--top-left">
+                                <div class="row__item-display br-5">
+                                    <div class="row__item-img img--mv" style="background: url('${mv.image}') no-repeat center center / cover"></div>
+                                    <div class="row__item-actions">
+                                        <button class="action-btn mv-btn--close">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                        <div class="playlist-play">
+                                            <div class="control-btn btn-toggle-play">
+                                                <i class="bi bi-play-fill icon-play"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="overlay"></div>
+                                    <div class="mv__time">${mv.time}</div>
+                                </div>
+                                <div class="row__item-info media">
+                                    <div class="media__left">
+                                        <div class="media__thumb is-rounded mr-10" style="background: url('${mv.authorAvatar}') no-repeat center center / cover"></div>
+                                        <div class="media__info">
+                                            <span class="info__title is-active">${mv.name}</span>
+                                            <p class="info__author">
+                                                ${mv.author.map((author, index) => {
+                                                    return app.html`
+                                                        <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ','}
+                                                    `
+                                                })}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+
+        //Render artist
+        artistLists.forEach((artistList, artistIndex) => {
+            artistList.innerHTML = app.html`
+                ${app.artists.map((artist, index) => {
+                    return app.html`
+                        <div class="col l-2-4 row__item item-artist--height ${artistIndex === 1 && 'mb-30'}">
+                            <div class="row__item-container flex--top-left">
+                                <div class="row__item-display is-rounded">
+                                    <div class="row__item-img img--square" style="background: url('${artist.image}') no-repeat center center / cover"></div>
+                                    <div class="row__item-actions">
+                                        <button class="action-btn">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                        <div class="playlist-play">
+                                            <div class="control-btn btn-toggle-play">
+                                                <i class="bi bi-play-fill icon-play"></i>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="row__item-info media artist-info--height">
+                                    <div class="media__left">
+                                        <div href="#" class="row__info-name is-ghost mt-15 lh-19 text-center">
+                                            ${artist.name}
+                                            <i class="bi bi-star-fill row__info-icon">
+                                                <div class="icon-overlay"></div>
+                                            </i>
+                                        </div>
+                                        <h3 class="row__info-creator text-center">${artist.folowers} quan tâm</h3>
+                                    </div>
+                                </div>
+                                <div class="row__item-btn">
+                                    <button class="button is-small button-primary">
+                                        <i class="bi bi-check2"></i>
+                                        &nbsp;Đã quan tâm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
 
         this.scrollToActiveSong();
     },
@@ -484,10 +584,22 @@ const app = {
         // MV
         mvScrollBtns[0].onclick = function() {
             _this.plusSlides(-3, 2, mvScrollBtns)
+            console.log(_this.slideIndexs[2])
         }
         
         mvScrollBtns[1].onclick = function() {
             _this.plusSlides(3, 2, mvScrollBtns)
+            console.log(_this.slideIndexs[2])
+        }
+
+        // Artist
+
+        artistScrollBtns[0].onclick = function() {
+            _this.plusSlides(-5, 3, artistScrollBtns)
+        }
+
+        artistScrollBtns[1].onclick = function() {
+            _this.plusSlides(5, 3, artistScrollBtns)
         }
         
         
@@ -575,24 +687,28 @@ const app = {
         }, 200)
     },
 
-    getSlideIndex(currentIndex, slideOrder, listItems) {
-        if (currentIndex > listItems.length) {
+    getSlideIndex(currentIndex, slideOrder, listItems, step) {
+        if (currentIndex + step >= listItems.length) {
             this.slideIndexs[slideOrder] = listItems.length;
+            this.scrollToRight = false;
         }
-        if (currentIndex < 1) {
+        if (currentIndex + step < 1) {
             this.slideIndexs[slideOrder] = 1;
+            this.scrollToRight = true;
         }
         return currentIndex
     },
 
     plusSlides(step, slideOrder, listBtns) {
         const listItems = $$(this.slideSelectors[slideOrder])
-        const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems);
+        const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems, step);
 
         if (currentIndex + step > listItems.length) {
             listBtns[1].classList.add('button--disabled')
+            listBtns[0].classList.remove('button--disabled')
         } else if (currentIndex + step < 1) {
             listBtns[0].classList.add('button--disabled')
+            listBtns[1].classList.remove('button--disabled')
         } else {
             Array.from(listBtns).forEach(itemBtn => {
                 itemBtn.classList.remove('button--disabled')
@@ -600,13 +716,15 @@ const app = {
         }
 
         // Scroll Into View
-        if( step > 0) {
+        if( this.scrollToRight === true) {
+            console.log(1)
             listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
                 inline: 'start'
             })
-        } else if (step < 0) {
+        } else if (this.scrollToRight === false) {
+            console.log(0)
             listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
