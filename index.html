@@ -327,28 +327,46 @@
                                 <div class="container__slide">
                                     <div class="container__slide-show">
                                         <div class="container__slide-item first">
-                                            <div style="background: url('./assets/img/songs/song1.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide1.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item second">
-                                            <div style="background: url('./assets/img/songs/song2.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide2.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item third">
-                                            <div style="background: url('./assets/img/songs/song3.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide3.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/songs/song4.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide4.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/songs/song5.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide5.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/songs/song6.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide6.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/songs/song8.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide7.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                         <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/songs/song9.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            <div style="background: url('./assets/img/slides/slide8.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/slides/slide9.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/slides/slide10.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/slides/slide11.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/slides/slide12.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/slides/slide13.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                        </div>
+                                        <div class="container__slide-item fourth">
+                                            <div style="background: url('./assets/img/slides/slide14.jpg') no-repeat center center / cover" class="container__slide-img"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -364,8 +382,8 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <span class="playlist__song-time">--/--</span>
-                                            <div class="playlist__song-option">
+                                            <span class="playlist__song-time media__content">--/--</span>
+                                            <div class="playlist__song-option media__right">
                                                 <div class="playlist__song-btn">
                                                     <i class="option-icon bi bi-mic-fill"></i>
                                                 </div>
@@ -582,18 +600,31 @@
         </div>
         <footer class="footer">
             <div class="player">
-                <div class="player__song-info">
-                    <div class="player__song-thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
-                    <div class="player__song-body">
-                        <div class="player__song-title">Music name</div>
-                        <div class="player__song-author">Author</div>
-                    </div>
-                    <div class="player__song-options">
-                        <div class="player__song-btn">
-                            <i class="option-icon bi bi-heart-fill primary"></i>
+                <div class="player__song-container">
+                    <div class="player__song-info media">
+                        <div class="media__left">
+                            <div class="player__song-thumb media__thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
                         </div>
-                        <div class="player__song-btn">
-                            <i class="option-icon bi bi-three-dots"></i>
+                        <div class="media__content">
+                            <div class="player__song-body media__info">
+                                <div class="player__song-title info__title">
+                                    <div class="player__title-animate">
+                                        <div class="title__item">Music name</div>
+                                        <div class="title__item">Music name</div>
+                                    </div>
+                                </div>
+                                <div class="player__song-author info__author">Author</div>
+                            </div>
+                        </div>
+                        <div class="media__right">
+                            <div class="player__song-options">
+                                <div class="player__song-btn">
+                                    <i class="option-icon bi bi-heart-fill primary"></i>
+                                </div>
+                                <div class="player__song-btn">
+                                    <i class="option-icon bi bi-three-dots"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

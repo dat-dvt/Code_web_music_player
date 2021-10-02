@@ -101,8 +101,8 @@ var listSong = [
     ],
     [
         {
-            name: "Lạc Trôi",
-            singer: ["Sơn Tùng M-TP"],
+            name: "Cứ Chill Thôi",
+            singer: ["Chillies", "Suni Hạ Linh", "Rhymastic"],
             path: "./assets/listSong1/song1.mp3",
             image: "./assets/img/listSong1/song1.jpg"
         },
@@ -167,8 +167,8 @@ var listSong = [
             image: "./assets/img/listSong1/song11.jpg"
         },
         {
-            name: "Chạy Ngay Đi",
-            singer: ["Sơn Tùng MTP"],
+            name: "Lạc Trôi",
+            singer: ["Sơn Tùng M-TP"],
             path: "./assets/listSong1/song12.mp3",
             image: "./assets/img/listSong1/song12.jpg"
         },
@@ -179,8 +179,8 @@ var listSong = [
             image: "./assets/img/listSong1/song13.jpg"
         },
         {
-            name: "Hongkong 12",
-            singer: ["Nguyễn Trọng Tài", "MC 12"],
+            name: "Hongkong1 (Official Version)",
+            singer: ["Nguyễn Trọng Tài", "San Ji", "Double X"],
             path: "./assets/listSong1/song14.mp3",
             image: "./assets/img/listSong1/song14.jpg"
         },
@@ -189,6 +189,24 @@ var listSong = [
             singer: ["Da LAB", "Miu Lê"],
             path: "./assets/listSong1/song15.mp3",
             image: "./assets/img/listSong1/song15.jpg"
+        },
+        {
+            name: "Chạy Ngay Đi",
+            singer: ["Sơn Tùng MTP"],
+            path: "./assets/listSong1/song16.mp3",
+            image: "./assets/img/listSong1/song16.jpg"
+        },
+        {
+            name: "Cùng Anh",
+            singer: ["Ngọc Dolil", "Hagi", "STee"],
+            path: "./assets/listSong1/song17.mp3",
+            image: "./assets/img/listSong1/song17.jpg"
+        },
+        {
+            name: "Hãy Trao Cho Anh",
+            singer: ["Sơn Tùng MTP"],
+            path: "./assets/listSong1/song18.mp3",
+            image: "./assets/img/listSong1/song18.jpg"
         },
     ]
 ];

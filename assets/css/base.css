@@ -1,8 +1,9 @@
 :root {
     --white-color: #fff;
     --black-color: #000;
-    --text-color: #f4f3f4;
+    --text-color: #dadad5;
     --primary-color: #170f23;
+    --footer-bg-color: #120c1c;
     --purple-primary: #7200a1;
     --active-color: #69387e;
     --link-text-hover: #c662ef;
@@ -31,6 +32,7 @@
 html {
     font-size: 62.5%;
     line-height: 1.6rem;
+    word-wrap: break-word;
     box-sizing: border-box;
     scroll-behavior: smooth;
     font-family: 'Inter', sans-serif;
@@ -243,9 +245,10 @@ i.primary {
 }
 
 .media__left {
-    height: 100%;
     display: flex;
     flex-wrap: wrap;
+    flex-basis: auto;
+    margin-right: 10px;
     align-items: center;
     justify-content: flex-start;
 }
@@ -280,6 +283,9 @@ i.primary {
     line-height: 1.7rem;
     color: #6a6572;
     margin: 3px 0 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .info__author a {
@@ -291,12 +297,15 @@ i.primary {
     flex: 1 1;
     color: #999;
     font-size: 1.2rem;
+    text-align: left;
+    align-self: center;
 }
 
 
-.media-right {
-    flex: 1 1;
+.media__right {
     display: flex;
+    flex-basis: auto;
+    margin-left: 10px;
     justify-content: flex-end;
 }
 
@@ -310,6 +319,7 @@ i.primary {
     display: flex;
     flex-direction: column;
     align-items: center;
+    will-change: scroll-position;
 }
 
 .row__item-container {

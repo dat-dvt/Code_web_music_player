@@ -32,7 +32,7 @@ const nextBtn = $('.btn-next');
 const optionBtn = $('.option');
 const slideImgs = $$('.container__slide-item');
 const songLists = Array.from($$('.playlist__list'));
-const songTitle = $('.player__song-title');
+const songAnimateTitle = $('.player__title-animate');
 const repeatBtn = $('.btn-repeat');
 const randomBtn = $('.btn-random');
 const trackTime = $('#tracktime');
@@ -44,16 +44,17 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
-    scrollToRight: true,
-    currentPlaylist: 1,
-    indexArray: [],
-    slideIndexs: [ 1, 1, 1, 1],
+    scrollToRight: true, //use when click move btn
+    currentPlaylist: 1, //choose playlist
+    indexArray: [], //Use for random song
+    slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
         '.tab-home.playlist--container .row__item.item-playlist--height',
         '.tab-home.album--container .row__item.item-album--height',
         '.tab-home.mv--container .row__item.item-mv--height',
         '.tab-home.artist--container .row__item.item-artist--height',
     ],
+    slideTitleWidth: 0, //Width of player title on footer
     
     songPlaylists: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY) || '[]'),
 
@@ -67,7 +68,7 @@ const app = {
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
             ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"], 
-            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42"],
+            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42"]
         ]`),
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || '{}'),
@@ -109,14 +110,14 @@ const app = {
                                 <p class="playlist__song-author info__author">
                                     ${song.singer.map((singer,index) => {
                                         return app.html`
-                                        <a href="#" class="is-ghost">${singer}</a>${index < song.singer.length - 1 && ','}
+                                        <a href="#" class="is-ghost">${singer}</a>${index < song.singer.length - 1 && ',&nbsp;'}
                                         `
                                     })}
                                 </p>
                             </div>
                         </div>
-                        <span class="playlist__song-time">${app.durationList[app.currentPlaylist][index]}</span>
-                        <div class="playlist__song-option">
+                        <span class="playlist__song-time media__content">${app.durationList[app.currentPlaylist][index]}</span>
+                        <div class="playlist__song-option media__right">
                             <div class="playlist__song-btn">
                                 <i class="option-icon bi bi-mic-fill"></i>
                             </div>
@@ -237,7 +238,7 @@ const app = {
                                             <p class="info__author">
                                                 ${mv.author.map((author, index) => {
                                                     return app.html`
-                                                        <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ','}
+                                                        <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ',&nbsp;'}
                                                     `
                                                 })}
                                             </p>
@@ -367,6 +368,8 @@ const app = {
             _this.isPlaying = true;
             player.classList.add('playing');
             cdThumbAnimate.play();
+            console.log(_this.titleAnimate)
+            _this.titleAnimate().play();
         }
         
         // When the song is paused
@@ -438,8 +441,8 @@ const app = {
             iterations: Infinity,
         })
         cdThumbAnimate.pause()
-
-
+        
+        
 
         // When next song
         nextBtn.onclick = function() {
@@ -605,12 +608,10 @@ const app = {
         // MV
         mvScrollBtns[0].onclick = function() {
             _this.plusSlides(-3, 2, mvScrollBtns)
-            console.log(_this.slideIndexs[2])
         }
         
         mvScrollBtns[1].onclick = function() {
             _this.plusSlides(3, 2, mvScrollBtns)
-            console.log(_this.slideIndexs[2])
         }
 
         // Artist
@@ -625,7 +626,6 @@ const app = {
         
         // Handle when click on Playlist Item
         const playlistItems = $$('.tab-home.playlist--container .row__item.item-playlist--height:not(.playlist--create)')
-        console.log(playlistItems)
         Array.from(playlistItems).forEach((playlist, index) => {
             playlist.onclick = (e) => {
                 const playlistBtn = e.target.closest('.playlist-play')
@@ -646,17 +646,54 @@ const app = {
         this.renderSong()
         audio.play()
     },
+    
 
     loadCurrentSong: function() {
-        console.log(this.currentSong)
-        songTitle.textContent = this.currentSong.name;
-        author.textContent = this.currentSong.singer
+        songAnimateTitle.innerHTML = app.html`
+                <div class="title__item">${this.currentSong.name}</div>
+                <div class="title__item">${this.currentSong.name}</div>
+        `;
+        author.innerHTML = app.html`
+            ${this.currentSong.singer.map((singer, index) => {
+                return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
+            })}
+        
+        `;
+        const a = this.setPlayerInfoWidth()
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         audio.src = `${this.currentSong.path}`;
         durationTime.innerHTML = this.durationList[this.currentPlaylist][this.currentIndex];
         this.setConfig('currentIndex', this.currentIndex);
     },
 
+    setPlayerInfoWidth() {
+        const animateTitleItems = $$('.player__title-animate .title__item')
+        const playerSongTitle = $('.player__song-title.info__title')
+
+        if(songAnimateTitle.offsetWidth / 2 >= author.offsetWidth) {
+            playerSongTitle.style.width = songAnimateTitle.offsetWidth / 2 + 'px'
+        } else {
+            playerSongTitle.style.width = author.offsetWidth + 'px';
+            Array.from(animateTitleItems).forEach(title => {
+                title.style.width = author.offsetWidth + 'px';
+            })
+        }
+        this.slideTitleWidth = playerSongTitle.offsetWidth;
+        // Handle title runs/stops
+        
+    },
+
+    titleAnimate() {
+        const titleAnimate = songAnimateTitle.animate([
+            {transform: 'translate(0px)'},
+            {transform: `translateX(-${this.slideTitleWidth}px)`}
+        ], {
+            duration: 5000,
+            iterations: Infinity,
+        })
+        titleAnimate.pause()
+        return titleAnimate
+    },
     
     audioCalTime: function(time) {
         const minute = Math.floor(time / 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
@@ -788,14 +825,14 @@ const app = {
         // Render playlist
         this.render();
 
+        // Load the first song information into the UI when running the app
+        this.loadCurrentSong();
         
         // Listening / handling events (DOM events)
         this.handleEvents();
         
         
         
-        // Load the first song information into the UI when running the app
-        this.loadCurrentSong();
         
     }
 

@@ -90,6 +90,10 @@
     color: var(--text-color);
 }
 
+.sidebar__nav-item:hover .sidebar__item-link {
+    color: var(--white-color);
+}
+
 .sidebar__item-link i {
     display: inline-block;
     font-size: 2.2rem;
@@ -932,14 +936,11 @@ label .container__header-icon {
 }
 
 .playlist__song-time {
-    flex: 1;
-    color: #999;
-    font-size: 1.2rem;
+    
 }
 
 .playlist__song-option {
-    display: flex;
-    justify-content: flex-end;
+    
 }
 
 
@@ -1019,40 +1020,85 @@ label .container__header-icon {
     height: 100%;
 }
 
-.player__song-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.player__song-container {
     width: 30%;
-    padding-right: 90px;
+    display: flex;
+}
+
+.player__song-info {
+    /* max-width: 346px; */
+    flex-basis: auto;
+}
+
+.player__song-info .media__content {
+    max-width: 190px;
+    flex: 0;
 }
 
 .player__song-thumb {
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    margin-right: 10px;
 }
 
 .player__song-body {
     flex: 1;
+    overflow: hidden;
     color: var(--text-color);
 }
 
-.player__song-title {
-    font-size: 1.4rem;
-    font-weight: 500;
+.player__song-body::after {
+    content: "";
+    display: block;
+    height: 100%;
 }
 
-.player__song-author {
-    color: #767383;
-    font-size: 1.2rem;
+.player__song-title {
+    height: 16px;
+    max-width: 190px;
+    display:flex;
+    position: relative;
+    font-weight: 500;
+    overflow: hidden;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    white-space: nowrap;
 }
+
+.player__title-animate {
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
+}
+
+.player__song-title .title__item {
+    padding-right: 10px;
+    
+}
+
+
+.player__song-author {
+    display: flex;
+    color: #999;
+    margin: 3px 0 0;
+    max-width: 100%;
+    font-size: 1.2rem;
+    overflow: hidden;
+    line-height: 1.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.player__song-author a {
+    white-space: nowrap;
+
+}
+
 
 .player__song-options {
     display: flex;
     height: 32px;
-    margin-left: 10px;
 }
 
 .playlist-play .icon-pause,
