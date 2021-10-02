@@ -6,18 +6,18 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 
-
 const audio = $('#audio');
 const author = $('.player__song-author');
 const albumLists = Array.from($$('.album--container'));
 const albumScrollBtns = $$('.container__move-btn.move-btn--album');
 const artistLists = Array.from($$('.artist--container'));
 const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
-const cdThumb = $('.player__song-thumb');
+const cdThumb = $('.player__song-thumb .thumb-img');
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
 const homeMVs = $$('.tab-home .mv--container .row__item.item-mv--height');
 const player = $('.player');
+const playerInfo = $('.player__song-info')
 const playAllBtns = $$('.btn--play-all');
 const playlistLists = Array.from($$('.playlist--container'));
 const playlistScrollBtns = $$('.container__move-btn.move-btn--playlist');
@@ -44,7 +44,7 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
-    scrollToRight: true, //use when click move btn
+    scrollToRight: [true, true, true, true], //use when click move btn
     currentPlaylist: 1, //choose playlist
     indexArray: [], //Use for random song
     slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
@@ -65,10 +65,11 @@ const app = {
     mvs: JSON.parse(localStorage.getItem(MV_STORAGE_KEY) || '[]'),
 
     artists: JSON.parse(localStorage.getItem(ARTIST_STORAGE_KEY) || '[]'),
+
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
-            ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"], 
-            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42","04:08","03:17","04:05"]
+            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42","04:08","03:17","04:05"],
+            ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]
         ]`),
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || '{}'),
@@ -91,6 +92,7 @@ const app = {
     },
     
     renderSong() {
+        console.log(this.currentPlaylist)
         this.songs = this.songPlaylists[this.currentPlaylist]
         songLists.forEach((songList, songIndex) => {
             songList.innerHTML = app.html`${app.songs.map(function(song,index) {
@@ -367,7 +369,8 @@ const app = {
         audio.onplay = function() {
             _this.isPlaying = true;
             player.classList.add('playing');
-            cdThumbAnimate.play();
+            playerInfo.classList.add('playing')
+            // cdThumbAnimate.play();
             _this.titleAnimate().play();
         }
         
@@ -375,7 +378,8 @@ const app = {
         audio.onpause = function() {
             _this.isPlaying = false;
             player.classList.remove('playing');
-            cdThumbAnimate.pause();
+            playerInfo.classList.remove('playing')
+            // cdThumbAnimate.pause();
         }
 
         // Handle next song when audio ended
@@ -401,6 +405,9 @@ const app = {
                     durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
                 }
             } else {
+                // Use if have list duration already
+                localStorage.removeItem(DURATION_STORAGE_KEY);
+
                 // Handling when seek
                 progress.onchange = function(e) {
                     const seekTime = e.target.value * audio.duration / 100;
@@ -433,13 +440,13 @@ const app = {
         
 
         //  Handle CD spins / stops
-        const cdThumbAnimate = cdThumb.animate([
-            { transform: 'rotate(360deg)'}
-        ], {
-            duration: 10000, // 10000 seconds
-            iterations: Infinity,
-        })
-        cdThumbAnimate.pause()
+        // const cdThumbAnimate = cdThumb.animate([
+        //     { transform: 'rotate(360deg)'}
+        // ], {
+        //     duration: 10000, // 10000 seconds
+        //     iterations: Infinity,
+        // })
+        // cdThumbAnimate.pause()
         
         
 
@@ -698,7 +705,7 @@ const app = {
         this.isRandom = this.config.isRandom || false;
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
-        this.currentPlaylist = this.config.currentPlaylist || 1;
+        this.currentPlaylist = this.config.currentPlaylist || 0;
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         volume.value = this.config.currentVolume || 100;
         durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
@@ -754,13 +761,13 @@ const app = {
     },
 
     getSlideIndex(currentIndex, slideOrder, listItems, step) {
-        if (currentIndex + step >= listItems.length) {
+        if (currentIndex + step > listItems.length) {
             this.slideIndexs[slideOrder] = listItems.length;
-            this.scrollToRight = false;
+            this.scrollToRight[slideOrder] = false;
         }
         if (currentIndex + step < 1) {
             this.slideIndexs[slideOrder] = 1;
-            this.scrollToRight = true;
+            this.scrollToRight[slideOrder] = true;
         }
         return currentIndex
     },
@@ -768,7 +775,6 @@ const app = {
     plusSlides(step, slideOrder, listBtns) {
         const listItems = $$(this.slideSelectors[slideOrder])
         const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems, step);
-
         if (currentIndex + step > listItems.length) {
             listBtns[1].classList.add('button--disabled')
             listBtns[0].classList.remove('button--disabled')
@@ -782,13 +788,13 @@ const app = {
         }
 
         // Scroll Into View
-        if( this.scrollToRight === true) {
+        if( this.scrollToRight[slideOrder] === true) {
             listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
                 inline: 'start'
             })
-        } else if (this.scrollToRight === false) {
+        } else if (this.scrollToRight[slideOrder] === false) {
             listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
