@@ -594,6 +594,10 @@
     justify-content: space-between;
 }
 
+.tab-upload .container__header {
+    height: 27px;
+}
+
 .container__header-title {
     height: 100%;
     display: flex;
@@ -608,6 +612,8 @@
 }
 
 .container__header-title h3 {
+    margin: 0;
+    color: var(--white-color);
     font-size: 2rem;
 }
 

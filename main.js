@@ -16,7 +16,7 @@ const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
 const cdThumb = $('.player__song-thumb');
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
-const homeMVs = $$('.tab-home.mv--container .row__item.item-mv--height');
+const homeMVs = $$('.tab-home .mv--container .row__item.item-mv--height');
 const player = $('.player');
 const playAllBtns = $$('.btn--play-all');
 const playlistLists = Array.from($$('.playlist--container'));
@@ -49,10 +49,10 @@ const app = {
     indexArray: [], //Use for random song
     slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
-        '.tab-home.playlist--container .row__item.item-playlist--height',
-        '.tab-home.album--container .row__item.item-album--height',
-        '.tab-home.mv--container .row__item.item-mv--height',
-        '.tab-home.artist--container .row__item.item-artist--height',
+        '.tab-home .playlist--container .row__item.item-playlist--height',
+        '.tab-home .album--container .row__item.item-album--height',
+        '.tab-home .mv--container .row__item.item-mv--height',
+        '.tab-home .artist--container .row__item.item-artist--height',
     ],
     slideTitleWidth: 0, //Width of player title on footer
     
@@ -68,7 +68,7 @@ const app = {
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
             ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"], 
-            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42"]
+            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42","04:08","03:17","04:05"]
         ]`),
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || '{}'),
@@ -368,7 +368,6 @@ const app = {
             _this.isPlaying = true;
             player.classList.add('playing');
             cdThumbAnimate.play();
-            console.log(_this.titleAnimate)
             _this.titleAnimate().play();
         }
         
@@ -453,7 +452,7 @@ const app = {
             }
             audio.play();
             _this.renderSong()
-            _this.scrollToActiveSong();
+            // _this.scrollToActiveSong();
         }
 
         // When prev song
@@ -465,7 +464,7 @@ const app = {
             }
             audio.play();
             _this.renderSong()
-            _this.scrollToActiveSong();
+            // _this.scrollToActiveSong();
         };
 
         // Handling on / off random song
@@ -625,7 +624,7 @@ const app = {
         }
         
         // Handle when click on Playlist Item
-        const playlistItems = $$('.tab-home.playlist--container .row__item.item-playlist--height:not(.playlist--create)')
+        const playlistItems = $$('.tab-home .playlist--container .row__item.item-playlist--height:not(.playlist--create)')
         Array.from(playlistItems).forEach((playlist, index) => {
             playlist.onclick = (e) => {
                 const playlistBtn = e.target.closest('.playlist-play')
@@ -670,25 +669,19 @@ const app = {
         const animateTitleItems = $$('.player__title-animate .title__item')
         const playerSongTitle = $('.player__song-title.info__title')
 
-        if(songAnimateTitle.offsetWidth / 2 >= author.offsetWidth) {
-            playerSongTitle.style.width = songAnimateTitle.offsetWidth / 2 + 'px'
-        } else {
-            playerSongTitle.style.width = author.offsetWidth + 'px';
-            Array.from(animateTitleItems).forEach(title => {
-                title.style.width = author.offsetWidth + 'px';
-            })
-        }
+        playerSongTitle.style.width = songAnimateTitle.offsetWidth / 2 + 'px'
+
         this.slideTitleWidth = playerSongTitle.offsetWidth;
-        // Handle title runs/stops
         
     },
 
+    // Handle title runs/stops
     titleAnimate() {
         const titleAnimate = songAnimateTitle.animate([
             {transform: 'translate(0px)'},
             {transform: `translateX(-${this.slideTitleWidth}px)`}
         ], {
-            duration: 5000,
+            duration: 4000,
             iterations: Infinity,
         })
         titleAnimate.pause()
@@ -705,7 +698,7 @@ const app = {
         this.isRandom = this.config.isRandom || false;
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
-        this.currentPlaylist = this.config.currentPlaylist || 0;
+        this.currentPlaylist = this.config.currentPlaylist || 1;
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         volume.value = this.config.currentVolume || 100;
         durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
@@ -751,17 +744,12 @@ const app = {
 
     scrollToActiveSong: function() {
         setTimeout(function() {
-            if(app.currentIndex <= 6) {
-                $('.playlist__list-song.active').scrollIntoView({
+            Array.from($$('.playlist__list-song.active')).forEach(songActive => {
+                songActive.scrollIntoView({
                     behavior: 'smooth',
                     block: 'end'
                 })
-            } else {
-                $('.playlist__list-song.active').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                })
-            }
+            })
         }, 200)
     },
 

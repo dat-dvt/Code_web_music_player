@@ -98,6 +98,14 @@ html {
     border-radius: 5px !important;
 }
 
+.f-sz-18 {
+    font-size: 18px !important;;
+}
+
+.lh-27 {
+    line-height: 27px !important;
+}
+
 .is-rounded {
     border-radius: 50% !important;
 }
@@ -586,4 +594,29 @@ i.primary {
     justify-content: center;
     height: 29px;
     border: 1px solid var(--purple-primary);
+}
+
+.box--no-content {
+    width: 100%;
+    display: flex;
+    padding: 30px 0;
+    min-height: 220px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--border-color);
+
+}
+
+.no-content-image {
+    width: 90px;
+    height: 90px;
+    background: url('https://zjs.zadn.vn/zmp3-desktop/releases/v1.3.18/static/media/music-icon.cfa4aa91.svg') no-repeat center center / contain;
+    margin-bottom: 20px;
+}
+
+.no-content-text {
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: #b3b3b3;
 }
