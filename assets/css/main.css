@@ -8,7 +8,7 @@
 /* Siderbar CSS */
 .app__sidebar {
     width: 240px;
-    height: 100%;
+    margin-bottom: 91px;
     background-color: var(--bg-color);
 }
 
@@ -63,10 +63,10 @@
 .sidebar__nav-shadow {
     height: 30px;
     width: 240px;
-    background-color: rgb(35, 27, 46);
+    background-color: var(--bg-color);
     position: absolute;
     top: 39%;
-    box-shadow: 0px 12px 12px rgb(35 27 46);
+    box-shadow: 0px 12px 12px var(--bg-color);
     z-index: 1;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .sidebar__nav-item.active {
-    background-color: #393243;
+    background-color: var(--bg-content-color);
     border-left: 3px solid var(--purple-primary);
     margin-left: 0;
 }
@@ -172,7 +172,7 @@
 .sidebar__login-description {
     display: block;
     text-align: center;
-    color: #fff;
+    color: var(--white-color);
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 2rem;
@@ -184,7 +184,7 @@
     width: 125px;
     height: 29px;
     font-weight: 600;
-    border: 1px solid #fff;
+    border: 1px solid var(--white-color);
 }
 
 
@@ -246,7 +246,7 @@
     height: 54px;
     padding: 0 29px;
     margin-bottom: 89px;
-    color: #fff;
+    color: var(--white-color);
     display: flex;
     align-items: center;
     border-top: 1px solid var(--border-color);
@@ -303,12 +303,12 @@
 .header {
     display: flex;
     position: fixed;
-    z-index: 1000;
+    z-index: 100;
     top: 0;
     right: 0;
     left: 240px;
     padding: 0 30px;
-    width: calc(100% -240px);
+    width: calc(100% - 240px);
     height: var(--header-height);
     justify-content: space-between;
     /* box-shadow: 0 1px 1px #120a1d; */
@@ -347,11 +347,18 @@
 
 }
 
+.header__search-btn {
+    height: 40px;
+    display: flex;
+    background-color: var(--bg-content-color);
+}
+
 .header__search-icon {
+    margin: auto;
+    cursor: pointer;
     font-size: 2rem;
     padding: 0 8px 0 12px;
     color: var(--text-color);
-    cursor: pointer;
 }
 
 .header__search-input {
@@ -404,7 +411,7 @@
     outline: none;
     border: none;
     cursor: pointer;
-    background: #2f2739;
+    background: var(--bg-content-color);
 }
 
 .header__nav-btn.user {
@@ -428,7 +435,17 @@
     width: 100%;
     padding-top: 85px;
     position: relative;
-    filter: blur(0px);
+}
+
+.app__header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.6;
+    width: 100%;
+    height: 290px;
+    background-color: var(--layout-bg);
 }
 
 .app__header-container {
@@ -437,7 +454,6 @@
     left: 0;
     right: 0;
     height: 290px;
-    background-color: rgba(23, 15, 35, 0.8);
 }
 
 .app__header-user {
@@ -497,7 +513,7 @@
     height: 28px;
     padding: 5px;
     border-radius: 50%;
-    background-color: #4e4552;
+    background-color: var(--bg-content-color);
     border: 1px solid var(--border-color);
     cursor: pointer;
 }
@@ -513,9 +529,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 250px;
-    filter: blur(15px);
-    z-index: -1;
+    height: 180px;
+    filter: blur(50px);
 }
 
 
@@ -553,7 +568,7 @@
 }
 
 .content__navbar-item.active {
-    background-color: #6e6875;
+    background-color: var(--tab-active-color);
 }
 
 .content__navbar-item span {
@@ -628,13 +643,12 @@
     height: 29px;
 }
 
-.container__header-btn:first-child {
-    padding: 0;
-}
 
 .button.container__header-btn:first-child {
-    position: relative;
+    padding: 0;
     overflow: hidden;
+    position: relative;
+    background-color: var(--bg-content-color);
 }
 
 .button.container__header-btn span {
@@ -669,10 +683,6 @@ label .container__header-icon {
     border-radius: 20px;
     line-height: 2.9rem;
     cursor: pointer;
-}
-
-.container__header-btn:first-child {
-    background-color: #2f2739;
 }
 
 
@@ -791,7 +801,7 @@ label .container__header-icon {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: overlay;
+    overflow:hidden overlay;
 }
 
 .playlist__list::-webkit-scrollbar {
@@ -832,7 +842,7 @@ label .container__header-icon {
 
 .playlist__list-song:hover,
 .playlist__list-song.active {
-    background-color: #2f2739;
+    background-color: var(--bg-content-color);
 }
 
   
@@ -840,7 +850,7 @@ label .container__header-icon {
 .playlist__list-song.active .option,
 .playlist__list-song.active .author,
 .playlist__list-song.active .title {
-    color: #fff;
+    color: var(--white-color);
 }
 
 .playlist__song-info {
@@ -915,8 +925,30 @@ label .container__header-icon {
     width: 40px;
     height: 40px;
     border-radius: 4px;
+    position: relative;
 }
 
+
+.thumb--animate {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+}
+
+.playlist__list-song.active.playing .thumb--animate {
+    display: flex;
+}
+
+.thumb--animate-img {
+    width: 18px;
+    height: 18px;
+    margin: auto;
+}
+
+
+
+.playlist__list-song.active.playing .btn--play-song,
 .btn--play-song {
     background: rgba(0,0,0,0.5);
     display: none;
@@ -951,8 +983,9 @@ label .container__header-icon {
 }
 
 .playlist__song-option {
-    
+
 }
+
 
 
 /* Container album playlist */
@@ -1005,19 +1038,19 @@ label .container__header-icon {
     left: 0;
     right: 0;
     height: 91px;
-    background-color: #120c1c;
+    background-color: var(--layout-bg);
     border-top: 1px solid var(--bg-color);
-    /* display: none; */
 }
 
 .player {
     height: 90px;
+    height: 100%;
     display: flex;
+    padding: 0 20px;
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 100%;
+    background-color: rgba(0,0,0,0.2);
 }
 
 .player__song-container {
@@ -1259,7 +1292,7 @@ label .container__header-icon {
 .btn-toggle-play i {
     padding: 5px;
     border-radius: 50%;
-    border: 1px solid #fff;
+    border: 1px solid var(--white-color);
 }
 
 .btn-toggle-play i::before {
@@ -1305,7 +1338,7 @@ label .container__header-icon {
     width: 55px;
     font-size: 1.2rem;
     margin: 0 5px;
-    color: #fff;
+    color: var(--white-color);
     display: block;
     text-align: center;
 }

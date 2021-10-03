@@ -222,11 +222,13 @@
                     <button class="header__button">
                         <i class="bi bi-arrow-left header__button-icon"></i>
                     </button>
-                    <button class="header__button">
+                    <button class="header__button button--disabled">
                         <i class="bi bi-arrow-right header__button-icon"></i>
                     </button>
                     <div class="header__search">
-                        <i class="bi bi-search header__search-icon"></i>
+                        <div class="header__search-btn">
+                            <i class="bi bi-search header__search-icon"></i>
+                        </div>
                         <input type="text" placeholder="Nhập tên bài hát, nghệ sĩ hoặc MV..." class="header__search-input">
                         <!-- <i class="bi bi-x header__search-icon"></i> -->
                     </div>
@@ -256,6 +258,8 @@
             </header>
 
             <div class="app__header">
+                <div class="app__header-bg" style="background: url('./assets/img/avatars/avatar.jpg') no-repeat center center / cover;"></div>
+                <div class="app__header-overlay"></div>
                 <div class="app__header-container">
                     <div class="app__header-user">
                         <div class="app__user-avatar">
@@ -271,7 +275,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="app__header-bg" style="background: url('./assets/img/avatars/avatar.jpg') no-repeat center center / cover;"></div>
             </div>
 
             
@@ -510,7 +513,7 @@
                                     <span class="playlist__header-title">Bài hát</span>
                                     <span class="playlist__header-time">Thời gian</span>
                                 </div>
-                                <div class="playlist__list">
+                                <div class="playlist__list overflow-visible">
                                     <div class="playlist__list-song">
                                         <div class="playlist__song-info">
                                             <i class="bi bi-music-note-beamed playlist__song-icon mr-10"></i>

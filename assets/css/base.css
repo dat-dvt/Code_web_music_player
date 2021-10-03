@@ -1,27 +1,29 @@
 :root {
-    --white-color: #fff;
-    --black-color: #000;
-    --text-color: #dadad5;
-    --primary-color: #170f23;
-    --footer-bg-color: #120c1c;
-    --purple-primary: #7200a1;
     --active-color: #69387e;
-    --link-text-hover: #c662ef;
     --bg-color: #231b2e;
-    --bg-content-color: #2f2739;
+    --black-color: #000;
     --border-color: rgba(255, 255, 255, 0.1);
-    --header-height: 70px;
-    --scale-rate-second: calc( 196 / 230);
-    --scale-rate-third: calc( 162 / 230);
-    --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
-    --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
-    --playlist--height: 245.36px;
-    --playlist-tab--height: 226.33px;
+    --bg-content-color: rgba(255, 255, 255, 0.1);
+    --footer-bg-color: #120c1c;
+    --layout-bg: #170f23;
+    --link-text-hover: #c662ef;
+    --primary-color: #170f23;
+    --purple-primary: #7200a1;
+    --tab-active-color: rgba(255, 255, 255, 0.3);
+    --text-color: #dadad5;
+    --white-color: #fff;
     --album--height: 229.41px;
-    --mv--height: 239.38px;
+    --artist-btn-height: 59px;
     --artist--height: 297.33px;
     --display-img--height: 179.34px;
-    --artist-btn-height: 59px;
+    --header-height: 70px;
+    --mv--height: 239.38px;
+    --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
+    --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
+    --playlist--height: 245.36px;
+    --playlist-tab--height: 226.33px;
+    --scale-rate-second: calc( 196 / 230);
+    --scale-rate-third: calc( 162 / 230);
 }
 
 
@@ -114,6 +116,10 @@ html {
     text-align: center;
 }
 
+.overflow-visible {
+    overflow: visible !important;
+}
+
 .no-wrap {
     display: flex;
     scroll-behavior: smooth;
@@ -172,7 +178,7 @@ html {
     border: none;
     text-transform: uppercase;
     color: var(--white-color);
-    background-color: #4e4552;
+    background-color: var(--bg-content-color);
 }
 
 .button i {
@@ -198,7 +204,7 @@ html {
 }
 
 .button.button-primary {
-    background-color: #7200a1;
+    background-color: var(--purple-primary);
 }
 
 .button--disabled {
@@ -578,7 +584,7 @@ html {
 
 .row__info-name:hover .row__info-icon,
 .row__info-name:hover {
-    color: #c662ef;
+    color: var(--link-text-hover);
 }
 
 
@@ -599,7 +605,7 @@ html {
     left: 0;
     right: 0;
     bottom: 0;
-    border-bottom: 1px solid #c662ef;
+    border-bottom: 1px solid var(--link-text-hover);
     display: none;
 }
 

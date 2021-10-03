@@ -31,7 +31,6 @@ const mvLists = Array.from($$('.mv--container'));
 const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
 const navbarItems = Array.from($$('.content__navbar-item'));
 const nextBtn = $('.btn-next');
-const optionBtn = $('.option');
 const slideImgs = $$('.container__slide-item');
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitle = $('.player__title-animate');
@@ -40,6 +39,10 @@ const randomBtn = $('.btn-random');
 const trackTime = $('#tracktime');
 const volume = $('.volume__range');
 const volumeBtn = $('.volume .btn--icon')
+// document.documentElement.style.setProperty('--primary-color', '#101f3f')
+// document.documentElement.style.setProperty('--bg-color', '#101f3f')
+// document.documentElement.style.setProperty('--layout-bg', '#101f3f')
+// document.documentElement.style.setProperty('--purple-primary', '#3460f5')
 
 
 const app = {
@@ -109,6 +112,10 @@ const app = {
                             <i class="bi bi-music-note-beamed mr-10"></i>
                             `}
                             <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover">
+                                <div class="thumb--animate">
+                                    <div class="thumb--animate-img" style="background: url('./assets/img/SongActiveAnimation/icon-playing.gif') no-repeat 50% / contain">
+                                    </div>
+                                </div>
                                 <div class="btn--play-song">
                                     <div class="control-btn btn-toggle-play">
                                         <i class="bi bi-play-fill"></i>
@@ -127,7 +134,7 @@ const app = {
                             </div>
                         </div>
                         <span class="playlist__song-time media__content">${app.durationList[app.currentPlaylist][index]}</span>
-                        <div class="playlist__song-option media__right">
+                        <div class="playlist__song-option ${songIndex === 1 && "song--tab"} media__right">
                             <div class="playlist__song-btn option-btn">
                                 <i class="btn--icon bi bi-mic-fill"></i>
                             </div>
@@ -383,7 +390,11 @@ const app = {
 
         // When the song is played
         audio.onplay = function() {
+            const songActives = Array.from($$('.playlist__list-song.active'))
             _this.isPlaying = true;
+            songActives.forEach(songActive => {
+                songActive.classList.add('playing')
+            })
             player.classList.add('playing');
             playerInfo.classList.add('playing')
             // cdThumbAnimate.play();
@@ -392,7 +403,11 @@ const app = {
         
         // When the song is paused
         audio.onpause = function() {
+            const songActives = $$('.playlist__list-song.active .thumb--animate')
             _this.isPlaying = false;
+            songActives.forEach(songActive => {
+                songActive.classList.remove('playing')
+            })
             player.classList.remove('playing');
             playerInfo.classList.remove('playing')
             // cdThumbAnimate.pause();
@@ -507,7 +522,7 @@ const app = {
                 const checkNode = e.target.closest('.playlist__list-song:not(.active) .playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.playlist__song-option')
-                const activeOption = $('.option.active');
+                const activeOption = $('.playlist__song-option.active');
                 if(songNode && !optionNode && !checkNode) {
                     // Handle when clicking on the song
                     if(songNode) {
