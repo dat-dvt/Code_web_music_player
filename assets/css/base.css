@@ -99,11 +99,11 @@ html {
 }
 
 .f-sz-18 {
-    font-size: 18px !important;;
+    font-size: 1.8rem !important;;
 }
 
 .lh-27 {
-    line-height: 27px !important;
+    line-height: 2.7rem !important;
 }
 
 .is-rounded {
@@ -209,36 +209,56 @@ html {
 
 
 .control-btn {
+    height: 32px;
+    min-width: 32px;
+    padding: 3px;
+    margin: 0 7px;
     color: #fff;
-    padding: 11px;
-    margin: 0 4px;
+    cursor: pointer;
     font-size: 2.4rem;
     border-radius: 50%;
-    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn.is-medium {
 }
 
 .control-btn.is-small {
     font-size: 1.6rem;
 }
 
-i.primary {
-    color: var(--purple-primary);
+
+
+.option-btn {
+    width: 32px;
+    height: 32px;
+    padding: 9px 10px;
+    margin: 0 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    color: var(--white-color);
+    background-color: transparent;
 }
 
-.option-icon {
-    flex-grow: 1;
-    height: 100%;
-    padding: 5px;
-    margin: 0 2px;
+
+
+
+.option-btn .btn--icon {
+    width: 13px;
+    height: 13px;
+    padding-top: 1px;
     font-size: 1.3rem;
-    line-height: 2.2rem;
-    border-radius: 50%;
     text-align: center;
+    line-height: 1.3rem;
+    display: inline-block;
     color: rgb(138, 132, 132);
 }
 
-.option-icon:hover {
+.btn--icon.icon--heart.primary {
+    color: var(--purple-primary);
+}
+
+.option-btn:hover {
     background-color: var(--border-color);
 }
 
@@ -464,15 +484,14 @@ i.primary {
 .action-btn {
     width: 30px;
     height: 30px;
-    padding: 5px;
-    border-radius: 50%;
-    border: none;
-    outline: none;
+    margin: 0;
+    padding: 6px;
     cursor: pointer;
-    text-decoration: none;
+    border-radius: 50%;
     background-color: transparent;
     color: var(--white-color);
 }
+
 
 .mv-btn--close {
     position: absolute;
@@ -480,44 +499,60 @@ i.primary {
     right: 10px;
 }
 
+.mv-btn--close i:before {
+    transform: translate(0.5px, -1px);
+}
+
 .action-btn:hover {
-    background-color: rgba(70, 91, 111, 0.4);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.action-btn i {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+
+.action-btn .btn--icon:hover {
+    background: none;
+}
+
+.action-btn .btn--icon {
+    height: 18px;
+    padding-top: 1px;
     font-size: 1.8rem;
-    line-height: 2rem;
+    text-align: center;
+    line-height: 1.8rem;
+    display: inline-block;
 }
 
-.playlist-play .btn-toggle-play {
-    width: 59px;
-    height: 59px;
+.btn--play-playlist {
+    height: 45px;
+    width: 45px;
+}
+
+.btn--play-playlist .btn-toggle-play,
+.btn--play-song .btn-toggle-play{
     margin: 0;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn--play-playlist .btn-toggle-play {
     font-size: 3rem;
     font-weight: 400;
-    border-radius: 999px;
-    border: 0;
-    line-height: normal;
-    text-transform: none;
-    text-align: center;
-    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #fff ;
     background-color:  transparent;
 }
 
-.playlist-play .btn-toggle-play i {
-    width: 45px;
-    height: 45px;
+
+.btn--play-song .btn-toggle-play i,
+.btn--play-playlist .btn-toggle-play i {
+    width: 100%;
+    height: 100%;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #fff;
-    border-radius: 50%;
 }
+
 
 /* Playlist info */
 .row__item-info {

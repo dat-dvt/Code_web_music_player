@@ -6,6 +6,7 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 
+const appContainer = $('.app__container');
 const audio = $('#audio');
 const author = $('.player__song-author');
 const albumLists = Array.from($$('.album--container'));
@@ -15,6 +16,7 @@ const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
 const cdThumb = $('.player__song-thumb .thumb-img');
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
+const header = $('.header')
 const homeMVs = $$('.tab-home .mv--container .row__item.item-mv--height');
 const player = $('.player');
 const playerInfo = $('.player__song-info')
@@ -37,7 +39,8 @@ const repeatBtn = $('.btn-repeat');
 const randomBtn = $('.btn-random');
 const trackTime = $('#tracktime');
 const volume = $('.volume__range');
-const volumeBtn = $('.volume .option-icon')
+const volumeBtn = $('.volume .btn--icon')
+
 
 const app = {
     isPlaying: false,
@@ -68,7 +71,7 @@ const app = {
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
-            ["06:05","03:55","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","04:08","04:07","04:13","04:42","04:08","03:17","04:05"],
+            ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05"],["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"],
             ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]
         ]`),
 
@@ -92,7 +95,6 @@ const app = {
     },
     
     renderSong() {
-        console.log(this.currentPlaylist)
         this.songs = this.songPlaylists[this.currentPlaylist]
         songLists.forEach((songList, songIndex) => {
             songList.innerHTML = app.html`${app.songs.map(function(song,index) {
@@ -106,7 +108,13 @@ const app = {
                             </div>
                             <i class="bi bi-music-note-beamed mr-10"></i>
                             `}
-                            <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover"></div>
+                            <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover">
+                                <div class="btn--play-song">
+                                    <div class="control-btn btn-toggle-play">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="playlist__song-body media__info">
                                 <span class="playlist__song-title info__title">${song.name}</span>
                                 <p class="playlist__song-author info__author">
@@ -120,14 +128,14 @@ const app = {
                         </div>
                         <span class="playlist__song-time media__content">${app.durationList[app.currentPlaylist][index]}</span>
                         <div class="playlist__song-option media__right">
-                            <div class="playlist__song-btn">
-                                <i class="option-icon bi bi-mic-fill"></i>
+                            <div class="playlist__song-btn option-btn">
+                                <i class="btn--icon bi bi-mic-fill"></i>
                             </div>
-                            <div class="playlist__song-btn">
-                                <i class="option-icon bi bi-heart-fill primary"></i>
+                            <div class="playlist__song-btn option-btn">
+                                <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
                             </div>
-                            <div class="playlist__song-btn">
-                                <i class="option-icon bi bi-three-dots"></i>
+                            <div class="playlist__song-btn option-btn">
+                                <i class="btn--icon bi bi-three-dots"></i>
                             </div>
                         </div>
                     </div>
@@ -152,17 +160,17 @@ const app = {
                                 <div class="row__item-display br-5">
                                     <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
                                     <div class="row__item-actions">
-                                        <button class="action-btn">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                        <div class="playlist-play">
+                                        <div class="action-btn">
+                                            <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                        </div>
+                                        <div class="btn--play-playlist">
                                             <div class="control-btn btn-toggle-play">
-                                                <i class="bi bi-play-fill icon-play"></i>
+                                                <i class="bi bi-play-fill"></i>
                                             </div>
                                         </div>
-                                        <button class="action-btn">
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
+                                        <div class="action-btn">
+                                            <i class="btn--icon bi bi-three-dots"></i>
+                                        </div>
                                     </div>
                                     <div class="overlay"></div>
                                 </div>
@@ -186,17 +194,17 @@ const app = {
                                 <div class="row__item-display br-5">
                                     <div class="row__item-img img--square" style="background: url('${album.image}') no-repeat center center / cover"></div>
                                     <div class="row__item-actions">
-                                        <button class="action-btn">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                        <div class="playlist-play">
+                                        <div class="action-btn">
+                                            <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                        </div>
+                                        <div class="btn--play-playlist">
                                             <div class="control-btn btn-toggle-play">
                                                 <i class="bi bi-play-fill icon-play"></i>
                                             </div>
                                         </div>
-                                        <button class="action-btn">
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
+                                        <div class="action-btn">
+                                            <i class="btn--icon bi bi-three-dots"></i>
+                                        </div>
                                     </div>
                                     <div class="overlay"></div>
                                 </div>
@@ -220,10 +228,10 @@ const app = {
                                 <div class="row__item-display br-5">
                                     <div class="row__item-img img--mv" style="background: url('${mv.image}') no-repeat center center / cover"></div>
                                     <div class="row__item-actions">
-                                        <button class="action-btn mv-btn--close">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                        <div class="playlist-play">
+                                        <div class="action-btn mv-btn--close">
+                                            <i class="bi bi-x-lg btn--icon"></i>
+                                        </div>
+                                        <div class="btn--play-playlist">
                                             <div class="control-btn btn-toggle-play">
                                                 <i class="bi bi-play-fill icon-play"></i>
                                             </div>
@@ -264,17 +272,11 @@ const app = {
                                 <div class="row__item-display is-rounded">
                                     <div class="row__item-img img--square" style="background: url('${artist.image}') no-repeat center center / cover"></div>
                                     <div class="row__item-actions">
-                                        <button class="action-btn">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                        <div class="playlist-play">
+                                        <div class="btn--play-playlist">
                                             <div class="control-btn btn-toggle-play">
                                                 <i class="bi bi-play-fill icon-play"></i>
                                             </div>
                                         </div>
-                                        <button class="action-btn">
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
                                     </div>
                                     <div class="overlay"></div>
                                 </div>
@@ -321,6 +323,7 @@ const app = {
         this.renderArtist()
 
         this.scrollToActiveSong();
+
     },
 
     defineProperties: function() {
@@ -332,10 +335,23 @@ const app = {
     },
 
 
-
     handleEvents: function() {
         const _this = this;
 
+        appContainer.onscroll = function() {
+            const scrollTop = appContainer.scrollY || appContainer.scrollTop;
+            if(scrollTop > 10) {
+                Object.assign(header.style, {
+                    backgroundColor: 'var(--primary-color)',
+                    boxShadow: '0 1px 1px #120a1d',
+                })
+            } else {
+                Object.assign(header.style, {
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                })
+            }
+        }
 
         // Handle when click play
         playBtns.forEach(playBtn => {
@@ -405,9 +421,6 @@ const app = {
                     durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
                 }
             } else {
-                // Use if have list duration already
-                localStorage.removeItem(DURATION_STORAGE_KEY);
-
                 // Handling when seek
                 progress.onchange = function(e) {
                     const seekTime = e.target.value * audio.duration / 100;
@@ -491,11 +504,11 @@ const app = {
         // Listen to playlist clicks
         songLists.forEach(songList => {
             songList.onclick = function(e) {
-                const checkNode = e.target.closest('.playlist__song-check')
+                const checkNode = e.target.closest('.playlist__list-song:not(.active) .playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
-                const optionNode = e.target.closest('.option')
+                const optionNode = e.target.closest('.playlist__song-option')
                 const activeOption = $('.option.active');
-                if( songNode || optionNode || checkNode) {
+                if(songNode && !optionNode && !checkNode) {
                     // Handle when clicking on the song
                     if(songNode) {
                         _this.currentIndex = Number(songNode.dataset.index);
@@ -509,18 +522,20 @@ const app = {
                         })
                         audio.play();
                     }
+                }
 
-                    //Handle when click on song checkbox
-                    if(checkNode) {
-                        checkNode.onclick = function(e) {
-                            e.stopPropagation()
-                        }
+
+                //Handle when click on song checkbox
+                if(checkNode) {
+                    checkNode.onclick = function(e) {
+                        const inputCheck = e.target.closest('.playlist__song-check').querySelector('.mr-10')
+                        e.target.closest('.playlist__list-song').classList.toggle('active', inputCheck.checked)
                     }
+                }
     
-                    // Handle when clicking on the song option
-                    if(optionNode) {
-                        optionNode.classList.add('active');
-                    }
+                // Handle when clicking on the song option
+                if(optionNode) {
+                    optionNode.classList.add('active');
                 }
     
                 if(activeOption && !e.target.closest('.option__block')) {
@@ -592,7 +607,7 @@ const app = {
         })
 
 
-        //**  Handle when click button move MV, Playlist on tab HOME
+        //**  Handle when click button move Album, Playlist, MV and Artist on tab HOME
         // Playlist
         playlistScrollBtns[0].onclick = function() {
             _this.plusSlides(-5, 0, playlistScrollBtns)
@@ -634,12 +649,28 @@ const app = {
         const playlistItems = $$('.tab-home .playlist--container .row__item.item-playlist--height:not(.playlist--create)')
         Array.from(playlistItems).forEach((playlist, index) => {
             playlist.onclick = (e) => {
-                const playlistBtn = e.target.closest('.playlist-play')
+                const playlistBtn = e.target.closest('.btn--play-playlist')
                 if(playlistBtn) {
-                    _this.currentPlaylist = index;
-                    _this.loadCurrentSongPlaylist(_this.currentPlaylist)
-                    _this.setConfig('currentPlaylist', _this.currentPlaylist)
+                    if(index < 2) {
+                        _this.currentPlaylist = index;
+                        _this.loadCurrentSongPlaylist(_this.currentPlaylist)
+                        _this.setConfig('currentPlaylist', _this.currentPlaylist)
+                        _this.scrollToActiveSong();
+                    } else {
+                        alert('VUI LÒNG CHỌN PLAYLIST KHÁC')
+                    }
                 }
+            }
+        })
+
+        
+        // Handle when click on Icon heart
+        const heartIconBtns = $$('.btn--icon.icon--heart');
+        Array.from(heartIconBtns).forEach(heartIcon => {
+            heartIcon.onclick = () => {
+                if(heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
+                else heartIcon.classList.replace('bi-heart', 'bi-heart-fill')
+                heartIcon.classList.toggle('primary')
             }
         })
 
@@ -675,9 +706,7 @@ const app = {
     setPlayerInfoWidth() {
         const animateTitleItems = $$('.player__title-animate .title__item')
         const playerSongTitle = $('.player__song-title.info__title')
-
         playerSongTitle.style.width = songAnimateTitle.offsetWidth / 2 + 'px'
-
         this.slideTitleWidth = playerSongTitle.offsetWidth;
         
     },
@@ -688,7 +717,7 @@ const app = {
             {transform: 'translate(0px)'},
             {transform: `translateX(-${this.slideTitleWidth}px)`}
         ], {
-            duration: 4000,
+            duration: 21 * this.slideTitleWidth,
             iterations: Infinity,
         })
         titleAnimate.pause()
@@ -806,12 +835,11 @@ const app = {
 
 
     start: function() {
-        //Setup duration time to render
+        // Setup duration time to render
         this.setUpRender()
 
         // Assign configuration from config to application
         this.loadConfig();
-        
         
         // Define properties for the object
         this.defineProperties();
