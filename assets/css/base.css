@@ -1,14 +1,12 @@
 :root {
-    --active-color: #69387e;
-    --bg-color: #231b2e;
     --black-color: #000;
-    --border-color: rgba(255, 255, 255, 0.1);
     --bg-content-color: rgba(255, 255, 255, 0.1);
-    --footer-bg-color: #120c1c;
     --layout-bg: #170f23;
     --link-text-hover: #c662ef;
-    --primary-color: #170f23;
+    --modal-scrollbar: rgba(41,21,71,0.8);
+    --primary-bg: #432275;
     --purple-primary: #7200a1;
+    --sidebar-bg: rgba(255, 255, 255, 0.05);
     --tab-active-color: rgba(255, 255, 255, 0.3);
     --text-color: #dadad5;
     --white-color: #fff;
@@ -41,6 +39,14 @@ html {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+body {
+    overflow: hidden;
+}
+
+i {
+    display: block;
+}
+
 /* Common variables */
 .pd-l-20 {
     padding-left: 20px !important;
@@ -60,6 +66,10 @@ html {
 
 .mb-16 {
     margin-bottom: 16px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
 }
 
 .mb-30 {
@@ -164,18 +174,16 @@ html {
 
 
 .button {
-    padding: 0;
-    height: 38px;
-    font-size: 1.4rem;
-    border-radius: 20px;
-    line-height: 3.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    outline: none;
-    cursor: pointer;
     border: none;
+    outline: none;
+    display: flex;
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    align-items: center;
+    border-radius: 100px;
+    text-decoration: none;
+    justify-content: center;
     text-transform: uppercase;
     color: var(--white-color);
     background-color: var(--bg-content-color);
@@ -265,7 +273,7 @@ html {
 }
 
 .option-btn:hover {
-    background-color: var(--border-color);
+    background-color: var(--bg-content-color);
 }
 
 
@@ -311,19 +319,25 @@ html {
 }
 
 .info__author {
+    height: 17px;
+    margin: 3px 0 0;
     font-weight: 700;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #6a6572;
     font-size: 1.2rem;
     letter-spacing: 0;
     line-height: 1.7rem;
-    color: #6a6572;
-    margin: 3px 0 0;
+    text-overflow: ellipsis;
+    /* display: block;
     display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical; */
 }
 
 .info__author a {
     color: #6a6572;
+    white-space: nowrap;
     text-decoration: none;
 }
 
@@ -448,7 +462,6 @@ html {
     left: 0;
     right: 0;
     z-index: 1;
-    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -533,7 +546,7 @@ html {
 }
 
 .btn--play-playlist .btn-toggle-play,
-.btn--play-song .btn-toggle-play{
+.play-song--actions .btn-toggle-play{
     margin: 0;
     width: 100%;
     cursor: pointer;
@@ -549,7 +562,7 @@ html {
 }
 
 
-.btn--play-song .btn-toggle-play i,
+.play-song--actions .btn-toggle-play i,
 .btn--play-playlist .btn-toggle-play i {
     width: 100%;
     height: 100%;
@@ -645,7 +658,7 @@ html {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--border-color);
+    background-color: var(--bg-content-color);
 
 }
 
@@ -660,4 +673,190 @@ html {
     font-size: 1.6rem;
     line-height: 2rem;
     color: #b3b3b3;
+}
+
+
+.modal-theme {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 500;
+    display: none;
+}
+
+.modal-theme.open {
+    display: block;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    max-width: 900px;
+    max-height: 100%;
+    min-height: 500px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    transform: translate(-50%, -50%);
+    background-color: var(--primary-bg);
+}
+
+.modal__close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.modal__close-btn:hover {
+    opacity: 0.8;
+}
+
+.close__btn-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 2.2rem;
+    color: var(--white-color);
+    -webkit-text-stroke: 1px var(--primary-bg);
+
+}
+
+
+
+.theme__header {
+    width: 100%;
+    padding: 20px 30px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.theme__header-title {
+    margin: 0;
+    width: 100%;
+    height: 36px;
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+    color: var(--white-color)
+}
+
+.theme__content {
+    width: 100%;
+    height: 500px;
+    padding: 0 30px;
+    overflow: hidden overlay;   
+}
+
+.theme__content::-webkit-scrollbar {
+    width: 5px;
+    z-index: 10;
+}
+
+ /* Track */
+.theme__content::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+}
+  
+  /* Handle */
+.theme__content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--modal-scrollbar);
+}
+  
+  /* Handle on hover */
+.theme__content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+.theme__container {
+
+}
+
+.theme__container-info {
+    margin: 0 0 10px;
+}
+
+.theme__info-name {
+    font-size: 1.8rem;
+    height: 27px;
+    line-height: 27px;
+    margin: 0;
+    color: var(--white-color);
+    text-transform: capitalize;
+}
+
+
+.theme__container-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.theme__item-display.row__item-display {
+    height: auto;
+    border: 1px solid transparent;
+}
+
+.theme__item-img {
+    padding-top: 66.67%;
+    border-radius: 5px;
+}
+
+.theme__item-actions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: auto;
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme__actions-btn {
+    padding: 5px 0;
+    min-width: 100px;
+}
+
+.theme__actions-btn:nth-child(2) {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.theme__actions-btn:first-child {
+    margin-bottom: 10px;
+    border: 1px solid var(--purple-primary)
+}
+
+.theme__btn-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1rem;
+}
+
+.theme__item-info {
+    padding: 5px 0;
+    width: 100%;
+}
+
+.theme__item-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 16px;
+    color: var(--white-color);
 }

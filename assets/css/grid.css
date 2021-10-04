@@ -283,8 +283,8 @@
     }
 
     .row.sm-gutter {
-        margin-left: -5px;
-        margin-right: -5px;
+        margin-left: -7px;
+        margin-right: -7px;
     }
 
     .col {
@@ -293,8 +293,8 @@
     }
 
     .row.sm-gutter .col {
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
     .l-0 {
@@ -446,8 +446,8 @@
     }
 
     .wide .row.sm-gutter {
-        margin-left: -5px;
-        margin-right: -5px;
+        margin-left: -7px;
+        margin-right: -7px;
     }
 
     .wide .col {
@@ -456,8 +456,8 @@
     }
 
     .wide .row.sm-gutter .col {
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
     .wide .l-0 {

@@ -14,10 +14,17 @@ const albumScrollBtns = $$('.container__move-btn.move-btn--album');
 const artistLists = Array.from($$('.artist--container'));
 const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
 const cdThumb = $('.player__song-thumb .thumb-img');
+const closeModalBtn = $('.modal__close-btn')
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
 const header = $('.header')
 const homeMVs = $$('.tab-home .mv--container .row__item.item-mv--height');
+const modalTheme = $('.modal-theme')
+const mvLists = Array.from($$('.mv--container'));
+const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
+const navbarItems = Array.from($$('.content__navbar-item'));
+const navThemeBtn = $('.header__nav-btn.nav-btn--theme')
+const nextBtn = $('.btn-next');
 const player = $('.player');
 const playerInfo = $('.player__song-info')
 const playAllBtns = $$('.btn--play-all');
@@ -27,22 +34,18 @@ const playBtns = Array.from($$('.btn-toggle-play'));
 const prevBtn = $('.btn-prev');
 const progress = $('#progress');
 const progressBlock = $('.progress-block');
-const mvLists = Array.from($$('.mv--container'));
-const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
-const navbarItems = Array.from($$('.content__navbar-item'));
-const nextBtn = $('.btn-next');
+const randomBtn = $('.btn-random');
+const repeatBtn = $('.btn-repeat');
 const slideImgs = $$('.container__slide-item');
+const sidebarSubnav = $('.sidebar__subnav')
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitle = $('.player__title-animate');
-const repeatBtn = $('.btn-repeat');
-const randomBtn = $('.btn-random');
+const themeContainer = $('.theme__container')
 const trackTime = $('#tracktime');
 const volume = $('.volume__range');
 const volumeBtn = $('.volume .btn--icon')
-// document.documentElement.style.setProperty('--primary-color', '#101f3f')
-// document.documentElement.style.setProperty('--bg-color', '#101f3f')
-// document.documentElement.style.setProperty('--layout-bg', '#101f3f')
-// document.documentElement.style.setProperty('--purple-primary', '#3460f5')
+const App = $('.app')
+
 
 
 const app = {
@@ -51,7 +54,8 @@ const app = {
     isRepeat: false,
     isSeeking: false,
     scrollToRight: [true, true, true, true], //use when click move btn
-    currentPlaylist: 1, //choose playlist
+    currentPlaylist: 0, //choose playlist
+    currentTheme: 0, //
     indexArray: [], //Use for random song
     slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
@@ -77,6 +81,10 @@ const app = {
             ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05"],["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"],
             ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]
         ]`),
+
+    themeLists: JSON.parse(localStorage.getItem(THEME_LIST_STORAGE_KEY) || '[]'), // List theme image to render to view
+
+    themes: JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || '[]'), //List theme to apply background
 
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || '{}'),
 
@@ -116,8 +124,8 @@ const app = {
                                     <div class="thumb--animate-img" style="background: url('./assets/img/SongActiveAnimation/icon-playing.gif') no-repeat 50% / contain">
                                     </div>
                                 </div>
-                                <div class="btn--play-song">
-                                    <div class="control-btn btn-toggle-play">
+                                <div class="play-song--actions">
+                                    <div class="control-btn btn-toggle-play btn--play-song">
                                         <i class="bi bi-play-fill"></i>
                                     </div>
                                 </div>
@@ -312,6 +320,42 @@ const app = {
         })
     },
 
+    renderModal() {
+        themeContainer.innerHTML = app.html`
+            ${this.themeLists.map((themeList, themeIndex)=> {
+                return app.html`
+                    <div class="row sm-gutter theme__list">
+                        <div class="col l-12 theme__container-info">
+                            <h3 class="theme__info-name">${themeList.type}</h3>
+                        </div>
+                        ${themeList.themes.map((theme, index) => {
+                            return app.html`
+                                <div class="col l-2 theme__container-item mb-20" data-index="${index}">
+                                    <div class="theme__item-display row__item-display br-5">
+                                        <div class="theme__item-img row__item-img" style="background: url('${theme.image}') no-repeat center center / cover"></div>
+                                        <div class="overlay"></div>
+                                        <div class="theme__item-actions row__item-actions">
+                                            <button class="button theme__actions-btn btn--apply-theme button-primary">
+                                                <span class="theme__btn-title">Áp dụng</span>
+                                            </button>
+                                            <button class="button theme__actions-btn">
+                                                <span class="theme__btn-title">Xem trước</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="theme__item-info">
+                                        <div class="theme__item-name">${theme.name}</div>
+                                    </div>
+                                </div>
+                            `
+                        })}
+                    </div>
+                `
+            })}
+        
+        `
+    },
+
     
     render : function() {
         // Render songs
@@ -329,6 +373,9 @@ const app = {
         //Render artist
         this.renderArtist()
 
+        // Render Modal
+        this.renderModal()
+
         this.scrollToActiveSong();
 
     },
@@ -344,12 +391,24 @@ const app = {
 
     handleEvents: function() {
         const _this = this;
+        const playBtns = Array.from($$('.btn-toggle-play.btn--play-song'));
+        const listThemes = Array.from($$('.theme__container .theme__list'));
+
+
+        sidebarSubnav.onscroll = (e) => {
+            const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
+            if(scrollTop > 10) {
+                sidebarSubnav.classList.add('has-mask')
+            } else {
+                sidebarSubnav.classList.remove('has-mask')
+            }
+        }
 
         appContainer.onscroll = function() {
             const scrollTop = appContainer.scrollY || appContainer.scrollTop;
             if(scrollTop > 10) {
                 Object.assign(header.style, {
-                    backgroundColor: 'var(--primary-color)',
+                    backgroundColor: 'var(--layout-bg)',
                     boxShadow: '0 1px 1px #120a1d',
                 })
             } else {
@@ -363,6 +422,7 @@ const app = {
         // Handle when click play
         playBtns.forEach(playBtn => {
             playBtn.onclick = function() {
+                console.log(123)
                 if(_this.isPlaying) {
                     audio.pause();
                 } else {
@@ -403,7 +463,7 @@ const app = {
         
         // When the song is paused
         audio.onpause = function() {
-            const songActives = $$('.playlist__list-song.active .thumb--animate')
+            const songActives = Array.from($$('.playlist__list-song.active'))
             _this.isPlaying = false;
             songActives.forEach(songActive => {
                 songActive.classList.remove('playing')
@@ -689,6 +749,40 @@ const app = {
             }
         })
 
+        //Open and close modal theme
+        navThemeBtn.onclick = (e) => {
+            modalTheme.classList.add('open')
+        }
+
+        closeModalBtn.onclick = (e) => {
+            modalTheme.classList.remove('open')
+        }
+
+
+        // Handle change theme method
+        // applyThemeBtns.forEach((themeBtn, themeIndex) => {
+        //     themeBtn.onclick = (e) => {
+        //         _this.loadThemeBg(themeIndex)
+        //         this.setConfig('currentTheme', themeIndex)
+        //     }
+        // })
+
+
+        // Handle change theme method
+        listThemes.forEach((listTheme,themeIndex) => {
+            listTheme.onclick = (e) => {
+                const applyThemeBtn = e.target.closest('.theme__actions-btn.btn--apply-theme')
+                const themeItem = e.target.closest('.theme__container-item')
+                if(themeItem && applyThemeBtn) {
+                    applyThemeBtn.onclick = (e) => {
+                        const currentTheme = Number(themeItem.dataset.index)
+                        App.style.backgroundImage = `url('${_this.themes[themeIndex][currentTheme]}')`
+                        console.log(_this.themes[themeIndex][currentTheme])
+                    }
+                }
+            }
+        })
+
     },
 
     loadCurrentSongPlaylist (index) {
@@ -750,12 +844,23 @@ const app = {
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
         this.currentPlaylist = this.config.currentPlaylist || 0;
+        this.currentTheme = this.config.currentTheme || 0;
+        // this.loadThemeBg(this.currentTheme);
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         volume.value = this.config.currentVolume || 100;
         durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
         randomBtn.classList.toggle('active', this.isRandom);
         repeatBtn.classList.toggle('active', this.isRandom);
     },
+
+    // loadThemeBg(currentTheme) {
+    //     document.documentElement.style.setProperty('--primary-color', this.themes[currentTheme][0])
+    //     document.documentElement.style.setProperty('--bg-color', this.themes[currentTheme][1])
+    //     document.documentElement.style.setProperty('--layout-bg', this.themes[currentTheme][2])
+    //     document.documentElement.style.setProperty('--purple-primary', this.themes[currentTheme][3])
+    //     document.documentElement.style.setProperty('--primary-bg', this.themes[currentTheme][4])
+    //     document.documentElement.style.setProperty('--link-text-hover', this.themes[currentTheme][5])
+    // },
 
     setUpRender: function() {
         if(this.durationList[this.currentPlaylist].length === 0) {
