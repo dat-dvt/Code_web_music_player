@@ -25,7 +25,8 @@ const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
 const navbarItems = Array.from($$('.content__navbar-item'));
 const navThemeBtn = $('.header__nav-btn.nav-btn--theme')
 const nextBtn = $('.btn-next');
-const player = $('.player');
+const player = $('.player')
+const playerContainer = $('.player__container');
 const playerInfo = $('.player__song-info')
 const playAllBtns = $$('.btn--play-all');
 const playlistLists = Array.from($$('.playlist--container'));
@@ -326,12 +327,12 @@ const app = {
             ${this.themeLists.map((themeList, themeIndex)=> {
                 return app.html`
                     <div class="row sm-gutter theme__list">
-                        <div class="col l-12 theme__container-info">
+                        <div class="col l-12 m-12 c-12 theme__container-info">
                             <h3 class="theme__info-name">${themeList.type}</h3>
                         </div>
                         ${themeList.themes.map((theme, index) => {
                             return app.html`
-                                <div class="col l-2 theme__container-item mb-20" data-index="${index}">
+                                <div class="col l-2 m-4 c-6 theme__container-item mb-20" data-index="${index}">
                                     <div class="theme__item-display row__item-display br-5">
                                         <div class="theme__item-img row__item-img" style="background: url('${theme.image}') no-repeat center center / cover"></div>
                                         <div class="overlay"></div>
@@ -339,7 +340,7 @@ const app = {
                                             <button class="button theme__actions-btn btn--apply-theme button-primary">
                                                 <span class="theme__btn-title">Áp dụng</span>
                                             </button>
-                                            <button class="button theme__actions-btn">
+                                            <button class="button theme__actions-btn btn--preview">
                                                 <span class="theme__btn-title">Xem trước</span>
                                             </button>
                                         </div>
@@ -445,6 +446,7 @@ const app = {
                     songActive.classList.add('active');
                 })
                 _this.loadCurrentSong();
+                _this.scrollToActiveSong();
                 audio.play();
             }
         })
@@ -456,7 +458,7 @@ const app = {
             songActives.forEach(songActive => {
                 songActive.classList.add('playing')
             })
-            player.classList.add('playing');
+            playerContainer.classList.add('playing');
             playerInfo.classList.add('playing')
             // cdThumbAnimate.play();
             _this.titleAnimate().play();
@@ -469,7 +471,7 @@ const app = {
             songActives.forEach(songActive => {
                 songActive.classList.remove('playing')
             })
-            player.classList.remove('playing');
+            playerContainer.classList.remove('playing');
             playerInfo.classList.remove('playing')
             // cdThumbAnimate.pause();
         }
@@ -591,6 +593,7 @@ const app = {
                         const songActives = $$(`.playlist__list-song[data-index="${_this.currentIndex}"]`)
                         _this.loadCurrentSong();
                         Array.from($$('.playlist__list-song.active')).forEach(songActive => {
+                            songActive.classList.remove('playing')
                             songActive.classList.remove('active');
                         })
                         Array.from(songActives).forEach(songActive => {
@@ -755,6 +758,14 @@ const app = {
             modalTheme.classList.add('open')
         }
 
+        modalTheme.onclick = (e) => {
+            const themeContainer = e.target.closest('.modal-theme .modal-container')
+            if(themeContainer) {
+                e.stopPropagation()
+            } else {
+                modalTheme.classList.remove('open')
+            }
+        }
         closeModalBtn.onclick = (e) => {
             modalTheme.classList.remove('open')
         }
@@ -773,20 +784,23 @@ const app = {
         listThemes.forEach((listTheme,themeIndex) => {
             listTheme.onclick = (e) => {
                 const applyThemeBtn = e.target.closest('.theme__actions-btn.btn--apply-theme')
+                const previewBtn = e.target.closest('.theme__actions-btn.btn--preview')
                 const themeItem = e.target.closest('.theme__container-item')
-                if(themeItem && applyThemeBtn) {
-                    applyThemeBtn.onclick = (e) => {
-                        const currentTheme = Number(themeItem.dataset.index)
-                        App.style.backgroundImage = `url('${_this.themes[themeIndex][currentTheme].image}')`;
+                if(themeItem && (applyThemeBtn || previewBtn)) {
+                    const currentTheme = Number(themeItem.dataset.index)
+                    if(applyThemeBtn) {
                         _this.loadThemeBg(themeIndex, currentTheme)
-                        App.classList.add('has__theme-img')
                         _this.setConfig('themeList', themeIndex)
                         _this.setConfig('currentTheme', currentTheme)
                         closeModalBtn.onclick()
                     }
+                    if(previewBtn) {
+                        _this.loadThemeBg(themeIndex, currentTheme)
+                    }
                 }
             }
         })
+
 
     },
 
@@ -851,8 +865,12 @@ const app = {
         this.currentPlaylist = this.config.currentPlaylist || 0;
         this.themeList = this.config.themeList || 0;
         this.currentTheme = this.config.currentTheme || 0;
-        // this.loadThemeBg(this.themeList, this.currentTheme);
+        this.loadThemeBg(this.themeList, this.currentTheme);
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
+        if (!audio.volume) {
+            volumeBtn.classList.remove('bi-volume-up');
+            volumeBtn.classList.add('bi-volume-mute')
+        }
         volume.value = this.config.currentVolume || 100;
         durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
         randomBtn.classList.toggle('active', this.isRandom);
@@ -867,11 +885,30 @@ const app = {
         document.documentElement.style.setProperty('--layout-bg', currentThemeColor[3])
         document.documentElement.style.setProperty('--link-text-hover', currentThemeColor[4])
         document.documentElement.style.setProperty('--modal-scrollbar', currentThemeColor[5])
-        document.documentElement.style.setProperty('--purple-primary', currentThemeColor[6])
-        document.documentElement.style.setProperty('--primary-bg', currentThemeColor[7])
-        document.documentElement.style.setProperty('--text-color', currentThemeColor[8])
-        document.documentElement.style.setProperty('--text-item-hover', currentThemeColor[9])
-        document.documentElement.style.setProperty('--text-secondary', currentThemeColor[10])
+        document.documentElement.style.setProperty('--player-bg', currentThemeColor[6])
+        document.documentElement.style.setProperty('--purple-primary', currentThemeColor[7])
+        document.documentElement.style.setProperty('--primary-bg', currentThemeColor[8])
+        // document.documentElement.style.setProperty('--sidebar-bg', currentThemeColor[9])
+        document.documentElement.style.setProperty('--text-color', currentThemeColor[9])
+        document.documentElement.style.setProperty('--text-item-hover', currentThemeColor[10])
+        document.documentElement.style.setProperty('--text-secondary', currentThemeColor[11])
+
+        if(this.themes[themeListIndex][currentTheme].image) {
+            App.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
+            App.style.backgroundColor = 'transparent'
+            App.classList.add('has__theme-img')
+        } else {
+            App.style.backgroundImage = 'none';
+            App.style.backgroundColor = 'var(--layout-bg)'
+            App.classList.remove('has__theme-img')
+        }
+        if(this.themes[themeListIndex][currentTheme].playerImage) {
+            player.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].playerImage}')`
+        } else {
+            player.style.backgroundImage = 'none'
+        }
+
+
     },
 
     setUpRender: function() {

@@ -241,7 +241,10 @@
                         </li>
                         <li class="header__nav-item">
                             <button class="header__nav-btn">
-                                <i class="bi bi-upload header__nav-icon"></i>
+                                    <input type="file" name="upload song" id="header__nav-input">
+                                    <label for="header__nav-input">
+                                        <i class="bi bi-upload header__nav-icon"></i>
+                                    </label>
                             </button>
                         </li>
                         <li class="header__nav-item">
@@ -614,9 +617,9 @@
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <div class="player">
-                <div class="player__song-container">
+        <div class="player">
+            <div class="player__container">
+                <div class="player__container-song">
                     <div class="player__song-info media">
                         <div class="media__left">
                             <div class="player__song-thumb media__thumb note-1">
@@ -707,7 +710,7 @@
                 </div>
                 <audio id="audio" src=""></audio>
             </div>
-        </footer>
+        </div>
     </div>
 
 
@@ -747,13 +750,13 @@
             </div>
         </div>
     </div>
-    <script src="./themes.js"></script>
-    <script src="./listThemes.js"></script>
-    <script src="./songPlaylists.js"></script>
-    <script src="./playlists.js"></script>
-    <script src="./albums.js"></script>
-    <script src="./mvs.js"></script>
-    <script src="./artists.js"></script>
+    <script src="./data/themes.js"></script>
+    <script src="./data/listThemes.js"></script>
+    <script src="./data/songPlaylists.js"></script>
+    <script src="./data/playlists.js"></script>
+    <script src="./data/albums.js"></script>
+    <script src="./data/mvs.js"></script>
+    <script src="./data/artists.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>

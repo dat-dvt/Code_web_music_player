@@ -6,6 +6,7 @@
     --layout-bg: #170f23;
     --link-text-hover: #c662ef;
     --modal-scrollbar: rgba(41, 21, 71,0.8);
+    --player-bg: rgba(0,0,0,0.2);
     --primary-bg: #432275;
     --purple-primary: #7200a1;
     --sidebar-bg: rgba(255, 255, 255, 0.05);
@@ -345,7 +346,7 @@ i {
 }
 
 .info__author a {
-    color: #6a6572;
+    color: var(--text-secondary);
     white-space: nowrap;
     text-decoration: none;
 }

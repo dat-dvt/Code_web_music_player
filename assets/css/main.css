@@ -329,6 +329,10 @@
 }
 
 .header__button-icon {
+    width: 24px;
+    height: 25px;
+    display: block;
+    text-align: center;
     font-size: 2.2rem;
     margin-right: 20px;
     color: var(--text-color);
@@ -352,23 +356,29 @@
 }
 
 .header__search-icon {
+    display: block;
     margin: auto;
     cursor: pointer;
-    font-size: 2rem;
-    padding: 0 8px 0 12px;
+    font-size: 1.8rem;
+    padding: 1px 10px 1px;
     color: var(--text-secondary);
 }
 
 .header__search-input {
     flex: 1;
     height: 40px;
-    padding-bottom: 4px;
+    padding: 0;
     line-height: 4rem;
     font-size: 1.4rem;
     border: none;
     outline: none;
     color: var(--text-color);
     background: transparent;
+}
+
+.header__search-input:focus::placeholder {
+    color: var(--text-color);
+    opacity: 1;
 }
 
 .header__search-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -421,6 +431,21 @@
 .header__nav-item:last-child .header__nav-btn {
     width: 38px;
     height: 38px;
+}
+
+
+#header__nav-input {
+    width: 40px;
+    height: 40px;
+    display: none;
+}
+
+.header__nav-btn label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    cursor: pointer;
+    border-radius: 50%;
 }
 
 
@@ -635,16 +660,16 @@
     text-decoration: none;
 }
 
-.container__header-title:hover {
-    color: var(--link-text-hover);
-}
 
-.container__header-title h3 {
+.container__header-title{
     margin: 0;
     color: var(--text-color);
     font-size: 2rem;
 }
 
+.container__header-title:hover{
+    color: var(--link-text-hover);
+}
 
 .container__header-actions {
     display: flex;
@@ -685,7 +710,8 @@ label .container__header-icon {
 
 .container__header-icon {
     font-size: 1.9rem;
-    margin: 4.5px 0 0 -1px;
+    line-height: 1.9rem;
+    transform: translateY(1px);
 }
 
 #container__header-input {
@@ -1055,17 +1081,20 @@ label .container__header-icon {
 
 
 /* Footer CSS */
-.footer {
+.player {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     height: 91px;
+    background-size: 1920px auto;
+    background-position: 50%;
+    background-repeat: repeat-x;
     background-color: var(--layout-bg);
-    border-top: 1px solid var(--bg-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.player {
+.player__container {
     height: 90px;
     height: 100%;
     display: flex;
@@ -1073,10 +1102,10 @@ label .container__header-icon {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    background-color: rgba(0,0,0,0.2);
+    background-color: var(--player-bg);
 }
 
-.player__song-container {
+.player__container-song {
     width: 30%;
     display: flex;
 }
@@ -1259,15 +1288,15 @@ label .container__header-icon {
     height: 32px;
 }
 
-.player .icon-pause {
+.player__container .icon-pause {
     display: none;
 }
 
-.player.playing .icon-pause {
+.player__container.playing .icon-pause {
     display: inline-block;
 }
 
-.player.playing .icon-play {
+.player__container.playing .icon-play {
     display: none;
 }
 
