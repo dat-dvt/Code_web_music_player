@@ -41,10 +41,64 @@ const listThemes = [
             },
         ]
     },
-    
-    
-    // ["#170f23", "#231b2e", "#170f23", "#7200a1", "#432275", "#c662ef"],
-    // ["#101f3f", "#101f3f", "#101f3f", "#3460f5", "#274a78", "#6e8ffb"],
+    {
+        type: 'Màu Tối',
+        themes: [
+            {
+                name: 'Tối',
+                image: './assets/img/modalThemes/modalTheme3/theme1.jpg'
+            },
+            {
+                name: 'Tím',
+                image: './assets/img/modalThemes/modalTheme3/theme2.jpg'
+            },
+            {
+                name: 'Xanh Đậm',
+                image: './assets/img/modalThemes/modalTheme3/theme3.jpg'
+            },
+            {
+                name: 'Xanh Biển',
+                image: './assets/img/modalThemes/modalTheme3/theme4.jpg'
+            },
+            {
+                name: 'Xanh Lá',
+                image: './assets/img/modalThemes/modalTheme3/theme5.jpg'
+            },
+            {
+                name: 'Nâu',
+                image: './assets/img/modalThemes/modalTheme3/theme6.jpg'
+            },
+            {
+                name: 'Hồng',
+                image: './assets/img/modalThemes/modalTheme3/theme7.jpg'
+            },
+            {
+                name: 'Đỏ',
+                image: './assets/img/modalThemes/modalTheme3/theme8.jpg'
+            },
+        ]
+    },
+    {
+        type: 'Màu Sáng',
+        themes: [
+            {
+                name: 'Sáng',
+                image: './assets/img/modalThemes/modalTheme4/theme1.jpg'
+            },
+            {
+                name: 'Xám',
+                image: './assets/img/modalThemes/modalTheme4/theme2.jpg'
+            },
+            {
+                name: 'Xanh Nhạt',
+                image: './assets/img/modalThemes/modalTheme4/theme3.jpg'
+            },
+            {
+                name: 'Hồng Cánh Sen',
+                image: './assets/img/modalThemes/modalTheme4/theme4.jpg'
+            },
+        ]
+    },
 ]
 
 

@@ -55,7 +55,8 @@ const app = {
     isSeeking: false,
     scrollToRight: [true, true, true, true], //use when click move btn
     currentPlaylist: 0, //choose playlist
-    currentTheme: 0, //
+    themeList: 0, //Theme list index (have > 1 lists)
+    currentTheme: 0, //Current theme index in theme list
     indexArray: [], //Use for random song
     slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
@@ -409,7 +410,7 @@ const app = {
             if(scrollTop > 10) {
                 Object.assign(header.style, {
                     backgroundColor: 'var(--layout-bg)',
-                    boxShadow: '0 1px 1px #120a1d',
+                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
                 })
             } else {
                 Object.assign(header.style, {
@@ -776,8 +777,12 @@ const app = {
                 if(themeItem && applyThemeBtn) {
                     applyThemeBtn.onclick = (e) => {
                         const currentTheme = Number(themeItem.dataset.index)
-                        App.style.backgroundImage = `url('${_this.themes[themeIndex][currentTheme]}')`
-                        console.log(_this.themes[themeIndex][currentTheme])
+                        App.style.backgroundImage = `url('${_this.themes[themeIndex][currentTheme].image}')`;
+                        _this.loadThemeBg(themeIndex, currentTheme)
+                        App.classList.add('has__theme-img')
+                        _this.setConfig('themeList', themeIndex)
+                        _this.setConfig('currentTheme', currentTheme)
+                        closeModalBtn.onclick()
                     }
                 }
             }
@@ -844,8 +849,9 @@ const app = {
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
         this.currentPlaylist = this.config.currentPlaylist || 0;
+        this.themeList = this.config.themeList || 0;
         this.currentTheme = this.config.currentTheme || 0;
-        // this.loadThemeBg(this.currentTheme);
+        // this.loadThemeBg(this.themeList, this.currentTheme);
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         volume.value = this.config.currentVolume || 100;
         durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
@@ -853,14 +859,20 @@ const app = {
         repeatBtn.classList.toggle('active', this.isRandom);
     },
 
-    // loadThemeBg(currentTheme) {
-    //     document.documentElement.style.setProperty('--primary-color', this.themes[currentTheme][0])
-    //     document.documentElement.style.setProperty('--bg-color', this.themes[currentTheme][1])
-    //     document.documentElement.style.setProperty('--layout-bg', this.themes[currentTheme][2])
-    //     document.documentElement.style.setProperty('--purple-primary', this.themes[currentTheme][3])
-    //     document.documentElement.style.setProperty('--primary-bg', this.themes[currentTheme][4])
-    //     document.documentElement.style.setProperty('--link-text-hover', this.themes[currentTheme][5])
-    // },
+    loadThemeBg(themeListIndex, currentTheme) {
+        const currentThemeColor = this.themes[themeListIndex][currentTheme].colors
+        document.documentElement.style.setProperty('--bg-content-color', currentThemeColor[0])
+        document.documentElement.style.setProperty('--border-box', currentThemeColor[1])
+        document.documentElement.style.setProperty('--border-primary', currentThemeColor[2])
+        document.documentElement.style.setProperty('--layout-bg', currentThemeColor[3])
+        document.documentElement.style.setProperty('--link-text-hover', currentThemeColor[4])
+        document.documentElement.style.setProperty('--modal-scrollbar', currentThemeColor[5])
+        document.documentElement.style.setProperty('--purple-primary', currentThemeColor[6])
+        document.documentElement.style.setProperty('--primary-bg', currentThemeColor[7])
+        document.documentElement.style.setProperty('--text-color', currentThemeColor[8])
+        document.documentElement.style.setProperty('--text-item-hover', currentThemeColor[9])
+        document.documentElement.style.setProperty('--text-secondary', currentThemeColor[10])
+    },
 
     setUpRender: function() {
         if(this.durationList[this.currentPlaylist].length === 0) {
