@@ -2,116 +2,105 @@ var listPlaylist = [
     {
         name: "V-Pop: The A-List",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist1.jpg"
+        image: "./assets/img/playlists/playlist1.jpg"
     },
     {
-        name: "Playlist #1",
+        name: "Rồi Tới Luôn",
         creator: "Nal",
-        image: "../assets/img/playlists/playlist2.jpg"
+        image: "./assets/img/playlists/playlist2.jpg"
     },
     {
-        name: "Playlist #1",
-        creator: "Ngọc Trâm",
-        image: "../assets/img/playlists/playlist3.jpg"
+        name: "Nhạc Q.Tế",
+        creator: "Lạc Trôi",
+        image: "./assets/img/playlists/playlist3.jpg"
     },
     {
-        name: "Thế Giới V-Pop Vol. 3",
-        creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist4.jpg"
+        name: "Những bản hit của Rap Việt",
+        creator: "Bigcityboi",
+        image: "./assets/img/playlists/playlist4.jpg"
     },
     {
         name: "Top 100 Bài Hát Nhạc Trẻ Hay Nhất",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist5.jpg"
-    },
-
-    {
-        name: "Playlist #15",
-        creator: "Lạc Trôi",
-        image: "../assets/img/playlists/playlist6.jfif"
+        image: "./assets/img/playlists/playlist5.jpg"
     },
     {
-        name: "Playlist #3",
+        name: "Những bản nhạc Dance hay nhất",
         creator: "Đạt Tấn",
-        image: "../assets/img/playlists/playlist7.jfif"
+        image: "./assets/img/playlists/playlist6.jpg"
     },
     {
-        name: "Playlist #5",
+        name: "Em Hát Ai Nghe",
+        creator: "Ngọc Trâm",
+        image: "./assets/img/playlists/playlist7.jpg"
+    },
+    {
+        name: "Chill cùng Đen Vâu",
         creator: "Trà My",
-        image: "../assets/img/playlists/playlist8.jfif"
+        image: "./assets/img/playlists/playlist8.jpg"
     },
     {
-        name: "Playlist #1",
+        name: "Những bản hit hay nhất của Sơn Tùng MTP",
         creator: "Nguyễn Thành Công",
-        image: "../assets/img/playlists/playlist9.jfif"
+        image: "./assets/img/playlists/playlist9.jpg"
     },
     {
-        name: "Playlist #1",
-        creator: "Văn Bình Nguyễn",
-        image: "../assets/img/playlists/playlist10.jfif"
+        name: "Thế Giới V-Pop Vol. 3",
+        creator: "Zing MP3",
+        image: "./assets/img/playlists/playlist10.jpg"
     },
     {
-        name: "Playlist #5",
-        creator: "TVĐ (GK)",
-        image: "../assets/img/playlists/playlist11.jpg"
+        name: "BodyTalk",
+        creator: "Lâm Huy",
+        image: "./assets/img/playlists/playlist11.jpg"
     },
     {
         name: "Playlist Này Chill Phết",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist12.jpg"},
+        image: "./assets/img/playlists/playlist12.jpg"},
      {
-        name: "Tháng 1",
+        name: "BlackJack",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist13.jpg"
+        image: "./assets/img/playlists/playlist13.jpg"
     },
     {
         name: "4U - On Repeat",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist14.jpg"
+        image: "./assets/img/playlists/playlist14.jpg"
     },
     {
         name: "Những Bài Hát Hay Nhất Của Mr. Siro",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist15.jpg"
+        image: "./assets/img/playlists/playlist15.jpg"
     },
     {
         name: "Top EDM Songs Of 2018",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist16.jpg"
+        image: "./assets/img/playlists/playlist16.jpg"
     },{
         name: "Giai Điệu Và Trào Lưu Gây Sốt",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist17.jpg"
+        image: "./assets/img/playlists/playlist17.jpg"
     },
     {
         name: "Những Bài Hát Hay Nhất Của HKT",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist18.jpg"
+        image: "./assets/img/playlists/playlist18.jpg"
     },
     {
         name: "100% Gây Nghiện",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist19.jpg"
-    },
-    {
-        name: "Playlist #1",
-        creator: "Nguyên",
-        image: "../assets/img/playlists/playlist20.jfif"
-    },
-    {
-        name: "Dance Việt Hay Nhất",
-        creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist21.jpg"
+        image: "./assets/img/playlists/playlist19.jpg"
     },
     {
         name: "Nhạc Việt Được Nghe Nhiều Nhất",
         creator: "Zing MP3",
-        image: "../assets/img/playlists/playlist22.jpg"
+        image: "./assets/img/playlists/playlist20.jpg"
     },
     {
-        name: "Playlist #1",
-        creator: "Lâm Huy",
-        image: "../assets/img/playlists/playlist23.jpg"
+        name: "Dance Việt Hay Nhất",
+        creator: "Zing MP3",
+        image: "./assets/img/playlists/playlist21.jpg"
     },
 ];
 

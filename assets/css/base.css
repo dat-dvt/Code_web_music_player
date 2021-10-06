@@ -6,6 +6,8 @@
     --layout-bg: #170f23;
     --link-text-hover: #c662ef;
     --modal-scrollbar: rgba(41, 21, 71,0.8);
+    --navigation-text: #dadada;
+    --placeholder-text: #dadada;
     --player-bg: rgba(0,0,0,0.2);
     --primary-bg: #432275;
     --purple-primary: #7200a1;
@@ -124,7 +126,7 @@ i {
 }
 
 .is-rounded {
-    border-radius: 50% !important;
+    border-radius: 999px !important;
 }
 
 .text-center {
@@ -139,7 +141,7 @@ i {
     display: flex;
     scroll-behavior: smooth;
     flex-wrap: nowrap !important;
-    overflow-x: overlay !important;
+    overflow: overlay hidden !important;
 }
 
 .no-wrap::-webkit-scrollbar {
@@ -274,6 +276,8 @@ i {
     color: rgb(138, 132, 132);
 }
 
+.btn--icon.song__icon.primary,
+.btn--icon.icon--mic.primary,
 .btn--icon.icon--heart.primary {
     color: var(--purple-primary);
 }
@@ -372,7 +376,6 @@ i {
 
 
 .row__item {
-    width: 100%;
     padding: 0 15px;
     display: flex;
     flex-direction: column;

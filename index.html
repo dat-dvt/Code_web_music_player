@@ -12,9 +12,12 @@
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-    <div class="app" style="background-image: url('./assets/img/themes/listTheme3/theme1.jpg')">
+    <div class="app grid" style="background-image: url('./assets/img/themes/listTheme3/theme1.jpg')">
         <div class="app__sidebar">
             <div class="sidebar__nav">
                 <div class="sidebar__logo">
@@ -216,7 +219,7 @@
             </div>
         </div>
         <div class="app__container">
-            <header class="header">
+            <header class="header grid">
                 <div class="header__with-search">
                     <button class="header__button">
                         <i class="bi bi-arrow-left header__button-icon"></i>
@@ -225,10 +228,39 @@
                         <i class="bi bi-arrow-right header__button-icon"></i>
                     </button>
                     <div class="header__search">
+                        <input type="text" placeholder="Nhập tên bài hát, nghệ sĩ hoặc MV..." class="header__search-input">
                         <div class="header__search-btn">
                             <i class="bi bi-search header__search-icon"></i>
                         </div>
-                        <input type="text" placeholder="Nhập tên bài hát, nghệ sĩ hoặc MV..." class="header__search-input">
+                        <div class="header__search-history">
+                            <ul class="header__search-list">
+                                <li class="header__search-item">
+                                    <i class="bi bi-search header__item-icon"></i>
+                                    <a href="#" class="header__item-link">Tình bạn diệu kì</a>
+                                </li>
+                                <li class="header__search-item">
+                                    <i class="bi bi-search header__item-icon"></i>
+                                    <a href="#" class="header__item-link">Gác lại âu lo</a>
+                                </li>
+                                <li class="header__search-item">
+                                    <i class="bi bi-search header__item-icon"></i>
+                                    <a href="#" class="header__item-link">Hongkong1</a>
+                                </li>
+                                <li class="header__search-item">
+                                    <i class="bi bi-search header__item-icon"></i>
+                                    <a href="#" class="header__item-link">#zingchart</a>
+                                </li>
+                                <li class="header__search-item">
+                                    <i class="bi bi-search header__item-icon"></i>
+                                    <a href="#" class="header__item-link">Cheating on You</a>
+                                </li>
+                                <li class="header__search-item">
+                                    <i class="bi bi-search header__item-icon"></i>
+                                    <a href="#" class="header__item-link">BlackJack</a>
+                                </li>
+                            </ul>
+                        </div>
+
                         <!-- <i class="bi bi-x header__search-icon"></i> -->
                     </div>
                 </div>
@@ -248,8 +280,64 @@
                             </button>
                         </li>
                         <li class="header__nav-item">
-                            <button class="header__nav-btn">
+                            <button class="header__nav-btn btn--nav-setting">
                                 <i class="bi bi-gear header__nav-icon"></i>
+                                <div class="setting__menu">
+                                    <div class="setting__nav">
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-shield-lock setting__item-icon"></i>
+                                                <span>Danh sách chặn</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-badge-hd setting__item-icon"></i>
+                                                <span>Chất lượng nhạc</span>
+                                            </div>
+                                            <i class="bi bi-chevron-right setting__item-icon"></i>
+                                        </div>
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-play-circle setting__item-icon"></i>
+                                                <span>Trình phát nhạc</span>
+                                            </div>
+                                            <i class="bi bi-chevron-right setting__item-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="setting__subnav">
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-exclamation-circle setting__item-icon"></i>
+                                                <span>Giới thiệu</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-flag setting__item-icon"></i>
+                                                <span>Góp ý</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-telephone setting__item-icon"></i>
+                                                <span>Liên hệ</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-badge-ad setting__item-icon"></i>
+                                                <span>Quảng cáo</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting__item">
+                                            <div class="setting__item-content">
+                                                <i class="bi bi-file-text setting__item-icon"></i>
+                                                <span>Thỏa thuận sử dụng</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </button>
                         </li>
                         <li class="header__nav-item">
@@ -272,8 +360,12 @@
                     <div class="app__header-actions">
                         <a href="#" class="vip-btn is-small button button-gold">Mua vip ngay</a>
                         <a href="#" class="vip-code-btn is-small button">Nhập code vip</a>
-                        <a class="app__header-options">
+                        <a class="app__header-options options--log-out">
                             <i class="bi bi-three-dots"></i>
+                            <div class="option__log-out">
+                                <i class="bi bi-box-arrow-right log-out__icon"></i>
+                                <span>Đăng xuất</span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -282,34 +374,36 @@
             
             <div class="content">
                 <div class="content__navbar">
-                    <ul class="content__navbar-menu">
-                        <li class="content__navbar-item active">
-                            <span>Tổng quan</span>
-                        </li>
-                        <li class="content__navbar-item">
-                            <span>Bài hát</span>
-                        </li>
-                        <li class="content__navbar-item">
-                            <span>Playlist</span>
-                        </li>
-                        <li class="content__navbar-item">
-                            <span>Nghệ sĩ</span>
-                        </li>
-                        <li class="content__navbar-item">
-                            <span>Album</span>
-                        </li>
-                        <li class="content__navbar-item">
-                            <span>MV</span>
-                        </li>
-                        <li class="content__navbar-item">
-                            <span>Tải lên</span>
-                        </li>
-                    </ul>
+                    <div class="content__navbar-container">
+                        <ul class="content__navbar-menu">
+                            <li class="content__navbar-item active">
+                                <span>Tổng quan</span>
+                            </li>
+                            <li class="content__navbar-item">
+                                <span>Bài hát</span>
+                            </li>
+                            <li class="content__navbar-item">
+                                <span>Playlist</span>
+                            </li>
+                            <li class="content__navbar-item">
+                                <span>Album</span>
+                            </li>
+                            <li class="content__navbar-item">
+                                <span>MV</span>
+                            </li>
+                            <li class="content__navbar-item">
+                                <span>Nghệ sĩ</span>
+                            </li>
+                            <li class="content__navbar-item">
+                                <span>Tải lên</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="content__container">
                     <div class="grid container__tab tab-home active">
                         <div class="container__control row no-gutters">
-                            <div class="container__header col l-12 mb-10">
+                            <div class="container__header col l-12 m-12 c-12 mb-10">
                                 <a href="#" class="container__header-title">
                                     <h3>Bài Hát&nbsp;</h3>
                                     <i class="bi bi-chevron-right container__header-icon"></i>
@@ -328,7 +422,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="container__playmusic col l-12">
+                            <div class="container__playmusic col l-12 m-12 c-12">
                                 <div class="container__slide">
                                     <div class="container__slide-show">
                                         <div class="container__slide-item first">
@@ -406,7 +500,7 @@
                         </div>
 
                         <div class="container__section row mt-50">
-                            <div class="col l-12 container__header mb-16">
+                            <div class="col l-12 m-12 c-12 container__header mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>Playlist&nbsp;</h3>
                                     <i class="bi bi-chevron-right container__header-icon"></i>
@@ -420,14 +514,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row no-wrap playlist--container">
                                 </div>
                             </div>
                         </div>
 
                         <div class="container__section row mt-50">
-                            <div class="col l-12 container__header mb-16">
+                            <div class="col l-12 m-12 c-12 container__header mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>Album&nbsp;</h3>
                                     <i class="bi bi-chevron-right container__header-icon"></i>
@@ -441,14 +535,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row no-wrap album--container">
                                 </div>
                             </div>
                         </div>
 
                         <div class="container__section row mt-50">
-                            <div class="container__header col l-12 mb-16">
+                            <div class="container__header col l-12 m-12 c-12 mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>MV&nbsp;</h3>
                                     <i class="bi bi-chevron-right container__header-icon"></i>
@@ -462,14 +556,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row no-wrap mv--container">
                                 </div>
                             </div>
                         </div>
 
                         <div class="container__section row mt-30">
-                            <div class="container__header col l-12 mb-16">
+                            <div class="container__header col l-12 m-12 c-12 mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>Nghệ Sĩ&nbsp;</h3>
                                     <i class="bi bi-chevron-right container__header-icon"></i>
@@ -483,7 +577,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row no-wrap artist--container">
                                 </div>
                             </div>
@@ -492,7 +586,7 @@
 
                     <div class="grid container__tab tab-song">
                         <div class="row no-gutters">
-                            <div class="container__header col l-12 mb-15">
+                            <div class="container__header col l-12 m-12 c-12 mb-15">
                                 <a href="#" class="container__header-title">
                                     <h3>Bài Hát&nbsp;</h3>
                                 </a>
@@ -510,7 +604,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="container__playlist col l-12">
+                            <div class="container__playlist col l-12 m-12 c-12">
                                 <div class="playlist__header">
                                     <span class="playlist__header-title">Bài hát</span>
                                     <span class="playlist__header-time">Thời gian</span>
@@ -545,27 +639,13 @@
 
                     <div class="grid container__tab tab-playlist">
                         <div class="container__section row">
-                            <div class="container__header col l-12 mb-16">
+                            <div class="container__header col l-12 m-12 c-12 mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>Playlist&nbsp;</h3>
                                 </a>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row playlist--container">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid container__tab tab-artist">
-                        <div class="container__section row">
-                            <div class="container__header col l-12 mb-10">
-                                <a href="#" class="container__header-title">
-                                    <h3>Nghệ Sĩ&nbsp;</h3>
-                                </a>
-                            </div>
-                            <div class="col l-12">
-                                <div class="row artist--container">
                                 </div>
                             </div>
                         </div>
@@ -573,12 +653,12 @@
 
                     <div class="grid container__tab tab-album">
                         <div class="container__section row">
-                            <div class="container__header col l-12 mb-16">
+                            <div class="container__header col l-12 m-12 c-12 mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>Album&nbsp;</h3>
                                 </a>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row album--container">
                                 </div>
                             </div>
@@ -587,13 +667,27 @@
 
                     <div class="grid container__tab tab-mv">
                         <div class="container__section row">
-                            <div class="container__header col l-12 mb-16">
+                            <div class="container__header col l-12 m-12 c-12 mb-16">
                                 <a href="#" class="container__header-title">
                                     <h3>MV&nbsp;</h3>
                                 </a>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="row mv--container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid container__tab tab-artist">
+                        <div class="container__section row">
+                            <div class="container__header col l-12 m-12 c-12 mb-10">
+                                <a href="#" class="container__header-title">
+                                    <h3>Nghệ Sĩ&nbsp;</h3>
+                                </a>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row artist--container">
                                 </div>
                             </div>
                         </div>
@@ -601,12 +695,12 @@
 
                     <div class="grid container__tab tab-upload">
                         <div class="container__section row">
-                            <div class="container__header col l-12 mb-10">
+                            <div class="container__header col l-12 m-12 c-12 mb-10">
                                 <a href="#" class="container__header-title">
                                     <h3 class="f-sz-18 lh-27">Danh Sách Tải Lên&nbsp;</h3>
                                 </a>
                             </div>
-                            <div class="col l-12">
+                            <div class="col l-12 m-12 c-12">
                                 <div class="box--no-content">
                                     <div class="no-content-image"></div>
                                     <span class="no-content-text">Không có bài hát tải lên</span>
@@ -617,7 +711,7 @@
                 </div>
             </div>
         </div>
-        <div class="player">
+        <div class="player grid">
             <div class="player__container">
                 <div class="player__container-song">
                     <div class="player__song-info media">
@@ -725,7 +819,7 @@
             <div class="theme__content">
                 <div class="grid theme__container">
                     <div class="row sm-gutter">
-                        <div class="col l-12 theme__container-info">
+                        <div class="col l-12 m-12 c-12 theme__container-info">
                             <h3 class="theme__info-name">Dynamic</h3>
                         </div>
                         <div class="col l-2 theme__container-item">

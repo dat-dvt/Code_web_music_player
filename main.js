@@ -18,11 +18,16 @@ const closeModalBtn = $('.modal__close-btn')
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
 const header = $('.header')
+const headerNavTitles = $$('.tab-home .container__header-title')
 const homeMVs = $$('.tab-home .mv--container .row__item.item-mv--height');
+const logOutOption = $('.app__header-options.options--log-out')
+const logOutBtn = $('.option__log-out')
 const modalTheme = $('.modal-theme')
 const mvLists = Array.from($$('.mv--container'));
 const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
 const navbarItems = Array.from($$('.content__navbar-item'));
+const navSettingBtn = $('.header__nav-btn.btn--nav-setting')
+const navSettingMenu = $('.setting__menu')
 const navThemeBtn = $('.header__nav-btn.nav-btn--theme')
 const nextBtn = $('.btn-next');
 const player = $('.player')
@@ -37,6 +42,7 @@ const progress = $('#progress');
 const progressBlock = $('.progress-block');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
+const searchHistory = $('.header__search-history')
 const slideImgs = $$('.container__slide-item');
 const sidebarSubnav = $('.sidebar__subnav')
 const songLists = Array.from($$('.playlist__list'));
@@ -46,7 +52,6 @@ const trackTime = $('#tracktime');
 const volume = $('.volume__range');
 const volumeBtn = $('.volume .btn--icon')
 const App = $('.app')
-
 
 
 const app = {
@@ -80,9 +85,12 @@ const app = {
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
-            ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05"],["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"],
-            ["03:28","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:21","03:17","02:37"]
-        ]`),
+            ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05"],
+            ["04:02","02:57","03:21","03:13","03:57","04:21","04:45","02:52","04:46","04:04","02:45","04:27","08:26","04:48","03:01","03:25","04:24","03:19"],
+            ["03:16","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:17","02:37","03:28"],
+            ["03:25","04:45","03:14","04:15","02:54","02:51","02:01","04:28","03:23","03:21","02:28","03:57"]
+        ]
+    `),
 
     themeLists: JSON.parse(localStorage.getItem(THEME_LIST_STORAGE_KEY) || '[]'), // List theme image to render to view
 
@@ -115,11 +123,11 @@ const app = {
                     <div class="playlist__list-song media ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
                         <div class="playlist__song-info media__left mr-10">
                             ${songIndex === 1 && app.html`
-                            <div class="playlist__song-check">
-                                <input type="checkbox" name="" id="playlist__check-${index}" class="mr-10" style="display: none">
-                                <label for="playlist__check-${index}"></label>
-                            </div>
-                            <i class="bi bi-music-note-beamed mr-10"></i>
+                                <div class="playlist__song-check">
+                                    <input type="checkbox" name="" id="playlist__check-${index}" class="mr-10" style="display: none">
+                                    <label for="playlist__check-${index}"></label>
+                                </div>
+                                <i class="bi bi-music-note-beamed mr-10"></i>
                             `}
                             <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover">
                                 <div class="thumb--animate">
@@ -146,10 +154,10 @@ const app = {
                         <span class="playlist__song-time media__content">${app.durationList[app.currentPlaylist][index]}</span>
                         <div class="playlist__song-option ${songIndex === 1 && "song--tab"} media__right">
                             <div class="playlist__song-btn option-btn">
-                                <i class="btn--icon bi bi-mic-fill"></i>
+                                <i class="btn--icon song__icon bi bi-mic-fill"></i>
                             </div>
                             <div class="playlist__song-btn option-btn">
-                                <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                <i class="btn--icon song__icon bi bi-heart-fill primary"></i>
                             </div>
                             <div class="playlist__song-btn option-btn">
                                 <i class="btn--icon bi bi-three-dots"></i>
@@ -164,7 +172,7 @@ const app = {
     renderPlaylist() {
         playlistLists.forEach((playlistList, playlistIndex) => {
             playlistList.innerHTML = app.html`
-                <div class="col l-2-4 row__item  playlist--create ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
+                <div class="col l-2-4 m-3 c-6 row__item  playlist--create ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
                     <div class="row__item-container flex--center item-create--properties">
                         <i class="bi bi-plus-lg album__create-icon"></i>
                         <span class="album__create-annotate">Tạo playlist mới</span>
@@ -172,7 +180,7 @@ const app = {
                 </div>
                 ${app.playlists.map((playlist, index) => {
                     return app.html`
-                        <div class="col l-2-4 row__item ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
+                        <div class="col l-2-4 m-3 c-6 row__item ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
                             <div class="row__item-container flex--top-left">
                                 <div class="row__item-display br-5">
                                     <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
@@ -206,7 +214,7 @@ const app = {
             albumList.innerHTML = app.html`
                 ${app.albums.map((album,index) => {
                     return app.html`
-                        <div class="col l-2-4 row__item item-album--height ${albumIndex === 1 && 'mb-30'}">
+                        <div class="col l-2-4 m-3 c-6 row__item item-album--height ${albumIndex === 1 && 'mb-30'}">
                             <div class="row__item-container flex--top-left">
                                 <div class="row__item-display br-5">
                                     <div class="row__item-img img--square" style="background: url('${album.image}') no-repeat center center / cover"></div>
@@ -240,7 +248,7 @@ const app = {
             mvList.innerHTML = app.html`
                 ${app.mvs.map((mv, index) => {
                     return app.html`
-                        <div class="col l-4 row__item item-mv--height ${mvIndex === 1 && 'mb-30'}">
+                        <div class="col l-4 m-6 c-12 row__item item-mv--height ${mvIndex === 1 && 'mb-30'}">
                             <div class="row__item-container flex--top-left">
                                 <div class="row__item-display br-5">
                                     <div class="row__item-img img--mv" style="background: url('${mv.image}') no-repeat center center / cover"></div>
@@ -284,10 +292,10 @@ const app = {
             artistList.innerHTML = app.html`
                 ${app.artists.map((artist, index) => {
                     return app.html`
-                        <div class="col l-2-4 row__item item-artist--height ${artistIndex === 1 && 'mb-30'}">
+                        <div class="col l-2-4 m-3 c-4 row__item item-artist--height ${artistIndex === 1 && 'mb-30'}">
                             <div class="row__item-container flex--top-left">
                                 <div class="row__item-display is-rounded">
-                                    <div class="row__item-img img--square" style="background: url('${artist.image}') no-repeat center center / cover"></div>
+                                    <div class="row__item-img img--square is-rounded" style="background: url('${artist.image}') no-repeat center center / contain"></div>
                                     <div class="row__item-actions">
                                         <div class="btn--play-playlist">
                                             <div class="control-btn btn-toggle-play">
@@ -378,7 +386,7 @@ const app = {
         // Render Modal
         this.renderModal()
 
-        this.scrollToActiveSong();
+        // this.scrollToActiveSong();
 
     },
 
@@ -585,6 +593,7 @@ const app = {
                 const checkNode = e.target.closest('.playlist__list-song:not(.active) .playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.playlist__song-option')
+                const iconNode = e.target.closest('.btn--icon.song__icon')
                 const activeOption = $('.playlist__song-option.active');
                 if(songNode && !optionNode && !checkNode) {
                     // Handle when clicking on the song
@@ -611,14 +620,15 @@ const app = {
                         e.target.closest('.playlist__list-song').classList.toggle('active', inputCheck.checked)
                     }
                 }
+
+                // Handle when click on icon
+                if(iconNode) {
+                    console.log('vao')
+                    iconNode.classList.toggle('primary')
+                }
     
                 // Handle when clicking on the song option
                 if(optionNode) {
-                    optionNode.classList.add('active');
-                }
-    
-                if(activeOption && !e.target.closest('.option__block')) {
-                    activeOption.classList.remove('active');
                 }
             }
         })
@@ -685,6 +695,16 @@ const app = {
             }
         })
 
+        Array.from(headerNavTitles).forEach((headerNavTitle,index) => {
+            headerNavTitle.onclick = (e) => {
+                $('.content__navbar-item.active').classList.remove('active')
+                navbarItems[index + 1].classList.add('active')
+
+                $('.container__tab.active').classList.remove('active')
+                containerTabs[index + 1].classList.add('active')
+            }
+        })
+
 
         //**  Handle when click button move Album, Playlist, MV and Artist on tab HOME
         // Playlist
@@ -730,7 +750,8 @@ const app = {
             playlist.onclick = (e) => {
                 const playlistBtn = e.target.closest('.btn--play-playlist')
                 if(playlistBtn) {
-                    if(index < 2) {
+                    if(index < 4) {
+                        console.log(index)
                         _this.currentPlaylist = index;
                         _this.loadCurrentSongPlaylist(_this.currentPlaylist)
                         _this.setConfig('currentPlaylist', _this.currentPlaylist)
@@ -743,13 +764,23 @@ const app = {
         })
 
         
-        // Handle when click on Icon heart
+        // Handle when click on icons heart
         const heartIconBtns = $$('.btn--icon.icon--heart');
         Array.from(heartIconBtns).forEach(heartIcon => {
             heartIcon.onclick = () => {
                 if(heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
                 else heartIcon.classList.replace('bi-heart', 'bi-heart-fill')
                 heartIcon.classList.toggle('primary')
+            }
+        })
+
+        //Handle when click on icons micro
+        const micIconBtns = $$('.btn--icon.icon--mic')
+        Array.from(micIconBtns).forEach(micIcon => {
+            micIcon.onclick = () => {
+                if(micIcon.classList.contains('primary')) micIcon.classList.replace('bi-mic-fill', 'bi-mic')
+                else micIcon.classList.replace('bi-mic', 'bi-mic-fill')
+                micIcon.classList.toggle('primary')
             }
         })
 
@@ -772,15 +803,6 @@ const app = {
 
 
         // Handle change theme method
-        // applyThemeBtns.forEach((themeBtn, themeIndex) => {
-        //     themeBtn.onclick = (e) => {
-        //         _this.loadThemeBg(themeIndex)
-        //         this.setConfig('currentTheme', themeIndex)
-        //     }
-        // })
-
-
-        // Handle change theme method
         listThemes.forEach((listTheme,themeIndex) => {
             listTheme.onclick = (e) => {
                 const applyThemeBtn = e.target.closest('.theme__actions-btn.btn--apply-theme')
@@ -800,6 +822,38 @@ const app = {
                 }
             }
         })
+
+        document.onclick = (e) => {
+            navSettingMenu.classList.remove('open')
+            logOutBtn.classList.remove('open')
+        }
+
+        // Handle when click on setting menu
+        navSettingMenu.onclick = (e) => {
+            e.stopPropagation();
+        }
+
+        //Handle when click log out button
+        logOutBtn.onclick = (e) => {
+            e.stopPropagation();
+        }
+
+        // Handle when click setting button
+        navSettingBtn.onclick = (e) => {
+            e.stopPropagation()
+            navSettingMenu.classList.toggle('open')
+        }
+
+        // Handle when click on log out option
+        logOutOption.onclick = (e) => {
+            e.stopPropagation()
+            logOutBtn.classList.toggle('open')
+        }
+
+        // Handle when click on header search history
+        searchHistory.onmousedown = (e) => {
+            e.preventDefault()
+        }
 
 
     },
@@ -879,19 +933,18 @@ const app = {
 
     loadThemeBg(themeListIndex, currentTheme) {
         const currentThemeColor = this.themes[themeListIndex][currentTheme].colors
-        document.documentElement.style.setProperty('--bg-content-color', currentThemeColor[0])
-        document.documentElement.style.setProperty('--border-box', currentThemeColor[1])
-        document.documentElement.style.setProperty('--border-primary', currentThemeColor[2])
-        document.documentElement.style.setProperty('--layout-bg', currentThemeColor[3])
-        document.documentElement.style.setProperty('--link-text-hover', currentThemeColor[4])
-        document.documentElement.style.setProperty('--modal-scrollbar', currentThemeColor[5])
-        document.documentElement.style.setProperty('--player-bg', currentThemeColor[6])
-        document.documentElement.style.setProperty('--purple-primary', currentThemeColor[7])
-        document.documentElement.style.setProperty('--primary-bg', currentThemeColor[8])
-        // document.documentElement.style.setProperty('--sidebar-bg', currentThemeColor[9])
-        document.documentElement.style.setProperty('--text-color', currentThemeColor[9])
-        document.documentElement.style.setProperty('--text-item-hover', currentThemeColor[10])
-        document.documentElement.style.setProperty('--text-secondary', currentThemeColor[11])
+        document.documentElement.style.setProperty('--bg-content-color', currentThemeColor.bgContentColor)
+        document.documentElement.style.setProperty('--border-box', currentThemeColor.borderBox)
+        document.documentElement.style.setProperty('--border-primary', currentThemeColor.borderPrimary)
+        document.documentElement.style.setProperty('--layout-bg', currentThemeColor.layoutBg)
+        document.documentElement.style.setProperty('--link-text-hover', currentThemeColor.linkTextHover)
+        document.documentElement.style.setProperty('--modal-scrollbar', currentThemeColor.modalScrollbar)
+        document.documentElement.style.setProperty('--player-bg', currentThemeColor.playerBg)
+        document.documentElement.style.setProperty('--purple-primary', currentThemeColor.purplePrimary)
+        document.documentElement.style.setProperty('--primary-bg', currentThemeColor.primaryBg)
+        document.documentElement.style.setProperty('--text-color', currentThemeColor.textColor)
+        document.documentElement.style.setProperty('--text-item-hover', currentThemeColor.textItemHover)
+        document.documentElement.style.setProperty('--text-secondary', currentThemeColor.textSecondary)
 
         if(this.themes[themeListIndex][currentTheme].image) {
             App.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
@@ -912,6 +965,7 @@ const app = {
     },
 
     setUpRender: function() {
+        this.songs = this.songPlaylists[this.currentPlaylist]
         if(this.durationList[this.currentPlaylist].length === 0) {
             this.songs.forEach((song, index) => this.durationList[this.currentPlaylist].push('--/--'))
         }
@@ -1022,12 +1076,12 @@ const app = {
         // Listening / handling events (DOM events)
         this.handleEvents();
         
-        
-        
-        
     }
 
 }
 
 
 app.start();
+window.onbeforeunload = function(){
+    localStorage.clear();
+};

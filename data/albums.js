@@ -1,70 +1,62 @@
 var listAlbum = [
     {
-        name: "Hospital Playlist Piano Covers",
-        image: "../assets/img/albums/album1.jpg"
+        name: "Golden Hour",
+        image: "./assets/img/albums/album1.jpg"
     },
     {
         name: "Boycold (Mini Album)",
-        image: "../assets/img/albums/album2.jpg"
+        image: "./assets/img/albums/album2.jpg"
     },
     {
-        name: "Love & Letter (Repackage Album)",
-        image: "../assets/img/albums/album3.jpg"
+        name: "Red",
+        image: "./assets/img/albums/album3.jpg"
     },
     {
         name: "Người Yêu Cũ (Gửi Cho Anh 2) (Mini Album)",
-        image: "../assets/img/albums/album4.jpg"
+        image: "./assets/img/albums/album4.jpg"
     },
     {
-        name: "The Red Summer (Mini Album)",
-        image: "../assets/img/albums/album5.jpg"
-    },
-
-    {
-        name: "Kwon Ji Yong (Mini Album)",
-        image: "../assets/img/albums/album6.jpg"
+        name: "Querencia (Mini Album)",
+        image: "./assets/img/albums/album5.jpg"
     },
     {
-        name: "Khác Biệt (Mini Album)",
-        image: "../assets/img/albums/album7.jpg"
+        name: "Justice (Mini Album)",
+        image: "./assets/img/albums/album6.jpg"
     },
     {
-        name: "LOTTO - The 3rd Album Repackage",
-        image: "../assets/img/albums/album8.jpg"
+        name: "Teenage Dream",
+        image: "./assets/img/albums/album7.jpg"
     },
     {
-        name: "OBSESSION - The 6th Album",
-        image: "../assets/img/albums/album9.jpg"
+        name: "The Off Season",
+        image: "./assets/img/albums/album8.jpg"
     },
     {
-        name: "IU [Japanese Album]",
-        image: "../assets/img/albums/album10.jpg"
+        name: "The Album",
+        image: "./assets/img/albums/album9.jpg"
     },
     {
-        name: "Follow Me (Album 2.0)",
-        image: "../assets/img/albums/album11.jpg"
+        name: "Random Access Memories",
+        image: "./assets/img/albums/album10.jpg"
     },
     {
-        name: "Album Khắc Việt Remix 2018",
-        image: "../assets/img/albums/album12.png"},
+        name: "Map of the Soul: 7",
+        image: "./assets/img/albums/album11.jpg"
+    },
+    {
+        name: "Chromatica",
+        image: "./assets/img/albums/album12.jpg"},
      {
-         name: "Highlight (3rd Album)",
-        image: "../assets/img/albums/album13.jpg"
+         name: "My Turn",
+        image: "./assets/img/albums/album13.jpg"
     },
     {
-        name: "2nd Live Concert Album",
-        image: "../assets/img/albums/album14.jpg"
+        name: "Meet the Woo 2",
+        image: "./assets/img/albums/album14.jpg"
     },
     {
-        name: "Day By Day (6th Mini Album)",
-        image: "../assets/img/albums/album15.jpg"
-    },
-    {
-        name: "Em (The Mini Album)",
-        image: "../assets/img/albums/album16.jpg"
-    },{
-        name: "Time (Mini Album Vol.7)",
-        image: "../assets/img/albums/album17.jpg"
+        name: "Lemonade",
+        image: "./assets/img/albums/album15.jpg"
     },
 ];
 
