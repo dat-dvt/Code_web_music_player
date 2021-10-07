@@ -18,8 +18,11 @@ const closeModalBtn = $('.modal__close-btn')
 const containerTabs = $$('.container__tab');
 const durationTime = $('#durationtime');
 const header = $('.header')
+const headerSongName = $('.app__header-cd-info h2')
+const headerCdThumb = $('.app__header-cd-display .app__header-cd-img')
+const headerCdDisplay = $('.app__header-cd-display')
 const headerNavTitles = $$('.tab-home .container__header-title')
-const homeMVs = $$('.tab-home .mv--container .row__item.item-mv--height');
+const homeMVs = $$('.tab-home .mv--container .row__item.item--mv');
 const logOutOption = $('.app__header-options.options--log-out')
 const logOutBtn = $('.option__log-out')
 const modalTheme = $('.modal-theme')
@@ -66,10 +69,10 @@ const app = {
     indexArray: [], //Use for random song
     slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
-        '.tab-home .playlist--container .row__item.item-playlist--height',
-        '.tab-home .album--container .row__item.item-album--height',
-        '.tab-home .mv--container .row__item.item-mv--height',
-        '.tab-home .artist--container .row__item.item-artist--height',
+        '.tab-home .playlist--container .row__item.item--playlist',
+        '.tab-home .album--container .row__item.item--album',
+        '.tab-home .mv--container .row__item.item--mv',
+        '.tab-home .artist--container .row__item.item--artist',
     ],
     slideTitleWidth: 0, //Width of player title on footer
     
@@ -121,7 +124,7 @@ const app = {
             songList.innerHTML = app.html`${app.songs.map(function(song,index) {
                 return app.html`
                     <div class="playlist__list-song media ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
-                        <div class="playlist__song-info media__left mr-10">
+                        <div class="playlist__song-info media__left">
                             ${songIndex === 1 && app.html`
                                 <div class="playlist__song-check">
                                     <input type="checkbox" name="" id="playlist__check-${index}" class="mr-10" style="display: none">
@@ -153,13 +156,13 @@ const app = {
                         </div>
                         <span class="playlist__song-time media__content">${app.durationList[app.currentPlaylist][index]}</span>
                         <div class="playlist__song-option ${songIndex === 1 && "song--tab"} media__right">
-                            <div class="playlist__song-btn option-btn">
+                            <div class="playlist__song-btn option-btn hide-on-mobile">
                                 <i class="btn--icon song__icon bi bi-mic-fill"></i>
                             </div>
-                            <div class="playlist__song-btn option-btn">
+                            <div class="playlist__song-btn option-btn hide-on-mobile">
                                 <i class="btn--icon song__icon bi bi-heart-fill primary"></i>
                             </div>
-                            <div class="playlist__song-btn option-btn">
+                            <div class="playlist__song-btn option-btn ${songIndex === 0 && 'hide-on-tablet'}">
                                 <i class="btn--icon bi bi-three-dots"></i>
                             </div>
                         </div>
@@ -172,36 +175,40 @@ const app = {
     renderPlaylist() {
         playlistLists.forEach((playlistList, playlistIndex) => {
             playlistList.innerHTML = app.html`
-                <div class="col l-2-4 m-3 c-6 row__item  playlist--create ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
-                    <div class="row__item-container flex--center item-create--properties">
-                        <i class="bi bi-plus-lg album__create-icon"></i>
-                        <span class="album__create-annotate">Tạo playlist mới</span>
+                <div class="col l-2-4 m-3 c-4 ${playlistIndex === 1 && 'mb-30'}">
+                    <div class="row__item  playlist--create item--playlist">
+                        <div class="row__item-container flex--center item-create--properties">
+                            <i class="bi bi-plus-lg album__create-icon"></i>
+                            <span class="album__create-annotate">Tạo playlist mới</span>
+                        </div>
                     </div>
                 </div>
                 ${app.playlists.map((playlist, index) => {
                     return app.html`
-                        <div class="col l-2-4 m-3 c-6 row__item ${playlistIndex === 0 && 'item-playlist--height' || 'item-tab-playlist--height'} ${playlistIndex === 1 && 'mb-30'}">
-                            <div class="row__item-container flex--top-left">
-                                <div class="row__item-display br-5">
-                                    <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
-                                    <div class="row__item-actions">
-                                        <div class="action-btn">
-                                            <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
-                                        </div>
-                                        <div class="btn--play-playlist">
-                                            <div class="control-btn btn-toggle-play">
-                                                <i class="bi bi-play-fill"></i>
+                        <div class="col l-2-4 m-3 c-4 ${playlistIndex === 1 && 'mb-30'}">
+                            <div class="row__item item--playlist">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
+                                        <div class="row__item-actions">
+                                            <div class="action-btn">
+                                                <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                            </div>
+                                            <div class="btn--play-playlist">
+                                                <div class="control-btn btn-toggle-play">
+                                                    <i class="bi bi-play-fill"></i>
+                                                </div>
+                                            </div>
+                                            <div class="action-btn">
+                                                <i class="btn--icon bi bi-three-dots"></i>
                                             </div>
                                         </div>
-                                        <div class="action-btn">
-                                            <i class="btn--icon bi bi-three-dots"></i>
-                                        </div>
+                                        <div class="overlay"></div>
                                     </div>
-                                    <div class="overlay"></div>
-                                </div>
-                                <div class="row__item-info">
-                                    <a href="#" class="row__info-name">${playlist.name}</a>
-                                    <h3 class="row__info-creator">${playlist.creator}</h3>
+                                    <div class="row__item-info">
+                                        <a href="#" class="row__info-name">${playlist.name}</a>
+                                        <h3 class="row__info-creator">${playlist.creator}</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -214,27 +221,29 @@ const app = {
             albumList.innerHTML = app.html`
                 ${app.albums.map((album,index) => {
                     return app.html`
-                        <div class="col l-2-4 m-3 c-6 row__item item-album--height ${albumIndex === 1 && 'mb-30'}">
-                            <div class="row__item-container flex--top-left">
-                                <div class="row__item-display br-5">
-                                    <div class="row__item-img img--square" style="background: url('${album.image}') no-repeat center center / cover"></div>
-                                    <div class="row__item-actions">
-                                        <div class="action-btn">
-                                            <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
-                                        </div>
-                                        <div class="btn--play-playlist">
-                                            <div class="control-btn btn-toggle-play">
-                                                <i class="bi bi-play-fill icon-play"></i>
+                        <div class="col l-2-4 m-3 c-4 ${albumIndex === 1 && 'mb-30'}">
+                            <div class="row__item item--album">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--square" style="background: url('${album.image}') no-repeat center center / cover"></div>
+                                        <div class="row__item-actions">
+                                            <div class="action-btn">
+                                                <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                            </div>
+                                            <div class="btn--play-playlist">
+                                                <div class="control-btn btn-toggle-play">
+                                                    <i class="bi bi-play-fill icon-play"></i>
+                                                </div>
+                                            </div>
+                                            <div class="action-btn">
+                                                <i class="btn--icon bi bi-three-dots"></i>
                                             </div>
                                         </div>
-                                        <div class="action-btn">
-                                            <i class="btn--icon bi bi-three-dots"></i>
-                                        </div>
+                                        <div class="overlay"></div>
                                     </div>
-                                    <div class="overlay"></div>
-                                </div>
-                                <div class="row__item-info">
-                                    <a href="#" class="row__info-name">${album.name}</a>
+                                    <div class="row__item-info">
+                                        <a href="#" class="row__info-name">${album.name}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -248,35 +257,37 @@ const app = {
             mvList.innerHTML = app.html`
                 ${app.mvs.map((mv, index) => {
                     return app.html`
-                        <div class="col l-4 m-6 c-12 row__item item-mv--height ${mvIndex === 1 && 'mb-30'}">
-                            <div class="row__item-container flex--top-left">
-                                <div class="row__item-display br-5">
-                                    <div class="row__item-img img--mv" style="background: url('${mv.image}') no-repeat center center / cover"></div>
-                                    <div class="row__item-actions">
-                                        <div class="action-btn mv-btn--close">
-                                            <i class="bi bi-x-lg btn--icon"></i>
-                                        </div>
-                                        <div class="btn--play-playlist">
-                                            <div class="control-btn btn-toggle-play">
-                                                <i class="bi bi-play-fill icon-play"></i>
+                        <div class="col l-4 m-6 c-12 ${mvIndex === 1 && 'mb-30'}">
+                            <div class="row__item item--mv">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--mv" style="background: url('${mv.image}') no-repeat center center / cover"></div>
+                                        <div class="row__item-actions">
+                                            <div class="action-btn mv-btn--close">
+                                                <i class="bi bi-x-lg btn--icon"></i>
+                                            </div>
+                                            <div class="btn--play-playlist">
+                                                <div class="control-btn btn-toggle-play">
+                                                    <i class="bi bi-play-fill icon-play"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="overlay"></div>
+                                        <div class="mv__time">${mv.time}</div>
                                     </div>
-                                    <div class="overlay"></div>
-                                    <div class="mv__time">${mv.time}</div>
-                                </div>
-                                <div class="row__item-info media">
-                                    <div class="media__left">
-                                        <div class="media__thumb is-rounded mr-10" style="background: url('${mv.authorAvatar}') no-repeat center center / cover"></div>
-                                        <div class="media__info">
-                                            <span class="info__title is-active">${mv.name}</span>
-                                            <p class="info__author">
-                                                ${mv.author.map((author, index) => {
-                                                    return app.html`
-                                                        <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ',&nbsp;'}
-                                                    `
-                                                })}
-                                            </p>
+                                    <div class="row__item-info media">
+                                        <div class="media__left">
+                                            <div class="media__thumb is-rounded mr-10" style="background: url('${mv.authorAvatar}') no-repeat center center / cover"></div>
+                                            <div class="media__info">
+                                                <span class="info__title is-active">${mv.name}</span>
+                                                <p class="info__author">
+                                                    ${mv.author.map((author, index) => {
+                                                        return app.html`
+                                                            <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ',&nbsp;'}
+                                                        `
+                                                    })}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -292,35 +303,37 @@ const app = {
             artistList.innerHTML = app.html`
                 ${app.artists.map((artist, index) => {
                     return app.html`
-                        <div class="col l-2-4 m-3 c-4 row__item item-artist--height ${artistIndex === 1 && 'mb-30'}">
-                            <div class="row__item-container flex--top-left">
-                                <div class="row__item-display is-rounded">
-                                    <div class="row__item-img img--square is-rounded" style="background: url('${artist.image}') no-repeat center center / contain"></div>
-                                    <div class="row__item-actions">
-                                        <div class="btn--play-playlist">
-                                            <div class="control-btn btn-toggle-play">
-                                                <i class="bi bi-play-fill icon-play"></i>
+                        <div class="col l-2-4 m-3 c-6 ${artistIndex === 1 && 'mb-30'}">
+                            <div class="row__item item--artist">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display is-rounded">
+                                        <div class="row__item-img img--square is-rounded" style="background: url('${artist.image}') no-repeat center center / contain"></div>
+                                        <div class="row__item-actions">
+                                            <div class="btn--play-playlist">
+                                                <div class="control-btn btn-toggle-play">
+                                                    <i class="bi bi-play-fill icon-play"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="overlay"></div>
                                     </div>
-                                    <div class="overlay"></div>
-                                </div>
-                                <div class="row__item-info media artist-info--height">
-                                    <div class="media__left">
-                                        <div href="#" class="row__info-name is-ghost mt-15 lh-19 text-center">
-                                            ${artist.name}
-                                            <i class="bi bi-star-fill row__info-icon">
-                                                <div class="icon-overlay"></div>
-                                            </i>
+                                    <div class="row__item-info media artist--info">
+                                        <div class="media__left">
+                                            <div href="#" class="row__info-name is-ghost mt-15 lh-19 text-center">
+                                                ${artist.name}
+                                                <i class="bi bi-star-fill row__info-icon">
+                                                    <div class="icon-overlay"></div>
+                                                </i>
+                                            </div>
+                                            <h3 class="row__info-creator text-center">${artist.folowers} quan tâm</h3>
                                         </div>
-                                        <h3 class="row__info-creator text-center">${artist.folowers} quan tâm</h3>
                                     </div>
-                                </div>
-                                <div class="row__item-btn">
-                                    <button class="button is-small button-primary">
-                                        <i class="bi bi-check2"></i>
-                                        &nbsp;Đã quan tâm
-                                    </button>
+                                    <div class="row__item-btn">
+                                        <button class="button is-small button-primary">
+                                            <i class="bi bi-check2"></i>
+                                            <span>&nbsp;Đã quan tâm</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -335,26 +348,30 @@ const app = {
             ${this.themeLists.map((themeList, themeIndex)=> {
                 return app.html`
                     <div class="row sm-gutter theme__list">
-                        <div class="col l-12 m-12 c-12 theme__container-info">
-                            <h3 class="theme__info-name">${themeList.type}</h3>
+                        <div class="col l-12 m-12 c-12">
+                            <div class="theme__container-info">
+                                <h3 class="theme__info-name">${themeList.type}</h3>
+                            </div>
                         </div>
                         ${themeList.themes.map((theme, index) => {
                             return app.html`
-                                <div class="col l-2 m-4 c-6 theme__container-item mb-20" data-index="${index}">
-                                    <div class="theme__item-display row__item-display br-5">
-                                        <div class="theme__item-img row__item-img" style="background: url('${theme.image}') no-repeat center center / cover"></div>
-                                        <div class="overlay"></div>
-                                        <div class="theme__item-actions row__item-actions">
-                                            <button class="button theme__actions-btn btn--apply-theme button-primary">
-                                                <span class="theme__btn-title">Áp dụng</span>
-                                            </button>
-                                            <button class="button theme__actions-btn btn--preview">
-                                                <span class="theme__btn-title">Xem trước</span>
-                                            </button>
+                                <div class="col l-2 m-4 c-6 mb-20">
+                                    <div class="theme__container-item" data-index="${index}">
+                                        <div class="theme__item-display row__item-display br-5">
+                                            <div class="theme__item-img row__item-img" style="background: url('${theme.image}') no-repeat center center / cover"></div>
+                                            <div class="overlay"></div>
+                                            <div class="theme__item-actions row__item-actions">
+                                                <button class="button theme__actions-btn btn--apply-theme button-primary">
+                                                    <span class="theme__btn-title">Áp dụng</span>
+                                                </button>
+                                                <button class="button theme__actions-btn btn--preview">
+                                                    <span class="theme__btn-title">Xem trước</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="theme__item-info">
-                                        <div class="theme__item-name">${theme.name}</div>
+                                        <div class="theme__item-info">
+                                            <div class="theme__item-name">${theme.name}</div>
+                                        </div>
                                     </div>
                                 </div>
                             `
@@ -404,6 +421,22 @@ const app = {
         const playBtns = Array.from($$('.btn-toggle-play.btn--play-song'));
         const listThemes = Array.from($$('.theme__container .theme__list'));
 
+        // // Handles CD enlargement / reduction
+        // appContainer.onscroll = function() {
+        //     console.log('vao')
+        //     const cdWidth = 200;
+        //     const scrollTop = appContainer.scrollY || appContainer.documentElement.scrollTop;
+        //     const newCdWidth = cdWidth - scrollTop;
+        //     Object.assign(headerCdThumb.style,  {
+        //             width: newCdWidth > 0 ? newCdWidth + 'px' : 0,
+        //             opacity: newCdWidth / cdWidth
+        //         });
+        //     if(newCdWidth < cdWidth) {
+        //         volume.classList.add('horizontal');
+        //     } else {
+        //         volume.classList.remove('horizontal');
+        //     }
+        // }
 
         sidebarSubnav.onscroll = (e) => {
             const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
@@ -432,7 +465,6 @@ const app = {
         // Handle when click play
         playBtns.forEach(playBtn => {
             playBtn.onclick = function() {
-                console.log(123)
                 if(_this.isPlaying) {
                     audio.pause();
                 } else {
@@ -468,7 +500,7 @@ const app = {
             })
             playerContainer.classList.add('playing');
             playerInfo.classList.add('playing')
-            // cdThumbAnimate.play();
+            headerCdThumbAnimate.play();
             _this.titleAnimate().play();
         }
         
@@ -481,7 +513,7 @@ const app = {
             })
             playerContainer.classList.remove('playing');
             playerInfo.classList.remove('playing')
-            // cdThumbAnimate.pause();
+            headerCdThumbAnimate.pause();
         }
 
         // Handle next song when audio ended
@@ -539,13 +571,13 @@ const app = {
         
 
         //  Handle CD spins / stops
-        // const cdThumbAnimate = cdThumb.animate([
-        //     { transform: 'rotate(360deg)'}
-        // ], {
-        //     duration: 10000, // 10000 seconds
-        //     iterations: Infinity,
-        // })
-        // cdThumbAnimate.pause()
+        const headerCdThumbAnimate = headerCdThumb.animate([
+            { transform: 'rotate(360deg)'}
+        ], {
+            duration: 10000, // 10000 seconds
+            iterations: Infinity,
+        })
+        headerCdThumbAnimate.pause()
         
         
 
@@ -623,7 +655,6 @@ const app = {
 
                 // Handle when click on icon
                 if(iconNode) {
-                    console.log('vao')
                     iconNode.classList.toggle('primary')
                 }
     
@@ -745,13 +776,12 @@ const app = {
         }
         
         // Handle when click on Playlist Item
-        const playlistItems = $$('.tab-home .playlist--container .row__item.item-playlist--height:not(.playlist--create)')
+        const playlistItems = $$('.tab-home .playlist--container .row__item.item--playlist:not(.playlist--create)')
         Array.from(playlistItems).forEach((playlist, index) => {
             playlist.onclick = (e) => {
                 const playlistBtn = e.target.closest('.btn--play-playlist')
                 if(playlistBtn) {
                     if(index < 4) {
-                        console.log(index)
                         _this.currentPlaylist = index;
                         _this.loadCurrentSongPlaylist(_this.currentPlaylist)
                         _this.setConfig('currentPlaylist', _this.currentPlaylist)
@@ -872,13 +902,15 @@ const app = {
                 <div class="title__item">${this.currentSong.name}</div>
                 <div class="title__item">${this.currentSong.name}</div>
         `;
+        headerSongName.innerText = this.currentSong.name
         author.innerHTML = app.html`
             ${this.currentSong.singer.map((singer, index) => {
                 return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
             })}
         
         `;
-        const a = this.setPlayerInfoWidth()
+        this.setPlayerInfoWidth()
+        headerCdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         audio.src = `${this.currentSong.path}`;
         durationTime.innerHTML = this.durationList[this.currentPlaylist][this.currentIndex];
@@ -1082,6 +1114,3 @@ const app = {
 
 
 app.start();
-window.onbeforeunload = function(){
-    localStorage.clear();
-};

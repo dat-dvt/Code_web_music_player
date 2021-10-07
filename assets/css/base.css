@@ -17,16 +17,10 @@
     --text-item-hover: #fff;
     --text-secondary: rgba(255, 255, 255, 0.5);
     --white-color: #fff;
-    --album--height: 229.41px;
-    --artist-btn-height: 59px;
-    --artist--height: 297.33px;
-    --display-img--height: 179.34px;
+    --player-height: 90px;
     --header-height: 70px;
-    --mv--height: 239.38px;
     --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
     --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
-    --playlist--height: 245.36px;
-    --playlist-tab--height: 226.33px;
     --scale-rate-second: calc( 196 / 230);
     --scale-rate-third: calc( 162 / 230);
 }
@@ -48,6 +42,7 @@ html {
 
 body {
     overflow: hidden;
+    background: var(--layout-bg);
 }
 
 i {
@@ -55,10 +50,6 @@ i {
 }
 
 /* Common variables */
-.pd-l-20 {
-    padding-left: 20px !important;
-}
-
 .mr-10 {
     margin-right: 10px !important;
 }
@@ -83,6 +74,9 @@ i {
     margin-bottom: 30px !important;
 }
 
+.mt-5 {
+    margin-top: 5px !important;
+}
 
 .mt-15 {
     margin-top: 15px !important;
@@ -194,6 +188,7 @@ i {
     text-transform: uppercase;
     color: var(--text-color);
     background-color: var(--bg-content-color);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .button i {
@@ -305,6 +300,10 @@ i {
     justify-content: flex-start;
 }
 
+.row__item .media__left {
+    margin-right: 0;
+}
+
 .row__item-info.artist-info--height .media__left {
     margin: 0;
 }
@@ -376,52 +375,25 @@ i {
 
 
 .row__item {
-    padding: 0 15px;
     display: flex;
-    flex-direction: column;
+    height: 100%;
     align-items: center;
+    flex-direction: column;
     will-change: scroll-position;
 }
+
 
 .row__item-container {
     width: 100%;
     height: 100%;
     border-radius: 4px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .item-create--properties {
     cursor: pointer;
     background: linear-gradient(33deg,#5a1eae -7%,#ce267a 117%);;
 }
-
-.item-playlist--height {
-    height: var(--playlist--height);
-}
-
-.item-tab-playlist--height {
-    height: var(--playlist-tab--height);
-    /* height: 226.33px; */
-}
-
-.item-album--height {
-    height: var(--album--height)
-    /* height: 229.41px; */
-}
-
-.item-mv--height {
-    height: var(--mv--height)
-    /* height: 239.38px; */
-}
-
-.item-artist--height {
-    height: var(--artist--height)
-    /* height: 297.33px; */
-}
-
-.artist-info--height {
-    height: calc(100% - var(--display-img--height) - var(--artist-btn-height)) !important;
-}
-
 
 .flex--center { 
     display: flex;
@@ -441,7 +413,6 @@ i {
 /* Playlist display */
 .row__item-display {
     width: 100%;
-    height: var(--display-img--height);
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -475,6 +446,7 @@ i {
     left: 0;
     right: 0;
     z-index: 1;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -592,8 +564,16 @@ i {
 
 /* Playlist info */
 .row__item-info {
-    height: calc(100% - var(--display-img--height));
+    flex: 1;
+    width: 100%;
+}
+
+.row__item.item--mv .row__item-info {
     padding: 10px 0;
+}
+
+.row__item-info.artist--info {
+    padding: 0;
 }
 
 .row__item-info  .media__left {
@@ -602,14 +582,15 @@ i {
 
 .row__info-name {
     width: 100%;
+    display: block;
+    cursor: pointer;
+    font-weight: 500;
     margin: 8px 0 4px;
     font-size: 1.4rem;
+    position: relative;
     line-height: 1.9rem;
-    font-weight: 500;
-    cursor: pointer;
     color: var(--text-color);
     text-decoration: inherit;
-    position: relative;
 }
 
 .row__info-name:hover .row__info-icon,
@@ -655,15 +636,31 @@ i {
     color: var(--text-secondary);
 }
 
+.row__item.item--artist .row__info-creator {
+    line-height: 1.5rem;
+}
+
 .row__item-btn {
     margin: 15px auto 20px;
 }
 
+.row__item-btn i {
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    transform: scale(1.3) translate(-1px, 1px);
+}
+
+.row__item-btn span {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
 .row__item-btn button.is-small {
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 29px;
     border: 1px solid var(--purple-primary);
 }
 
@@ -694,16 +691,17 @@ i {
 
 
 .modal-theme {
-    width: 100%;
-    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
     z-index: 500;
     display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .modal-theme.open {
@@ -807,7 +805,7 @@ i {
 .theme__info-name {
     font-size: 1.8rem;
     height: 27px;
-    line-height: 27px;
+    line-height: 2.7rem;
     margin: 0;
     color: var(--text-color);
     text-transform: capitalize;
@@ -875,7 +873,7 @@ i {
 .theme__item-name {
     font-size: 1.2rem;
     font-weight: 500;
-    line-height: 16px;
+    line-height: 1.6rem;
     color: var(--text-color);
     text-transform: capitalize;
 }

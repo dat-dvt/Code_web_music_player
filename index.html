@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!--[if lt IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -19,12 +20,13 @@
 <body>
     <div class="app grid" style="background-image: url('./assets/img/themes/listTheme3/theme1.jpg')">
         <div class="app__sidebar">
+            <div class="sidebar__logo hide-on-mobile">
+                <a href="#" class="sidebar__logo-link">
+                    <div class="sidebar__logo-img hide-on-tablet-mobile"></div>
+                    <div class="sidebar__small-logo"></div>
+                </a>
+            </div>
             <div class="sidebar__nav">
-                <div class="sidebar__logo">
-                    <a href="#" class="sidebar__logo-link">
-                        <div class="sidebar__logo-img"></div>
-                    </a>
-                </div>
                 <ul class="sidebar__nav-list sidebar__nav-list--separate ">
                     <li class="sidebar__nav-item active">
                         <a href="#" class="sidebar__item-link">
@@ -59,7 +61,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="sidebar__subnav">
+            <div class="sidebar__subnav hide-on-mobile">
                 <ul class="sidebar__nav-list">
                     <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
@@ -196,7 +198,7 @@
                         </a>
                     </li>
                 </ul>
-                <ul class="sidebar__nav-list">
+                <ul class="sidebar__nav-list hide-on-tablet-mobile">
                     <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
                             <span>Tháng 1</span>
@@ -271,7 +273,7 @@
                                 <svg width="20" height="20" class="header__nav-icon" viewBox="0 0 20 20"><defs><linearGradient id="j32lhg93hd" x1="62.206%" x2="18.689%" y1="70.45%" y2="39.245%"><stop offset="0%" stop-color="#F81212"></stop><stop offset="100%" stop-color="red"></stop></linearGradient><linearGradient id="hjoavsus6g" x1="50%" x2="11.419%" y1="23.598%" y2="71.417%"><stop offset="0%" stop-color="#00F"></stop><stop offset="100%" stop-color="#0031FF"></stop></linearGradient><linearGradient id="la1y5u3dvi" x1="65.655%" x2="25.873%" y1="18.825%" y2="56.944%"><stop offset="0%" stop-color="#FFA600"></stop><stop offset="100%" stop-color="orange"></stop></linearGradient><linearGradient id="2dsmrlvdik" x1="24.964%" x2="63.407%" y1="8.849%" y2="55.625%"><stop offset="0%" stop-color="#13EFEC"></stop><stop offset="100%" stop-color="#00E8DF"></stop></linearGradient><filter id="4a7imk8mze" width="230%" height="230%" x="-65%" y="-65%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><filter id="301mo6jeah" width="312.7%" height="312.7%" x="-106.4%" y="-106.4%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><filter id="b2zvzgq7fj" width="295%" height="295%" x="-97.5%" y="-97.5%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><filter id="a1wq161tvl" width="256%" height="256%" x="-78%" y="-78%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><path id="qtpqrj1oda" d="M3.333 14.167V5.833l-1.666.834L0 3.333 3.333 0h3.334c.04 1.57.548 2.4 1.524 2.492l.142.008C9.403 2.478 9.958 1.645 10 0h3.333l3.334 3.333L15 6.667l-1.667-.834v8.334h-10z"></path><path id="jggzvnjgfc" d="M0 0H20V20H0z"></path><path id="2eiwxjmc7m" d="M3.333 14.167V5.833l-1.666.834L0 3.333 3.333 0h3.334c.04 1.57.548 2.4 1.524 2.492l.142.008C9.403 2.478 9.958 1.645 10 0h3.333l3.334 3.333L15 6.667l-1.667-.834v8.334h-10z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(2 3)"><mask id="tinejqaasb" fill="#fff"><use xlink:href="#qtpqrj1oda"></use></mask><use fill="#FFF" fill-opacity="0" xlink:href="#qtpqrj1oda"></use><g mask="url(#tinejqaasb)"><g transform="translate(-2 -3)"><mask id="uf3ckvfvpf" fill="#fff"><use xlink:href="#jggzvnjgfc"></use></mask><use fill="#D8D8D8" xlink:href="#jggzvnjgfc"></use><circle cx="8.9" cy="6.8" r="9" fill="url(#j32lhg93hd)" filter="url(#4a7imk8mze)" mask="url(#uf3ckvfvpf)"></circle><circle cx="9.3" cy="13.7" r="5.5" fill="url(#hjoavsus6g)" filter="url(#301mo6jeah)" mask="url(#uf3ckvfvpf)"></circle><circle cx="15.9" cy="6.9" r="6" fill="url(#la1y5u3dvi)" filter="url(#b2zvzgq7fj)" mask="url(#uf3ckvfvpf)"></circle><circle cx="16.4" cy="17.7" r="7.5" fill="url(#2dsmrlvdik)" filter="url(#a1wq161tvl)" mask="url(#uf3ckvfvpf)"></circle></g></g><use fill="#FFF" fill-opacity="0.05" xlink:href="#2eiwxjmc7m"></use></g></svg>
                             </button>
                         </li>
-                        <li class="header__nav-item">
+                        <li class="header__nav-item hide-on-mobile">
                             <button class="header__nav-btn">
                                     <input type="file" name="upload song" id="header__nav-input">
                                     <label for="header__nav-input">
@@ -279,7 +281,7 @@
                                     </label>
                             </button>
                         </li>
-                        <li class="header__nav-item">
+                        <li class="header__nav-item hide-on-mobile">
                             <button class="header__nav-btn btn--nav-setting">
                                 <i class="bi bi-gear header__nav-icon"></i>
                                 <div class="setting__menu">
@@ -351,22 +353,31 @@
                 <div class="app__header-bg" style="background: url('./assets/img/avatars/avatar.jpg') no-repeat center center / cover;"></div>
                 <div class="app__header-overlay"></div>
                 <div class="app__header-container">
-                    <div class="app__header-user">
+                    <div class="app__header-user hide-on-mobile">
                         <div class="app__user-avatar">
                             <img src="./assets/img/avatars/avatar.jpg" alt="" class="app__user-img">
                         </div>
                         <span class="app__user-name">My Vân</span>
                     </div>
                     <div class="app__header-actions">
-                        <a href="#" class="vip-btn is-small button button-gold">Mua vip ngay</a>
-                        <a href="#" class="vip-code-btn is-small button">Nhập code vip</a>
-                        <a class="app__header-options options--log-out">
+                        <a href="#" class="vip-btn is-small button button-gold hide-on-mobile">Mua vip ngay</a>
+                        <a href="#" class="vip-code-btn is-small button hide-on-tablet-mobile">Nhập code vip</a>
+                        <a class="app__header-options options--log-out hide-on-mobile">
                             <i class="bi bi-three-dots"></i>
                             <div class="option__log-out">
                                 <i class="bi bi-box-arrow-right log-out__icon"></i>
                                 <span>Đăng xuất</span>
                             </div>
                         </a>
+                    </div>
+                    <div class="app__header-cd-thumb">
+                        <div class="app__header-cd-info">
+                            <h4>Now playing</h4>
+                            <h2></h2>
+                        </div>
+                        <div class="app__header-cd-display">
+                            <div class="app__header-cd-img" style="background: url('./assets/img/music/listSong1/song1.jpg') no-repeat center center / cover"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -376,7 +387,7 @@
                 <div class="content__navbar">
                     <div class="content__navbar-container">
                         <ul class="content__navbar-menu">
-                            <li class="content__navbar-item active">
+                            <li class="content__navbar-item active hide-on-tablet">
                                 <span>Tổng quan</span>
                             </li>
                             <li class="content__navbar-item">
@@ -385,16 +396,16 @@
                             <li class="content__navbar-item">
                                 <span>Playlist</span>
                             </li>
-                            <li class="content__navbar-item">
+                            <li class="content__navbar-item hide-on-mobile">
                                 <span>Album</span>
                             </li>
                             <li class="content__navbar-item">
                                 <span>MV</span>
                             </li>
-                            <li class="content__navbar-item">
+                            <li class="content__navbar-item hide-on-mobile">
                                 <span>Nghệ sĩ</span>
                             </li>
-                            <li class="content__navbar-item">
+                            <li class="content__navbar-item hide-on-mobile">
                                 <span>Tải lên</span>
                             </li>
                         </ul>
@@ -402,87 +413,246 @@
                 </div>
                 <div class="content__container">
                     <div class="grid container__tab tab-home active">
-                        <div class="container__control row no-gutters">
-                            <div class="container__header col l-12 m-12 c-12 mb-10">
-                                <a href="#" class="container__header-title">
-                                    <h3>Bài Hát&nbsp;</h3>
-                                    <i class="bi bi-chevron-right container__header-icon"></i>
-                                </a>
-                                <div class="container__header-actions">
-                                    <button class="button is-small container__header-btn">
-                                        <input type="file" name="upload song" id="container__header-input">
-                                        <label for="container__header-input">
-                                            <i class="bi bi-upload container__header-icon"></i>
-                                            Tải lên
-                                        </label>
-                                    </button>
-                                    <button class="button is-small button-primary container__header-btn btn--play-all">
-                                        <i class="bi bi-play-fill container__header-icon"></i>
-                                        <span>Phát tất cả</span>
-                                    </button>
+                        <div class="container__control row">
+                            <div class="col l-12 m-12 c-12 mb-10">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Bài Hát&nbsp;</h3>
+                                        <i class="bi bi-chevron-right container__header-icon"></i>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Bài Hát</h3>
+                                    <div class="container__header-actions">
+                                        <button class="button is-small container__header-btn hide-on-mobile">
+                                            <input type="file" name="upload song" id="container__header-input">
+                                            <label for="container__header-input">
+                                                <i class="bi bi-upload container__header-icon"></i>
+                                                Tải lên
+                                            </label>
+                                        </button>
+                                        <button class="button is-small button-primary container__header-btn btn--play-all">
+                                            <i class="bi bi-play-fill container__header-icon"></i>
+                                            <span>Phát tất cả</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="container__playmusic col l-12 m-12 c-12">
-                                <div class="container__slide">
-                                    <div class="container__slide-show">
-                                        <div class="container__slide-item first">
-                                            <div style="background: url('./assets/img/slides/slide1.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="container__playmusic">
+                                    <div class="container__slide hide-on-mobile">
+                                        <div class="container__slide-show">
+                                            <div class="container__slide-item first">
+                                                <div style="background: url('./assets/img/slides/slide1.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item second">
+                                                <div style="background: url('./assets/img/slides/slide2.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item third">
+                                                <div style="background: url('./assets/img/slides/slide3.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide4.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide5.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide6.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide7.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide8.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide9.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide10.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide11.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide12.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide13.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
+                                            <div class="container__slide-item fourth">
+                                                <div style="background: url('./assets/img/slides/slide14.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                            </div>
                                         </div>
-                                        <div class="container__slide-item second">
-                                            <div style="background: url('./assets/img/slides/slide2.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item third">
-                                            <div style="background: url('./assets/img/slides/slide3.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide4.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide5.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide6.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide7.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide8.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide9.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide10.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide11.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide12.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide13.jpg') no-repeat center center / cover" class="container__slide-img"></div>
-                                        </div>
-                                        <div class="container__slide-item fourth">
-                                            <div style="background: url('./assets/img/slides/slide14.jpg') no-repeat center center / cover" class="container__slide-img"></div>
+                                    </div>
+                                    <div class="container__playlist">
+                                        <div class="playlist__list">
+                                            <div class="playlist__list-song media">
+                                                <div class="playlist__song-info media__left">
+                                                    <div class="playlist__song-thumb media__thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
+                                                    <div class="playlist__song-body media__info">
+                                                        <span class="playlist__song-title info__title">Music Name</span>
+                                                        <p class="playlist__song-author info__author">
+                                                            <a href="#" class="is-ghost">Singer</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <span class="playlist__song-time media__content">--/--</span>
+                                                <div class="playlist__song-option media__right">
+                                                    <div class="playlist__song-btn option-btn">
+                                                        <i class="btn--icon bi bi-mic-fill"></i>
+                                                    </div>
+                                                    <div class="playlist__song-btn option-btn">
+                                                        <i class="btn--icon bi bi-suit-heart"></i>
+                                                    </div>
+                                                    <div class="playlist__song-btn option-btn">
+                                                        <i class="btn--icon bi bi-three-dots"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="container__section row mt-50">
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Playlist&nbsp;</h3>
+                                        <i class="bi bi-chevron-right container__header-icon"></i>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Playlist</h3>
+                                    <div class="container__header-actions hide-on-tablet-mobile">
+                                        <div class="container__move-btn move-btn--playlist button--disabled">
+                                            <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                        </div>
+                                        <div class="container__move-btn move-btn--playlist">
+                                            <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row no-wrap playlist--container">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container__section row mt-50">
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Album&nbsp;</h3>
+                                        <i class="bi bi-chevron-right container__header-icon"></i>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Album</h3>
+                                    <div class="container__header-actions hide-on-tablet-mobile">
+                                        <div class="container__move-btn move-btn--album button--disabled">
+                                            <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                        </div>
+                                        <div class="container__move-btn move-btn--album">
+                                            <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row no-wrap album--container">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container__section row mt-50">
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>MV&nbsp;</h3>
+                                        <i class="bi bi-chevron-right container__header-icon"></i>
+                                    </a>
+                                    <h3 class="container__header-subtitle">MV</h3>
+                                    <div class="container__header-actions hide-on-tablet-mobile">
+                                        <div class="container__move-btn move-btn--mv button--disabled">
+                                            <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                        </div>
+                                        <div class="container__move-btn move-btn--mv">
+                                            <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row no-wrap mv--container">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container__section row mt-30">
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Nghệ Sĩ&nbsp;</h3>
+                                        <i class="bi bi-chevron-right container__header-icon"></i>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Nghệ Sĩ</h3>
+                                    <div class="container__header-actions hide-on-tablet-mobile">
+                                        <div class="container__move-btn move-btn--artist button--disabled">
+                                            <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                        </div>
+                                        <div class="container__move-btn move-btn--artist">
+                                            <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row no-wrap artist--container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid container__tab tab-song">
+                        <div class="row no-gutters">
+                            <div class="col l-12 m-12 c-12">
+                                <div class="container__header mb-10">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Bài Hát&nbsp;</h3>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Bài Hát</h3>
+                                    <div class="container__header-actions">
+                                        <button class="button is-small container__header-btn hide-on-mobile">
+                                            <input type="file" name="upload song" id="container__header-input">
+                                            <label for="container__header-input">
+                                                <i class="bi bi-upload container__header-icon"></i>
+                                                Tải lên
+                                            </label>
+                                        </button>
+                                        <button class="button is-small button-primary container__header-btn btn--play-all">
+                                            <i class="bi bi-play-fill container__header-icon"></i>
+                                            <span>Phát tất cả</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col l-12 m-12 c-12">
                                 <div class="container__playlist">
-                                    <div class="playlist__list pd-l-20">
-                                        <div class="playlist__list-song media">
-                                            <div class="playlist__song-info media__left">
-                                                <div class="playlist__song-thumb media__thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
-                                                <div class="playlist__song-body media__info">
-                                                    <span class="playlist__song-title info__title">Music Name</span>
-                                                    <p class="playlist__song-author info__author">
-                                                        <a href="#" class="is-ghost">Singer</a>
-                                                    </p>
+                                    <div class="playlist__header hide-on-mobile mt-5">
+                                        <span class="playlist__header-title">Bài hát</span>
+                                        <span class="playlist__header-time">Thời gian</span>
+                                    </div>
+                                    <div class="playlist__list overflow-visible">
+                                        <div class="playlist__list-song">
+                                            <div class="playlist__song-info">
+                                                <i class="bi bi-music-note-beamed playlist__song-icon mr-10"></i>
+                                                <div class="playlist__song-thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
+                                                <div class="playlist__song-body">
+                                                    <span class="playlist__song-title">Music Name</span>
+                                                    <p class="playlist__song-author">Singer</p>
                                                 </div>
                                             </div>
-                                            <span class="playlist__song-time media__content">--/--</span>
-                                            <div class="playlist__song-option media__right">
+                                            <span class="playlist__song-time">--/--</span>
+                                            <div class="playlist__song-option">
                                                 <div class="playlist__song-btn option-btn">
                                                     <i class="btn--icon bi bi-mic-fill"></i>
                                                 </div>
@@ -498,151 +668,17 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="container__section row mt-50">
-                            <div class="col l-12 m-12 c-12 container__header mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>Playlist&nbsp;</h3>
-                                    <i class="bi bi-chevron-right container__header-icon"></i>
-                                </a>
-                                <div class="container__header-actions">
-                                    <div class="container__move-btn move-btn--playlist button--disabled">
-                                        <i class="bi bi-chevron-left container__move-btn-icon"></i>
-                                    </div>
-                                    <div class="container__move-btn move-btn--playlist">
-                                        <i class="bi bi-chevron-right container__move-btn-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l-12 m-12 c-12">
-                                <div class="row no-wrap playlist--container">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container__section row mt-50">
-                            <div class="col l-12 m-12 c-12 container__header mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>Album&nbsp;</h3>
-                                    <i class="bi bi-chevron-right container__header-icon"></i>
-                                </a>
-                                <div class="container__header-actions">
-                                    <div class="container__move-btn move-btn--album button--disabled">
-                                        <i class="bi bi-chevron-left container__move-btn-icon"></i>
-                                    </div>
-                                    <div class="container__move-btn move-btn--album">
-                                        <i class="bi bi-chevron-right container__move-btn-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l-12 m-12 c-12">
-                                <div class="row no-wrap album--container">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container__section row mt-50">
-                            <div class="container__header col l-12 m-12 c-12 mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>MV&nbsp;</h3>
-                                    <i class="bi bi-chevron-right container__header-icon"></i>
-                                </a>
-                                <div class="container__header-actions">
-                                    <div class="container__move-btn move-btn--mv button--disabled">
-                                        <i class="bi bi-chevron-left container__move-btn-icon"></i>
-                                    </div>
-                                    <div class="container__move-btn move-btn--mv">
-                                        <i class="bi bi-chevron-right container__move-btn-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l-12 m-12 c-12">
-                                <div class="row no-wrap mv--container">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container__section row mt-30">
-                            <div class="container__header col l-12 m-12 c-12 mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>Nghệ Sĩ&nbsp;</h3>
-                                    <i class="bi bi-chevron-right container__header-icon"></i>
-                                </a>
-                                <div class="container__header-actions">
-                                    <div class="container__move-btn move-btn--artist button--disabled">
-                                        <i class="bi bi-chevron-left container__move-btn-icon"></i>
-                                    </div>
-                                    <div class="container__move-btn move-btn--artist">
-                                        <i class="bi bi-chevron-right container__move-btn-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l-12 m-12 c-12">
-                                <div class="row no-wrap artist--container">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid container__tab tab-song">
-                        <div class="row no-gutters">
-                            <div class="container__header col l-12 m-12 c-12 mb-15">
-                                <a href="#" class="container__header-title">
-                                    <h3>Bài Hát&nbsp;</h3>
-                                </a>
-                                <div class="container__header-actions">
-                                    <button class="button is-small container__header-btn">
-                                        <input type="file" name="upload song" id="container__header-input">
-                                        <label for="container__header-input">
-                                            <i class="bi bi-upload container__header-icon"></i>
-                                            Tải lên
-                                        </label>
-                                    </button>
-                                    <button class="button is-small button-primary container__header-btn btn--play-all">
-                                        <i class="bi bi-play-fill container__header-icon"></i>
-                                        <span>Phát tất cả</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="container__playlist col l-12 m-12 c-12">
-                                <div class="playlist__header">
-                                    <span class="playlist__header-title">Bài hát</span>
-                                    <span class="playlist__header-time">Thời gian</span>
-                                </div>
-                                <div class="playlist__list overflow-visible">
-                                    <div class="playlist__list-song">
-                                        <div class="playlist__song-info">
-                                            <i class="bi bi-music-note-beamed playlist__song-icon mr-10"></i>
-                                            <div class="playlist__song-thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
-                                            <div class="playlist__song-body">
-                                                <span class="playlist__song-title">Music Name</span>
-                                                <p class="playlist__song-author">Singer</p>
-                                            </div>
-                                        </div>
-                                        <span class="playlist__song-time">--/--</span>
-                                        <div class="playlist__song-option">
-                                            <div class="playlist__song-btn option-btn">
-                                                <i class="btn--icon bi bi-mic-fill"></i>
-                                            </div>
-                                            <div class="playlist__song-btn option-btn">
-                                                <i class="btn--icon bi bi-suit-heart"></i>
-                                            </div>
-                                            <div class="playlist__song-btn option-btn">
-                                                <i class="btn--icon bi bi-three-dots"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="grid container__tab tab-playlist">
                         <div class="container__section row">
-                            <div class="container__header col l-12 m-12 c-12 mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>Playlist&nbsp;</h3>
-                                </a>
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Playlist&nbsp;</h3>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Playlist</h3>
+                                </div>
                             </div>
                             <div class="col l-12 m-12 c-12">
                                 <div class="row playlist--container">
@@ -653,10 +689,12 @@
 
                     <div class="grid container__tab tab-album">
                         <div class="container__section row">
-                            <div class="container__header col l-12 m-12 c-12 mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>Album&nbsp;</h3>
-                                </a>
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Album&nbsp;</h3>
+                                    </a>
+                                </div>
                             </div>
                             <div class="col l-12 m-12 c-12">
                                 <div class="row album--container">
@@ -667,10 +705,13 @@
 
                     <div class="grid container__tab tab-mv">
                         <div class="container__section row">
-                            <div class="container__header col l-12 m-12 c-12 mb-16">
-                                <a href="#" class="container__header-title">
-                                    <h3>MV&nbsp;</h3>
-                                </a>
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>MV&nbsp;</h3>
+                                    </a>
+                                    <h3 class="container__header-subtitle">MV</h3>
+                                </div>
                             </div>
                             <div class="col l-12 m-12 c-12">
                                 <div class="row mv--container">
@@ -681,10 +722,12 @@
 
                     <div class="grid container__tab tab-artist">
                         <div class="container__section row">
-                            <div class="container__header col l-12 m-12 c-12 mb-10">
-                                <a href="#" class="container__header-title">
-                                    <h3>Nghệ Sĩ&nbsp;</h3>
-                                </a>
+                            <div class="col l-12 m-12 c-12 mb-10">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Nghệ Sĩ&nbsp;</h3>
+                                    </a>
+                                </div>
                             </div>
                             <div class="col l-12 m-12 c-12">
                                 <div class="row artist--container">
@@ -747,7 +790,7 @@
                                 <div class="player__song-author info__author">Author</div>
                             </div>
                         </div>
-                        <div class="media__right">
+                        <div class="media__right hide-on-tablet-mobile">
                             <div class="player__song-options">
                                 <div class="player__song-btn option-btn">
                                     <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
@@ -784,11 +827,11 @@
                         <span id="durationtime">--:--</span>
                     </div>
                 </div>
-                <div class="player__options">
-                    <div class="player__options-btn option-btn">
+                <div class="player__options hide-on-mobile">
+                    <div class="player__options-btn option-btn hide-on-tablet-mobile">
                         <i class="bi bi-camera-video btn--icon"></i>
                     </div>
-                    <div class="player__options-btn option-btn">
+                    <div class="player__options-btn option-btn hide-on-tablet-mobile">
                         <i class="bi bi-mic btn--icon"></i>
                     </div>
                     <div class="player__options-btn volume option-btn">
@@ -808,7 +851,7 @@
     </div>
 
 
-    <div class="modal-theme">
+    <div class="modal-theme grid">
         <div class="modal-container">
             <div class="modal__close-btn">
                 <i class="bi bi-x-lg close close__btn-icon"></i>
@@ -819,24 +862,28 @@
             <div class="theme__content">
                 <div class="grid theme__container">
                     <div class="row sm-gutter">
-                        <div class="col l-12 m-12 c-12 theme__container-info">
-                            <h3 class="theme__info-name">Dynamic</h3>
-                        </div>
-                        <div class="col l-2 theme__container-item">
-                            <div class="theme__item-display row__item-display br-5">
-                                <div class="theme__item-img row__item-img" style="background: url('./assets/img/themes/listTheme2/theme1.jpg') no-repeat center center / cover"></div>
-                                <div class="overlay"></div>
-                                <div class="theme__item-actions row__item-actions">
-                                    <button class="button theme__actions-btn btn--apply-theme button-primary">
-                                        <span class="theme__btn-title">Áp dụng</span>
-                                    </button>
-                                    <button class="button theme__actions-btn">
-                                        <span class="theme__btn-title">Xem trước</span>
-                                    </button>
-                                </div>
+                        <div class="col l-12 m-12 c-12">
+                            <div class="theme__container-info">
+                                <h3 class="theme__info-name">Dynamic</h3>
                             </div>
-                            <div class="theme__item-info">
-                                <div class="theme__item-name">Sáng Tối</div>
+                        </div>
+                        <div class="col l-2">
+                            <div class="theme__container-item">
+                                <div class="theme__item-display row__item-display br-5">
+                                    <div class="theme__item-img row__item-img" style="background: url('./assets/img/themes/listTheme2/theme1.jpg') no-repeat center center / cover"></div>
+                                    <div class="overlay"></div>
+                                    <div class="theme__item-actions row__item-actions">
+                                        <button class="button theme__actions-btn btn--apply-theme button-primary">
+                                            <span class="theme__btn-title">Áp dụng</span>
+                                        </button>
+                                        <button class="button theme__actions-btn">
+                                            <span class="theme__btn-title">Xem trước</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="theme__item-info">
+                                    <div class="theme__item-name">Sáng Tối</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -844,6 +891,9 @@
             </div>
         </div>
     </div>
+    <script>
+            localStorage.clear();
+    </script>
     <script src="./data/themes.js"></script>
     <script src="./data/listThemes.js"></script>
     <script src="./data/songPlaylists.js"></script>

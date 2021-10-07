@@ -1,44 +1,59 @@
 /* Main CSS */
 .app {
     display: flex;
-    overflow: hidden;
+    overflow: hidden overlay;
     background-repeat: repeat;
-    height: calc(100vh - 91px);
     background-size: 1920px auto;
     background-color: var(--layout-bg);
+    -webkit-tap-highlight-color: transparent;
+    height: calc(100vh - var(--player-height));
 }
 
 /* Siderbar CSS */
 .app__sidebar {
     width: 240px;
     background-color: var(--sidebar-bg);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .sidebar__nav {
     display: block;
-    width: 240px;
+    width: 100%;
     margin: 0 0 15px;
 }
 
 .sidebar__logo {
+    width: 100%;
+    padding: 0 28px;
     height: 70px;
-    padding: 0 25px 0 28px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .sidebar__logo-link {
-    display: inline-block;
+    width: 100%;
+    height: 100%;
+    height: 40px;
+    display: flex;
     line-height: 1.2rem;
     text-decoration: none;
 }
 
 .sidebar__logo-img {
-    width: 120px;
-    height: 40px;
+    width: 100%;
+    height: 34px;
     display: inline-block;
     color: var(--text-color);
-    background: url("https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/backgrounds/logo-dark.svg") 50% center / contain no-repeat;
+    background: url('../img/logos/main-logo.svg') 0 center / contain no-repeat;
+}
+
+.sidebar__small-logo {
+    width: 100%;
+    height: 40px;
+    display: none;
+    color: var(--text-color);
+    background: url('../img/logos/small-logo.svg') center center / contain no-repeat;
 }
 
 .sidebar__nav-list {
@@ -64,9 +79,10 @@
 }
 
 .sidebar__nav-item {
-    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
     margin-left: 3px;
-    padding: 7px 28px;
 }
 
 .sidebar__nav-item.active {
@@ -76,8 +92,9 @@
 }
 
 .sidebar__item-link {
-    display: inline-flex;
     height: 100%;
+    padding: 7px 28px;
+    display: inline-flex;
     align-items: center;
     text-decoration: none;
     color: var(--text-color);
@@ -92,9 +109,10 @@
 }
 
 .sidebar__item-link i {
-    display: inline-block;
+    width: 24px;
+    height: 24px;
     font-size: 2.2rem;
-    font-weight: 100;
+    display: inline-block;
 }
 
 .sidebar__item-link span {
@@ -119,7 +137,7 @@
 
 .sidebar__subnav {
     height: 223px;
-    width: 240px;
+    width: 100%;
     overflow: hidden overlay;
     margin: 30px 0 0;
 }
@@ -272,8 +290,12 @@
     flex: 1;
     left: 0;
     right: 0;
-    max-height: 100%;
+    height: 100%;
     overflow: hidden overlay;
+    overflow-anchor: none !important;
+    scroll-snap-stop: normal !important;
+    overscroll-behavior: unset !important;
+    scroll-behavior: unset !important;
 }
 
 .app__container::-webkit-scrollbar {
@@ -300,13 +322,13 @@
 }
 
 .header {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
     right: 0;
     z-index: 100;
     display: flex;
     padding: 0 30px;
+    width: calc(100% - 240px);
     height: var(--header-height);
     justify-content: space-between;
     background-color: var(--layout-bg);
@@ -362,9 +384,10 @@
     height: 38px;
     display: flex;
     border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
     background-color: transparent;
     color: var(--placeholder-text);
+    border-bottom-left-radius: 20px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .header__search-icon {
@@ -381,15 +404,18 @@
     flex: 1;
     order: 2;
     left: 38px;
-    padding: 0;
-    width: 100%;
     border: none;
     z-index: 400;
     height: 38px;
     outline: none;
+    overflow: hidden;
     line-height: 4rem;
     font-size: 1.4rem;
+    padding: 0 9px 0 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     background: transparent;
+    width: calc(100% - 38px);
     color: var(--text-color);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -409,8 +435,8 @@
 }
 
 .header__search-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: var(--placeholder-text);
     opacity: 1; /* Firefox */
+    color: var(--placeholder-text);
 }
   
 .header__search-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
@@ -493,6 +519,7 @@
 
 .header__nav-item {
     margin-right: 10px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .header__nav-item:last-child {
@@ -776,17 +803,65 @@
 }
 
 
+/* App header CD thumbnail */
+.app__header-cd-thumb {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: none;
+    position: absolute;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.app__header-cd-display {
+    width: 200px;
+    margin: auto;
+}
+
+.app__header-cd-img  {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 50%;
+}
+
+.app__header-cd-info {
+    width: 100%;
+    text-align: center;
+}
+
+.app__header-cd-info h4 {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+}
+
+.app__header-cd-info h2 {
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+
+
+
+
+
+
 /* Content CSS */
 .content {
-    padding: 205px 55px 0;
+    padding: 205px 4vw 0;
     display: flex;
     flex-direction: column;
 }
 
-
 .content__navbar {
+    display: flex;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
     margin: auto -55px 30px;
-    height: 52px;
 }
 
 .content__navbar-container {
@@ -815,6 +890,7 @@
     text-align: center;
     border-radius: 15px;
     color: var(--text-color);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .content__navbar-item.active {
@@ -839,6 +915,7 @@
 
 .container__tab {
     display: none;
+    /* padding: 15px; */
 }
 
 .container__tab.active {
@@ -868,7 +945,6 @@
 
 .container__header-title {
     height: 100%;
-    font-size: 2rem;
     display: flex;
     align-items: center;
     line-height: 2.4rem;
@@ -876,9 +952,19 @@
     text-decoration: none;
 }
 
+.container__header-subtitle {
+    height: 100%;
+    display: none;
+    font-size: 2rem;
+    align-items: center;
+    line-height: 2.4rem;
+    text-decoration: none;
+    color: var(--text-color);
+}
 
 .container__header-title h3 {
     margin: 0;
+    font-size: 2rem;
 }
 
 .container__header-title:hover{
@@ -949,22 +1035,24 @@ label .container__header-icon {
 }
 
 
+
 /* Content slideshow */
 .container__playmusic {
-    width: 100%;
     margin: 0;
+    width: 100%;
     height: 244px;
-    margin-bottom: 25px;
     display: flex;
+    margin-bottom: 25px;
 }
 
 
 /* Content Slider */
 .container__slide {
-    height: 100%;
     width: 270px;
+    height: 100%;
     display: flex;
     align-items: center;
+    padding-right: 20px;
     justify-content: flex-end;
 }
 
@@ -1017,8 +1105,13 @@ label .container__header-icon {
 
 /* Content playlist */
 .container__playlist {
+    flex-grow: 1;
+    min-width: 0;
     height: 100%;
-    width: calc(100% - 270px);
+    display: flex;
+    flex-shrink: 1;
+    flex-direction: column;
+    /* width: calc(100% - 270px); */
 }
 
 .playlist__header {
@@ -1051,14 +1144,14 @@ label .container__header-icon {
 }
 
 .playlist__list {
+    flex: 1;
     width: 100%;
-    height: 100%;
-    font-weight: 500;
-    font-size: 1.2rem;
-    color: #b0a8b9;
     display: flex;
+    font-weight: 500;
+    color: #b0a8b9;
+    font-size: 1.2rem;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow:hidden overlay;
 }
 
@@ -1090,17 +1183,17 @@ label .container__header-icon {
 }
 
 .playlist__list-song {
+    justify-content: space-between;
     height: 61px;
     padding: 10px;
     cursor: pointer;
     box-shadow: 0 1px 1px var(--bg-color);
-    /* background-color: var(--layout-bg); */
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .playlist__list-song:hover,
 .playlist__list-song.active {
-    background-color: rgba(0,0,0,0.15);
+    background-color: var(--bg-content-color);
 }
 
   
@@ -1311,7 +1404,6 @@ label .container__header-icon {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 91px;
     background-size: 1920px auto;
     background-position: 50%;
     background-repeat: repeat-x;
@@ -1320,12 +1412,10 @@ label .container__header-icon {
 }
 
 .player__container {
-    height: 90px;
-    height: 100%;
     display: flex;
     padding: 0 20px;
     align-items: center;
-    flex-direction: row;
+    height: var(--player-height);
     justify-content: space-between;
     background-color: var(--player-bg);
 }
@@ -1478,14 +1568,14 @@ label .container__header-icon {
 }
 
 .player__song-title {
-    height: 16px;
-    max-width: 190px;
+    height: 19px;
     display:flex;
-    position: relative;
+    max-width: 190px;
     font-weight: 500;
     overflow: hidden;
     font-size: 1.4rem;
-    line-height: 1.6rem;
+    position: relative;
+    line-height: 1.9rem;
     white-space: nowrap;
 }
 
@@ -1505,6 +1595,11 @@ label .container__header-icon {
 .player__song-author {
     max-width: 100%;
     line-height: 1.6rem;
+}
+
+.player__song-author.info__author {
+    height: 15px;
+    margin-top: 1px;
 }
 
 
@@ -1531,19 +1626,22 @@ label .container__header-icon {
 .player__control {
     flex: 1;
     height: 73px;
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .player__control-btn {
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 248px;
-    height: 50px;
 }
 
+.player__control-btn .btn-toggle-play {
+    padding: 3px 7px;
+}
 
 .btn-toggle-play {
     flex: 1;
@@ -1633,9 +1731,9 @@ label .container__header-icon {
 
 .player__options {
     width: 30%;
-    padding-left: 150px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .player__options-btn.option-btn {
