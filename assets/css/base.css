@@ -12,6 +12,7 @@
     --primary-bg: #432275;
     --purple-primary: #7200a1;
     --sidebar-bg: rgba(255, 255, 255, 0.05);
+    --sidebar-popup-bg: #2a213a;
     --tab-active-color: rgba(255, 255, 255, 0.3);
     --text-color: #fff;
     --text-item-hover: #fff;
@@ -19,6 +20,7 @@
     --white-color: #fff;
     --player-height: 90px;
     --header-height: 70px;
+    --sidebar-height: calc(100% - var(--player-height));
     --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
     --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
     --scale-rate-second: calc( 196 / 230);
@@ -44,6 +46,7 @@ body {
     overflow: hidden;
     background: var(--layout-bg);
 }
+
 
 i {
     display: block;
@@ -716,8 +719,9 @@ i {
     max-width: 900px;
     max-height: 100%;
     min-height: 500px;
-    padding-bottom: 20px;
     border-radius: 8px;
+    scroll-behavior: smooth;
+    padding-bottom: 20px;
     transform: translate(-50%, -50%);
     background-color: var(--primary-bg);
 }

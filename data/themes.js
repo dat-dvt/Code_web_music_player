@@ -12,6 +12,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#ed2b91",
                 primaryBg:"#6a39af",
+                sidebarPopupBg: "#572f90",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -30,6 +31,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#7200a1",
                 primaryBg:"#3d3d3d",
+                sidebarPopupBg: "#292929",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -49,6 +51,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#3460f5",
                 primaryBg:"#192f60",
+                sidebarPopupBg: "#1d2a49",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -66,6 +69,7 @@ const Themes = [
                 playerBg:"#d0ccc5",
                 purplePrimary:"#409abc",
                 primaryBg:"#fffffe",
+                sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#409abc",
                 textSecondary:"#696969"
@@ -83,6 +87,7 @@ const Themes = [
                 playerBg:"#b4d0d0",
                 purplePrimary:"#239292",
                 primaryBg:"#e1e8e8",
+                sidebarPopupBg: "#cce0e0",
                 textColor:"#32323d",
                 textItemHover:"#239292",
                 textSecondary:"#696969"
@@ -100,6 +105,7 @@ const Themes = [
                 playerBg:"#f9c6c5",
                 purplePrimary:"#ea7aa0",
                 primaryBg:"#fff8f8",
+                sidebarPopupBg: "#fbd3d2",
                 textColor:"#32323d",
                 textItemHover:"#ea7aa0",
                 textSecondary:"#696969"
@@ -117,6 +123,7 @@ const Themes = [
                 playerBg:"#c6c4d1",
                 purplePrimary:"#346875",
                 primaryBg:"#e2e7f5",
+                sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#2a5e6b",
                 textSecondary:"#696969"
@@ -134,6 +141,7 @@ const Themes = [
                 playerBg:"#fff",
                 purplePrimary:"#6b3483",
                 primaryBg:"#fff",
+                sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#6b3483",
                 textSecondary:"rgba(0,0,0,0.6)"
@@ -152,6 +160,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#7200a1",
                 primaryBg:"#282828",
+                sidebarPopupBg: "#292929",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -168,6 +177,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#7200a1",
                 primaryBg:"#432275",
+                sidebarPopupBg: "#2a213a",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -184,6 +194,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#3460f5",
                 primaryBg:"#192f60",
+                sidebarPopupBg: "#1d2a49",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -200,6 +211,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#3460f5",
                 primaryBg:"#274a78",
+                sidebarPopupBg: "#2a4162",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -216,6 +228,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#309785",
                 primaryBg:"#126e54",
+                sidebarPopupBg: "#244f3f",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -232,6 +245,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#986d5c",
                 primaryBg:"#6f514c",
+                sidebarPopupBg: "#604a45",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -248,6 +262,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#d820b0",
                 primaryBg:"#a22687",
+                sidebarPopupBg: "#883c6c",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -264,6 +279,7 @@ const Themes = [
                 playerBg:"rgba(0,0,0,0.2)",
                 purplePrimary:"#aa1c1c",
                 primaryBg:"#883236",
+                sidebarPopupBg: "#7a2922",
                 textColor:"#fff",
                 textItemHover:"#fff",
                 textSecondary:"rgb(255 255 255 / 50%)"
@@ -282,6 +298,7 @@ const Themes = [
                 playerBg:"#fff",
                 purplePrimary:"#6b3483",
                 primaryBg:"#fff",
+                sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#6b3483",
                 textSecondary:"rgba(0,0,0,0.6)"
@@ -298,6 +315,7 @@ const Themes = [
                 playerBg:"#d0ccc5",
                 purplePrimary:"#8c8471",
                 primaryBg:"#fffffe",
+                sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#8c8471",
                 textSecondary:"#696969"
@@ -314,6 +332,7 @@ const Themes = [
                 playerBg:"#b4d0d0",
                 purplePrimary:"#239292",
                 primaryBg:"#e1e8e8",
+                sidebarPopupBg: "#cce0e0",
                 textColor:"#32323d",
                 textItemHover:"#239292",
                 textSecondary:"#696969"
@@ -330,6 +349,7 @@ const Themes = [
                 playerBg:"#f9c6c5",
                 purplePrimary:"#ea7aa0",
                 primaryBg:"#fff8f8",
+                sidebarPopupBg: "#fbd3d2",
                 textColor:"#32323d",
                 textItemHover:"#ea7aa0",
                 textSecondary:"#696969"

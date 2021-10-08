@@ -16,11 +16,16 @@ const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
 const cdThumb = $('.player__song-thumb .thumb-img');
 const closeModalBtn = $('.modal__close-btn')
 const containerTabs = $$('.container__tab');
-const durationTime = $('#durationtime');
+const durationTimes = Array.from($$('.durationtime'));
+const sidebarExpandBtn = $('.sidebar__expand-btn.btn--expand')
+const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink')
 const header = $('.header')
-const headerSongName = $('.app__header-cd-info h2')
-const headerCdThumb = $('.app__header-cd-display .app__header-cd-img')
-const headerCdDisplay = $('.app__header-cd-display')
+const playerPopUp = $('.player .player__popup')
+const playerPopUpFooter = $('.player .player__popup .player__popup-footer')
+const popUpSongName = $('.player__popup-cd-info h2')
+const popUpSongAuthor = $('.player__popup-cd-info h3')
+const popUpCdThumb = $('.player__popup-cd-display .player__popup-cd-img')
+const popUpCdDisplay = $('.player__popup-cd-display')
 const headerNavTitles = $$('.tab-home .container__header-title')
 const homeMVs = $$('.tab-home .mv--container .row__item.item--mv');
 const logOutOption = $('.app__header-options.options--log-out')
@@ -32,7 +37,7 @@ const navbarItems = Array.from($$('.content__navbar-item'));
 const navSettingBtn = $('.header__nav-btn.btn--nav-setting')
 const navSettingMenu = $('.setting__menu')
 const navThemeBtn = $('.header__nav-btn.nav-btn--theme')
-const nextBtn = $('.btn-next');
+const nextBtns = Array.from($$('.btn-next'));
 const player = $('.player')
 const playerContainer = $('.player__container');
 const playerInfo = $('.player__song-info')
@@ -40,18 +45,19 @@ const playAllBtns = $$('.btn--play-all');
 const playlistLists = Array.from($$('.playlist--container'));
 const playlistScrollBtns = $$('.container__move-btn.move-btn--playlist');
 const playBtns = Array.from($$('.btn-toggle-play'));
-const prevBtn = $('.btn-prev');
-const progress = $('#progress');
-const progressBlock = $('.progress-block');
-const randomBtn = $('.btn-random');
-const repeatBtn = $('.btn-repeat');
+const prevBtns = Array.from($$('.btn-prev'));
+const progress = Array.from($$('.progress'));
+const progressBlocks = Array.from($$('.progress-block'));
+const randomBtns = Array.from($$('.btn-random'));
+const repeatBtns = Array.from($$('.btn-repeat'));
 const searchHistory = $('.header__search-history')
+const sidebar = $('.app__sidebar')
 const slideImgs = $$('.container__slide-item');
 const sidebarSubnav = $('.sidebar__subnav')
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitle = $('.player__title-animate');
 const themeContainer = $('.theme__container')
-const trackTime = $('#tracktime');
+const trackTimes = Array.from($$('.tracktime'));
 const volume = $('.volume__range');
 const volumeBtn = $('.volume .btn--icon')
 const App = $('.app')
@@ -427,7 +433,7 @@ const app = {
         //     const cdWidth = 200;
         //     const scrollTop = appContainer.scrollY || appContainer.documentElement.scrollTop;
         //     const newCdWidth = cdWidth - scrollTop;
-        //     Object.assign(headerCdThumb.style,  {
+        //     Object.assign(popUpCdThumb.style,  {
         //             width: newCdWidth > 0 ? newCdWidth + 'px' : 0,
         //             opacity: newCdWidth / cdWidth
         //         });
@@ -449,7 +455,7 @@ const app = {
 
         appContainer.onscroll = function() {
             const scrollTop = appContainer.scrollY || appContainer.scrollTop;
-            if(scrollTop > 10) {
+            if(scrollTop > 5) {
                 Object.assign(header.style, {
                     backgroundColor: 'var(--layout-bg)',
                     boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
@@ -498,9 +504,9 @@ const app = {
             songActives.forEach(songActive => {
                 songActive.classList.add('playing')
             })
-            playerContainer.classList.add('playing');
+            player.classList.add('playing');
             playerInfo.classList.add('playing')
-            headerCdThumbAnimate.play();
+            popUpCdThumbAnimate.play();
             _this.titleAnimate().play();
         }
         
@@ -511,16 +517,16 @@ const app = {
             songActives.forEach(songActive => {
                 songActive.classList.remove('playing')
             })
-            playerContainer.classList.remove('playing');
+            player.classList.remove('playing');
             playerInfo.classList.remove('playing')
-            headerCdThumbAnimate.pause();
+            popUpCdThumbAnimate.pause();
         }
 
         // Handle next song when audio ended
         audio.onended = function() {
             if(_this.isRepeat) {
             } else {
-                nextBtn.click();
+                nextBtns[0].click();
             }
             audio.play();
         }
@@ -530,93 +536,135 @@ const app = {
         audio.ontimeupdate = function(e) {
             if (!_this.isSeeking && audio.duration) {
                 const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
-                trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
-                progress.value = Math.floor(audio.currentTime / audio.duration * 100);
+                trackTimes.forEach(trackTime => {
+                    trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
+                })
+                progress.forEach(progressChild => {
+                    progressChild.value = Math.floor(audio.currentTime / audio.duration * 100);
+                })
                 if(listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
                     _this.durationList[_this.currentPlaylist].splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
                     localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(_this.durationList));
                     listDurationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
-                    durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
+                    durationTimes.forEach(durationTime => {
+                        durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
+                    })
                 }
             } else {
                 // Handling when seek
-                progress.onchange = function(e) {
-                    const seekTime = e.target.value * audio.duration / 100;
-                    audio.currentTime = seekTime;
-                    trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
-                    _this.isSeeking = false;
-                }
+                progress.forEach(progressChild => {
+                    progressChild.onchange = function(e) {
+                        const seekTime = e.target.value * audio.duration / 100;
+                        audio.currentTime = seekTime;
+                        trackTimes.forEach(trackTime => {
+                            trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
+                        })
+                        _this.isSeeking = false;
+                    }
+                })
             }
         }
         
         function currentTime() {
-            const seekTime = progress.value * audio.duration / 100;
+            const seekTime = progress[0].value * audio.duration / 100;
             if(audio.duration) {
-                trackTime.innerText = _this.audioCalTime(seekTime);
+                trackTimes.forEach(trackTime => {
+                    trackTime.innerText = _this.audioCalTime(seekTime);
+                })
             }
         }
 
         // progress.addEventListener('touchmove', currentTime);
-        progress.addEventListener('mousemove', currentTime);
+        progress.forEach(progressChild => {
+            progressChild.addEventListener('mousemove', currentTime);
+        })
 
         function seekStart() {
             _this.isSeeking = true;
         }
 
         // progressBlock.addEventListener('touchstart', seekStart);
-
-
-        progressBlock.onmousedown = seekStart;
+        progressBlocks.forEach(progressBlock => {
+            progressBlock.onmousedown = seekStart;
+        })
 
         
 
         //  Handle CD spins / stops
-        const headerCdThumbAnimate = headerCdThumb.animate([
+        const popUpCdThumbAnimate = popUpCdThumb.animate([
             { transform: 'rotate(360deg)'}
         ], {
-            duration: 10000, // 10000 seconds
+
+            duration: 15000, // 10000 seconds
             iterations: Infinity,
         })
-        headerCdThumbAnimate.pause()
+        popUpCdThumbAnimate.pause()
         
         
 
         // When next song
-        nextBtn.onclick = function() {
-            if(_this.isRandom) {
-                _this.playRandomSong()
-            } else {
-                _this.nextSong();
+        nextBtns.forEach(nextBtn => {
+            nextBtn.onclick = function() {
+                if(_this.isRandom) {
+                    _this.playRandomSong()
+                } else {
+                    _this.nextSong();
+                }
+                audio.play();
+                _this.renderSong()
+                // _this.scrollToActiveSong();
             }
-            audio.play();
-            _this.renderSong()
-            // _this.scrollToActiveSong();
-        }
+        })
 
         // When prev song
-        prevBtn.onclick = function() {
-            if(_this.isRandom) {
-                _this.playRandomSong();
-            } else {
-                _this.prevSong();
-            }
-            audio.play();
-            _this.renderSong()
-            // _this.scrollToActiveSong();
-        };
+        prevBtns.forEach(prevBtn => {
+            prevBtn.onclick = function() {
+                if(_this.isRandom) {
+                    _this.playRandomSong();
+                } else {
+                    _this.prevSong();
+                }
+                audio.play();
+                _this.renderSong()
+                // _this.scrollToActiveSong();
+            };
+        })
 
         // Handling on / off random song
-        randomBtn.onclick = function() {
-            _this.isRandom = !_this.isRandom;
-            _this.setConfig('isRandom', _this.isRandom)
-            this.classList.toggle('active', _this.isRandom)
-        }
+        randomBtns.forEach(randomBtn => {
+            randomBtn.onclick = function() {
+                _this.isRandom = !_this.isRandom;
+                _this.setConfig('isRandom', _this.isRandom)
+                this.classList.toggle('active', _this.isRandom)
+            }
+        })
 
         // Single-parallel repeat processing
-        repeatBtn.onclick = function() {
-            _this.isRepeat = !_this.isRepeat;
-            _this.setConfig('isRepeat', _this.isRepeat)
-            this.classList.toggle('active', _this.isRepeat)
+        repeatBtns.forEach(repeatBtn => {
+            repeatBtn.onclick = function() {
+                _this.isRepeat = !_this.isRepeat;
+                _this.setConfig('isRepeat', _this.isRepeat)
+                this.classList.toggle('active', _this.isRepeat)
+            }
+        })
+
+
+
+        // Handle click on player
+        player.onclick = (e) => {
+            const songNode = e.target.closest('.player__container .player__song-info.media')
+            const controlNode = e.target.closest('.player__container .player__control-btn')
+            const progressNode = e.target.closest('.player__container .progress-block')
+            const optionNode = e.target.closest('.player__container .player__options-container')
+            const popDownBtn = e.target.closest('.popup__action-btn.btn--pop-down')
+            if(!player.classList.contains('open-popup') && !songNode && !controlNode && !progressNode && !optionNode && !popDownBtn) {
+                console.log({player})
+                player.classList.add('open-popup')
+            }
+            // Handle close pop-up window
+            if(popDownBtn) {
+                player.classList.remove('open-popup')
+            }
         }
 
         // Listen to playlist clicks
@@ -886,6 +934,14 @@ const app = {
         }
 
 
+        // Handle when click on expand sidebar button on tablet
+        sidebarExpandBtn.onclick = (e) => {
+            sidebar.classList.add('expand');
+        }
+        sidebarShrinkBtn.onclick = (e) => {
+            sidebar.classList.remove('expand')
+        }
+
     },
 
     loadCurrentSongPlaylist (index) {
@@ -902,18 +958,26 @@ const app = {
                 <div class="title__item">${this.currentSong.name}</div>
                 <div class="title__item">${this.currentSong.name}</div>
         `;
-        headerSongName.innerText = this.currentSong.name
+        popUpSongName.innerText = this.currentSong.name
         author.innerHTML = app.html`
             ${this.currentSong.singer.map((singer, index) => {
                 return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
             })}
         
         `;
+        popUpSongAuthor.innerHTML = app.html`
+        ${this.currentSong.singer.map((singer, index) => {
+            return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
+        })}
+    
+    `;
         this.setPlayerInfoWidth()
-        headerCdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
+        popUpCdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         audio.src = `${this.currentSong.path}`;
-        durationTime.innerHTML = this.durationList[this.currentPlaylist][this.currentIndex];
+        durationTimes.forEach(durationTime => {
+            durationTime.innerHTML = this.durationList[this.currentPlaylist][this.currentIndex];          
+        })
         this.setConfig('currentIndex', this.currentIndex);
     },
 
@@ -958,9 +1022,15 @@ const app = {
             volumeBtn.classList.add('bi-volume-mute')
         }
         volume.value = this.config.currentVolume || 100;
-        durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
-        randomBtn.classList.toggle('active', this.isRandom);
-        repeatBtn.classList.toggle('active', this.isRandom);
+        durationTimes.forEach(durationTime => {
+            durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
+        })
+        randomBtns.forEach(randomBtn => {
+            randomBtn.classList.toggle('active', this.isRandom);
+        })
+        repeatBtns.forEach(repeatBtn => {
+            repeatBtn.classList.toggle('active', this.isRandom);
+        })
     },
 
     loadThemeBg(themeListIndex, currentTheme) {
@@ -974,23 +1044,26 @@ const app = {
         document.documentElement.style.setProperty('--player-bg', currentThemeColor.playerBg)
         document.documentElement.style.setProperty('--purple-primary', currentThemeColor.purplePrimary)
         document.documentElement.style.setProperty('--primary-bg', currentThemeColor.primaryBg)
+        document.documentElement.style.setProperty('--sidebar-popup-bg', currentThemeColor.sidebarPopupBg)
         document.documentElement.style.setProperty('--text-color', currentThemeColor.textColor)
         document.documentElement.style.setProperty('--text-item-hover', currentThemeColor.textItemHover)
         document.documentElement.style.setProperty('--text-secondary', currentThemeColor.textSecondary)
 
         if(this.themes[themeListIndex][currentTheme].image) {
             App.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
-            App.style.backgroundColor = 'transparent'
+            playerPopUp.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
             App.classList.add('has__theme-img')
         } else {
             App.style.backgroundImage = 'none';
-            App.style.backgroundColor = 'var(--layout-bg)'
+            playerPopUp.style.backgroundImage = 'none';
             App.classList.remove('has__theme-img')
         }
         if(this.themes[themeListIndex][currentTheme].playerImage) {
             player.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].playerImage}')`
+            playerPopUpFooter.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].playerImage}')`
         } else {
             player.style.backgroundImage = 'none'
+            playerPopUpFooter.style.backgroundImage = 'none'
         }
 
 
