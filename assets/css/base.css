@@ -433,7 +433,9 @@ i {
     padding-top: 100%;
 }
 
-.img--rec,
+.img--rec {
+    padding-top: 56.25%;
+}
 .img--mv {
     padding-top: 56.3%;
 }
@@ -481,6 +483,8 @@ i {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.item--has-attach:hover .row__item-actions,
+.item--has-attach:hover .overlay,
 .row__item-display:hover .overlay,
 .row__item-display:hover .row__item-actions {
     visibility: visible;
@@ -880,4 +884,21 @@ i {
     line-height: 1.6rem;
     color: var(--text-color);
     text-transform: capitalize;
+}
+
+
+.item--has-attach {
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+}
+
+.row__item-frame {
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }

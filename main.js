@@ -6,7 +6,7 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 
 
-const appContainer = $('.app__container');
+const appContainers = Array.from($$('.app__container'));
 const audio = $('#audio');
 const author = $('.player__song-author');
 const albumLists = Array.from($$('.album--container'));
@@ -14,33 +14,33 @@ const albumScrollBtns = $$('.container__move-btn.move-btn--album');
 const artistLists = Array.from($$('.artist--container'));
 const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
 const cdThumb = $('.player__song-thumb .thumb-img');
-const closeModalBtn = $('.modal__close-btn')
+const closeModalBtn = $('.modal__close-btn');
 const containerTabs = $$('.container__tab');
 const durationTimes = Array.from($$('.durationtime'));
-const sidebarExpandBtn = $('.sidebar__expand-btn.btn--expand')
-const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink')
-const header = $('.header')
-const playerPopUp = $('.player .player__popup')
-const playerPopUpFooter = $('.player .player__popup .player__popup-footer')
-const popUpSongName = $('.player__popup-cd-info h2')
-const popUpSongAuthor = $('.player__popup-cd-info h3')
-const popUpCdThumb = $('.player__popup-cd-display .player__popup-cd-img')
-const popUpCdDisplay = $('.player__popup-cd-display')
-const headerNavTitles = $$('.tab-home .container__header-title')
+const sidebarExpandBtn = $('.sidebar__expand-btn.btn--expand');
+const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink');
+const header = $('.header');
+const playerPopUp = $('.player .player__popup');
+const playerPopUpFooter = $('.player .player__popup .player__popup-footer');
+const popUpSongName = $('.player__popup-cd-info h2');
+const popUpSongAuthor = $('.player__popup-cd-info h3');
+const popUpCdThumb = $('.player__popup-cd-display .player__popup-cd-img');
+const popUpCdDisplay = $('.player__popup-cd-display');
+const headerNavTitles = $$('.tab-home .container__header-title');
 const homeMVs = $$('.tab-home .mv--container .row__item.item--mv');
-const logOutOption = $('.app__header-options.options--log-out')
-const logOutBtn = $('.option__log-out')
-const modalTheme = $('.modal-theme')
+const logOutOption = $('.app__header-options.options--log-out');
+const logOutBtn = $('.option__log-out');
+const modalTheme = $('.modal-theme');
 const mvLists = Array.from($$('.mv--container'));
 const mvScrollBtns = $$('.container__move-btn.move-btn--mv');
 const navbarItems = Array.from($$('.content__navbar-item'));
-const navSettingBtn = $('.header__nav-btn.btn--nav-setting')
-const navSettingMenu = $('.setting__menu')
-const navThemeBtn = $('.header__nav-btn.nav-btn--theme')
+const navSettingBtn = $('.header__nav-btn.btn--nav-setting');
+const navSettingMenu = $('.setting__menu');
+const navThemeBtn = $('.header__nav-btn.nav-btn--theme');
 const nextBtns = Array.from($$('.btn-next'));
-const player = $('.player')
+const player = $('.player');
 const playerContainer = $('.player__container');
-const playerInfo = $('.player__song-info')
+const playerInfo = $('.player__song-info');
 const playAllBtns = $$('.btn--play-all');
 const playlistLists = Array.from($$('.playlist--container'));
 const playlistScrollBtns = $$('.container__move-btn.move-btn--playlist');
@@ -50,17 +50,20 @@ const progress = Array.from($$('.progress'));
 const progressBlocks = Array.from($$('.progress-block'));
 const randomBtns = Array.from($$('.btn-random'));
 const repeatBtns = Array.from($$('.btn-repeat'));
-const searchHistory = $('.header__search-history')
-const sidebar = $('.app__sidebar')
+const searchHistory = $('.header__search-history');
+const sidebar = $('.app__sidebar');
+const sidebarNavItems = Array.from($$('.sidebar__nav .sidebar__nav-item'))
 const slideImgs = $$('.container__slide-item');
-const sidebarSubnav = $('.sidebar__subnav')
+const sidebarSubnav = $('.sidebar__subnav');
+const slideMove = $('.explore__slide .explore__slide-move');
+const slideMoveItems = Array.from($$('.explore__slide .explore__slide-item'))
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitle = $('.player__title-animate');
-const themeContainer = $('.theme__container')
+const themeContainer = $('.theme__container');
 const trackTimes = Array.from($$('.tracktime'));
 const volume = $('.volume__range');
-const volumeBtn = $('.volume .btn--icon')
-const App = $('.app')
+const volumeBtn = $('.volume .btn--icon');
+const App = $('.app');
 
 
 const app = {
@@ -427,23 +430,6 @@ const app = {
         const playBtns = Array.from($$('.btn-toggle-play.btn--play-song'));
         const listThemes = Array.from($$('.theme__container .theme__list'));
 
-        // // Handles CD enlargement / reduction
-        // appContainer.onscroll = function() {
-        //     console.log('vao')
-        //     const cdWidth = 200;
-        //     const scrollTop = appContainer.scrollY || appContainer.documentElement.scrollTop;
-        //     const newCdWidth = cdWidth - scrollTop;
-        //     Object.assign(popUpCdThumb.style,  {
-        //             width: newCdWidth > 0 ? newCdWidth + 'px' : 0,
-        //             opacity: newCdWidth / cdWidth
-        //         });
-        //     if(newCdWidth < cdWidth) {
-        //         volume.classList.add('horizontal');
-        //     } else {
-        //         volume.classList.remove('horizontal');
-        //     }
-        // }
-
         sidebarSubnav.onscroll = (e) => {
             const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
             if(scrollTop > 10) {
@@ -453,20 +439,23 @@ const app = {
             }
         }
 
-        appContainer.onscroll = function() {
-            const scrollTop = appContainer.scrollY || appContainer.scrollTop;
-            if(scrollTop > 5) {
-                Object.assign(header.style, {
-                    backgroundColor: 'var(--layout-bg)',
-                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
-                })
-            } else {
-                Object.assign(header.style, {
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                })
+        
+        appContainers.forEach(appContainer => {
+            appContainer.onscroll = function() {
+                const scrollTop = appContainer.scrollY || appContainer.scrollTop;
+                if(scrollTop > 5) {
+                    Object.assign(header.style, {
+                        backgroundColor: 'var(--layout-bg)',
+                        boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
+                    })
+                } else {
+                    Object.assign(header.style, {
+                        backgroundColor: 'transparent',
+                        boxShadow: 'none',
+                    })
+                }
             }
-        }
+        })
 
         // Handle when click play
         playBtns.forEach(playBtn => {
@@ -650,6 +639,8 @@ const app = {
 
 
 
+
+
         // Handle click on player
         player.onclick = (e) => {
             const songNode = e.target.closest('.player__container .player__song-info.media')
@@ -658,7 +649,6 @@ const app = {
             const optionNode = e.target.closest('.player__container .player__options-container')
             const popDownBtn = e.target.closest('.popup__action-btn.btn--pop-down')
             if(!player.classList.contains('open-popup') && !songNode && !controlNode && !progressNode && !optionNode && !popDownBtn) {
-                console.log({player})
                 player.classList.add('open-popup')
             }
             // Handle close pop-up window
@@ -828,18 +818,18 @@ const app = {
         Array.from(playlistItems).forEach((playlist, index) => {
             playlist.onclick = (e) => {
                 const playlistBtn = e.target.closest('.btn--play-playlist')
-                if(playlistBtn) {
-                    if(index < 4) {
-                        _this.currentPlaylist = index;
-                        _this.loadCurrentSongPlaylist(_this.currentPlaylist)
-                        _this.setConfig('currentPlaylist', _this.currentPlaylist)
-                        _this.scrollToActiveSong();
-                    } else {
-                        alert('VUI LÒNG CHỌN PLAYLIST KHÁC')
-                    }
-                }
+                _this.loadCurrentPlaylist(playlistBtn, index)
             }
         })
+
+        const tabPlaylistItems = $$('.tab-playlist .playlist--container .row__item.item--playlist:not(.playlist--create)')
+        Array.from(tabPlaylistItems).forEach((playlist, index) => {
+            playlist.onclick = (e) => {
+                const playlistBtn = e.target.closest('.btn--play-playlist')
+                _this.loadCurrentPlaylist(playlistBtn, index)
+            }
+        })
+
 
         
         // Handle when click on icons heart
@@ -942,6 +932,46 @@ const app = {
             sidebar.classList.remove('expand')
         }
 
+
+
+        // Handle when click on sidebar items 
+        sidebarNavItems.forEach((sidebarNavItem, index) => {
+            sidebarNavItem.onclick = (e) => {
+                $('.app__container.active').classList.remove('active')
+                appContainers[index].classList.add('active')
+
+                $('.sidebar__nav .sidebar__nav-item.active').classList.remove('active')
+                sidebarNavItem.classList.add('active')
+            }
+        })
+
+
+        // Handle when click on slide show move buttons
+        function exploreSlideShow() {
+            _this.nextSlide();
+            let autoMoveSlideId = setTimeout(exploreSlideShow, 5000)
+            slideMove.onclick = (e) => {
+                const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
+                const nextBtn = e.target.closest('.slide__move-btn.btn--next')
+                
+                
+                if(prevBtn) {
+                    _this.prevSlide();
+                    clearTimeout(autoMoveSlideId);
+                    autoMoveSlideId = setTimeout(exploreSlideShow, 5000)
+                }
+    
+                if(nextBtn) {
+                    _this.nextSlide();
+                    clearTimeout(autoMoveSlideId);
+                    autoMoveSlideId = setTimeout(exploreSlideShow, 5000)
+                }
+            }
+           
+        }
+        
+        exploreSlideShow()
+
     },
 
     loadCurrentSongPlaylist (index) {
@@ -950,6 +980,19 @@ const app = {
         this.loadCurrentSong();
         this.renderSong()
         audio.play()
+    },
+
+    loadCurrentPlaylist(playlistBtn, index) {
+        if(playlistBtn) {
+            if(index < 4) {
+                this.currentPlaylist = index;
+                this.loadCurrentSongPlaylist(this.currentPlaylist)
+                this.setConfig('currentPlaylist', this.currentPlaylist)
+                this.scrollToActiveSong();
+            } else {
+                alert('VUI LÒNG CHỌN PLAYLIST KHÁC')
+            }
+        }
     },
     
 
@@ -1074,6 +1117,48 @@ const app = {
         if(this.durationList[this.currentPlaylist].length === 0) {
             this.songs.forEach((song, index) => this.durationList[this.currentPlaylist].push('--/--'))
         }
+    },
+
+    prevSlide: function() {
+        $('.explore__slide-item.next').classList.remove('next')
+        $('.explore__slide-item.prev').classList.remove('prev')
+        const firstSlide = $('.explore__slide-item.first')
+        const secondSlide = $('.explore__slide-item.second')
+        const thirdSlide = $('.explore__slide-item.third')
+        const fourthSlide = $('.explore__slide-item.fourth')
+        const sixthSlide = $('.explore__slide-item.sixth')
+        const fifthSlideIndex = slideMoveItems.indexOf(sixthSlide) === 0 ? slideMoveItems.length - 1 : slideMoveItems.indexOf(sixthSlide) - 1;
+        const fifthSlide =  slideMoveItems[fifthSlideIndex]
+
+        firstSlide.classList.replace('first', 'second')
+        secondSlide.classList.replace('second', 'third')
+        thirdSlide.classList.add('prev')
+        thirdSlide.classList.replace('third', 'fourth')
+        fourthSlide.classList.replace('fourth', 'fifth')
+        fifthSlide.classList.replace('fifth', 'sixth')
+        sixthSlide.classList.add('next')
+        sixthSlide.classList.replace('sixth', 'first')
+    },
+
+    nextSlide: function() {
+        $('.explore__slide-item.next').classList.remove('next')
+        $('.explore__slide-item.prev').classList.remove('prev')
+        const firstSlide = $('.explore__slide-item.first')
+        const secondSlide = $('.explore__slide-item.second')
+        const thirdSlide = $('.explore__slide-item.third')
+        const fourthSlide = $('.explore__slide-item.fourth')
+        const sixthSlide = $('.explore__slide-item.sixth')
+        const fifthSlideIndex = slideMoveItems.indexOf(fourthSlide) === slideMoveItems.length - 1 ? 0 : slideMoveItems.indexOf(fourthSlide) + 1;
+        const fifthSlide =  slideMoveItems[fifthSlideIndex]
+
+        firstSlide.classList.add('prev')
+        firstSlide.classList.replace('first', 'sixth')
+        secondSlide.classList.replace('second', 'first')
+        thirdSlide.classList.replace('third', 'second')
+        fourthSlide.classList.add('next')
+        fourthSlide.classList.replace('fourth', 'third')
+        fifthSlide.classList.replace('fifth', 'fourth')
+        sixthSlide.classList.replace('sixth', 'fifth')
     },
 
     nextSong: function() {
