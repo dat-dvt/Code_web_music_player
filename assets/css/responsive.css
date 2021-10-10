@@ -47,6 +47,9 @@
         height: 45px;
     }
 
+
+    
+
 }
 
 /* Tablet */
@@ -70,7 +73,6 @@
         position: fixed;
         width: 70px;
         z-index: 300;
-        overflow: hidden;
         height: var(--sidebar-height);
         background-color: var(--sidebar-popup-bg);
     }
@@ -591,5 +593,16 @@
         width: 35px;
         height: 35px;
     }
+
+
+    /* Label */
+    .row__item-info.radio--info .info__title {
+        width: 100%;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 600;
+    }
+
+    
 
 }

@@ -17,17 +17,11 @@ const cdThumb = $('.player__song-thumb .thumb-img');
 const closeModalBtn = $('.modal__close-btn');
 const containerTabs = $$('.container__tab');
 const durationTimes = Array.from($$('.durationtime'));
-const sidebarExpandBtn = $('.sidebar__expand-btn.btn--expand');
-const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink');
+const eventLists = Array.from($$('.event--container'))
 const header = $('.header');
-const playerPopUp = $('.player .player__popup');
-const playerPopUpFooter = $('.player .player__popup .player__popup-footer');
-const popUpSongName = $('.player__popup-cd-info h2');
-const popUpSongAuthor = $('.player__popup-cd-info h3');
-const popUpCdThumb = $('.player__popup-cd-display .player__popup-cd-img');
-const popUpCdDisplay = $('.player__popup-cd-display');
 const headerNavTitles = $$('.tab-home .container__header-title');
 const homeMVs = $$('.tab-home .mv--container .row__item.item--mv');
+const labelContainers = Array.from($$('.tab--explore .label--container'));
 const logOutOption = $('.app__header-options.options--log-out');
 const logOutBtn = $('.option__log-out');
 const modalTheme = $('.modal-theme');
@@ -38,23 +32,34 @@ const navSettingBtn = $('.header__nav-btn.btn--nav-setting');
 const navSettingMenu = $('.setting__menu');
 const navThemeBtn = $('.header__nav-btn.nav-btn--theme');
 const nextBtns = Array.from($$('.btn-next'));
+const playAllBtns = $$('.btn--play-all');
 const player = $('.player');
 const playerContainer = $('.player__container');
 const playerInfo = $('.player__song-info');
-const playAllBtns = $$('.btn--play-all');
+const playerPopUp = $('.player .player__popup');
+const playerPopUpFooter = $('.player .player__popup .player__popup-footer');
+const popUpSongName = $('.player__popup-cd-info h2');
+const popUpSongAuthor = $('.player__popup-cd-info h3');
+const popUpCdThumb = $('.player__popup-cd-display .player__popup-cd-img');
+const popUpCdDisplay = $('.player__popup-cd-display');
 const playlistLists = Array.from($$('.playlist--container'));
 const playlistScrollBtns = $$('.container__move-btn.move-btn--playlist');
 const playBtns = Array.from($$('.btn-toggle-play'));
 const prevBtns = Array.from($$('.btn-prev'));
 const progress = Array.from($$('.progress'));
 const progressBlocks = Array.from($$('.progress-block'));
+const radioLists = Array.from($$('.radio--container'));
 const randomBtns = Array.from($$('.btn-random'));
+const radioMoveBtns = Array.from($$('.container__move-btn.move-btn--radio'))
 const repeatBtns = Array.from($$('.btn-repeat'));
 const searchHistory = $('.header__search-history');
 const sidebar = $('.app__sidebar');
+const sidebarExpandBtn = $('.sidebar__expand-btn.btn--expand');
 const sidebarNavItems = Array.from($$('.sidebar__nav .sidebar__nav-item'))
+const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink');
 const slideImgs = $$('.container__slide-item');
 const sidebarSubnav = $('.sidebar__subnav');
+const singerSlideContainers = Array.from($$('.singer-slide--container'));
 const slideMove = $('.explore__slide .explore__slide-move');
 const slideMoveItems = Array.from($$('.explore__slide .explore__slide-item'))
 const songLists = Array.from($$('.playlist__list'));
@@ -71,17 +76,21 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
-    scrollToRight: [true, true, true, true], //use when click move btn
+    scrollToRight: [true, true, true, true, true, true], //use when click move btn
+    currentScreen: [],
     currentPlaylist: 0, //choose playlist
     themeList: 0, //Theme list index (have > 1 lists)
     currentTheme: 0, //Current theme index in theme list
     indexArray: [], //Use for random song
-    slideIndexs: [ 1, 1, 1, 1], //Index of Each tab  (playlist, album, mv, artist)
+    slideIndexs: [ 1, 1, 1, 1, 1, 0], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
         '.tab-home .playlist--container .row__item.item--playlist',
         '.tab-home .album--container .row__item.item--album',
         '.tab-home .mv--container .row__item.item--mv',
         '.tab-home .artist--container .row__item.item--artist',
+        '.tab--explore .radio--container .row__item.item--radio',
+        '.tab--explore .singer-slide--container .singer__slide-item',
+
     ],
     slideTitleWidth: 0, //Width of player title on footer
     
@@ -94,6 +103,16 @@ const app = {
     mvs: JSON.parse(localStorage.getItem(MV_STORAGE_KEY) || '[]'),
 
     artists: JSON.parse(localStorage.getItem(ARTIST_STORAGE_KEY) || '[]'),
+
+    radios: JSON.parse(localStorage.getItem(RADIO_STORAGE_KEY) || '[]'),
+
+    labels: JSON.parse(localStorage.getItem(LABEL_STORAGE_KEY) || '[]'),
+
+    labels: JSON.parse(localStorage.getItem(LABEL_STORAGE_KEY) || '[]'),
+
+    singerSlides: JSON.parse(localStorage.getItem(SINGER_SLIDE_STORAGE_KEY) || '[]'),
+
+    events: JSON.parse(localStorage.getItem(EVENT_STORAGE_KEY) || '[]'),
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
@@ -225,6 +244,7 @@ const app = {
                 })}`
         })
     },
+
     renderAlbum() {
         albumLists.forEach((albumList, albumIndex) => {
             albumList.innerHTML = app.html`
@@ -261,6 +281,7 @@ const app = {
             `
         })
     },
+
     renderMV() {
         mvLists.forEach((mvList, mvIndex) => {
             mvList.innerHTML = app.html`
@@ -307,6 +328,7 @@ const app = {
             `
         })
     },
+
     renderArtist() {
         artistLists.forEach((artistList, artistIndex) => {
             artistList.innerHTML = app.html`
@@ -392,7 +414,148 @@ const app = {
         `
     },
 
-    
+    renderRadios() {
+        radioLists.forEach((radioContainer, radioIndex) => {
+            radioContainer.innerHTML = app.html`
+                ${this.radios.map((radio, index) => {
+                    return app.html`
+                        <div class="col l-1-7 m-2-4 c-3">
+                            <div class="row__item item--radio">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="item--has-attach">
+                                        <svg class="svg row__item-frame" fill="transparent" width="100%" height="100%" viewBox="0 0 100 100">
+                                            <circle class="svg-circle-bg" stroke="rgba(255, 255, 255, 0.2)" cx="50" cy="50" r="48.75" stroke-width="2.5"></circle>
+                                            <circle class="svg-circle" stroke="#ff4b4a" cx="50" cy="50" r="48.75" stroke-width="2.5" stroke-dasharray="306.3052837250048" stroke-dashoffset="${Math.random() * 306}" style="transition: stroke-dashoffset 850ms ease-in-out 0s;"></circle>
+                                        </svg>
+                                        <div class="row__item-display is-rounded">
+                                            <div class="row__item-img img--square is-rounded" style="background: url('${radio.image}') no-repeat center center / contain"></div>
+                                            <div class="row__item-actions">
+                                                <div class="btn--play-playlist">
+                                                    <div class="control-btn btn-toggle-play">
+                                                        <i class="bi bi-play-fill icon-play"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="overlay"></div>
+                                        </div>
+                                        <div class="radio__label">LIVE</div>
+                                        <div class="radio__logo is-rounded">
+                                            <div class="radio__logo-img" style="background: url('${radio.logo}') no-repeat center center / cover"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row__item-info media radio--info">
+                                        <div class="media__left">
+                                            <div class="media__info text-center">
+                                                <span class="info__title is-active">${radio.name}</span>
+                                                <h3 class="row__info-creator text-center">${radio.viewers} đang nghe</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
+    renderLabels() {
+        labelContainers.forEach((labelContainer, labelIndex) => {
+            labelContainer.innerHTML = app.html`
+                ${this.labels.map((label, index) => {
+                    return app.html`
+                        <div class="col l-4 m-4 c-6 mb-30">
+                            <div class="row__item item--label">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--label" style="background: url('${label.image}') no-repeat center center / cover"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
+    renderSingerSlide() {
+        singerSlideContainers.forEach((singerSlideContainer, slideIndex) => {
+            singerSlideContainer.innerHTML = app.html`
+                <div class="singer__slide-move hide-on-mobile">
+                    <div class="slide__move-btn btn--prev button--disabled">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
+                    <div class="slide__move-btn btn--next">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+                ${this.singerSlides.map((singerSlide, index) => {
+                    return app.html`
+                        <div class="col l-2-4 m-2-4 c-3 row-item singer__slide-item">
+                            <div class="row__item-display">
+                                <div class="singer__slide-img img--singer-slide" style="background: url('${singerSlide.image}') no-repeat center center / cover"></div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
+    renderEvent() {
+        eventLists.forEach((eventList, eventIndex) => {
+            eventList.innerHTML = app.html`
+                ${this.events.map((event, index) => {
+                    return app.html`
+                        <div class="col l-4 m-6 c-12">
+                            <div class="row__item item--event">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--mv" style="background: url('${event.image}') no-repeat center center / cover"></div>
+                                        <div class="blur"></div>
+                                        <div class="row__item-display-content">
+                                            <div class="display__content-label">Sự Kiện</div>
+                                            <h3 class="display__content-title">${event.name}</h3>
+                                            <p class="display__content-time">${event.time}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row__item-info media">
+                                        <div class="media__left">
+                                            <div class="media__info">
+                                                <span class="info__title event--title is-active">Lượt chúc mừng</span>
+                                                <div class="info__avatar">
+                                                    ${event.fans.map(fan => {
+                                                        return app.html`
+                                                            <div class="info__avatar-item">
+                                                                <div class="info__avatar-img" style="background: url('${fan}') no-repeat center center / cover"></div>
+                                                            </div>
+                                                        `
+                                                    })}
+                                                    <div class="info__avatar-item">
+                                                        <p class="info__avatar-text">+${event.fanAmount}</p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media__content">
+                                            <button class="button button-primary event__button">
+                                                <span>Mở Radio</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
+
     render : function() {
         // Render songs
         this.renderSong()
@@ -412,7 +575,19 @@ const app = {
         // Render Modal
         this.renderModal()
 
-        // this.scrollToActiveSong();
+        // Render Radio
+        this.renderRadios()
+
+        // Render Label
+        this.renderLabels()
+
+        // Render singerSlide
+        this.renderSingerSlide()
+
+        // Render event
+        this.renderEvent()
+
+        this.scrollToActiveSong();
 
     },
 
@@ -429,6 +604,8 @@ const app = {
         const _this = this;
         const playBtns = Array.from($$('.btn-toggle-play.btn--play-song'));
         const listThemes = Array.from($$('.theme__container .theme__list'));
+        const singerSlideMove = $('.singer-slide--container .singer__slide-move')
+        const listSingersBtns = $$('.singer__slide-move .slide__move-btn')
 
         sidebarSubnav.onscroll = (e) => {
             const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
@@ -777,41 +954,53 @@ const app = {
 
         //**  Handle when click button move Album, Playlist, MV and Artist on tab HOME
         // Playlist
+        
         playlistScrollBtns[0].onclick = function() {
-            _this.plusSlides(-5, 0, playlistScrollBtns)
+            _this.showSlides(-5, 0, playlistLists[0], playlistScrollBtns)
         }
 
         playlistScrollBtns[1].onclick = function() {
-            _this.plusSlides(5, 0, playlistScrollBtns)
+            _this.showSlides(5, 0, playlistLists[0],playlistScrollBtns)
         }
 
         // Album
         albumScrollBtns[0].onclick = function() {
-            _this.plusSlides(-5, 1, albumScrollBtns)
+            _this.showSlides(-5, 1, albumLists[0],albumScrollBtns)
         }
 
         albumScrollBtns[1].onclick = function() {
-            _this.plusSlides(5, 1, albumScrollBtns)
+            _this.showSlides(5, 1, albumLists[0],albumScrollBtns)
         }
 
         // MV
         mvScrollBtns[0].onclick = function() {
-            _this.plusSlides(-3, 2, mvScrollBtns)
+            _this.showSlides(-3, 2, mvLists[0],mvScrollBtns)
         }
         
         mvScrollBtns[1].onclick = function() {
-            _this.plusSlides(3, 2, mvScrollBtns)
+            _this.showSlides(3, 2, mvLists[0],mvScrollBtns)
         }
 
         // Artist
-
         artistScrollBtns[0].onclick = function() {
-            _this.plusSlides(-5, 3, artistScrollBtns)
+            _this.showSlides(-5, 3, artistLists[0],artistScrollBtns)
         }
 
         artistScrollBtns[1].onclick = function() {
-            _this.plusSlides(5, 3, artistScrollBtns)
+            _this.showSlides(5, 3, artistLists[0],artistScrollBtns)
         }
+
+        // Artist
+        radioMoveBtns[0].onclick = function() {
+            _this.showSlides(-7, 4, radioLists[0], radioMoveBtns)
+        }
+
+        radioMoveBtns[1].onclick = function() {
+            _this.showSlides(7, 4, radioLists[0], radioMoveBtns)
+        }
+
+
+
         
         // Handle when click on Playlist Item
         const playlistItems = $$('.tab-home .playlist--container .row__item.item--playlist:not(.playlist--create)')
@@ -954,7 +1143,6 @@ const app = {
                 const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
                 const nextBtn = e.target.closest('.slide__move-btn.btn--next')
                 
-                
                 if(prevBtn) {
                     _this.prevSlide();
                     clearTimeout(autoMoveSlideId);
@@ -971,6 +1159,54 @@ const app = {
         }
         
         exploreSlideShow()
+
+
+        function singerSlideShow(step) {
+            // Automatic slide
+            if(_this.scrollToRight[5] === true) {
+                _this.showSlides(step, 5, singerSlideContainers[0], listSingersBtns)
+            } else {
+                _this.showSlides(-step, 5, singerSlideContainers[0], listSingersBtns)
+            }
+            let singerSlideId = setTimeout(function() {
+                singerSlideShow(step)
+            }, 5000)
+
+            // Handle when click on singer slide move buttons
+            singerSlideMove.onclick = (e) => {
+                const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
+                const nextBtn = e.target.closest('.slide__move-btn.btn--next')
+                if(nextBtn) {
+                        _this.showSlides(step, 5, singerSlideContainers[0], listSingersBtns)
+                        clearTimeout(singerSlideId)
+                        singerSlideId = setTimeout(function() {
+                            singerSlideShow(step)
+                        }, 5000)
+                }
+                if(prevBtn) {
+                        _this.showSlides(-step, 5, singerSlideContainers[0], listSingersBtns)
+                        clearTimeout(singerSlideId)
+                        singerSlideId = setTimeout(function() {
+                            singerSlideShow(step)
+                        }, 5000)
+                }
+            }
+        }
+
+        // Depend on width of the screen
+        if(App.offsetWidth >= 740) {
+            singerSlideShow(5)
+        } else {
+            singerSlideShow(4)
+        }
+
+
+
+        
+
+        
+
+        
 
     },
 
@@ -1202,48 +1438,77 @@ const app = {
         }, 200)
     },
 
-    getSlideIndex(currentIndex, slideOrder, listItems, step) {
-        if (currentIndex + step > listItems.length) {
-            this.slideIndexs[slideOrder] = listItems.length;
+    getSlideIndex(step, slideOrder, listItems, listBtn) {
+        this.slideIndexs[slideOrder] += step;
+        if(this.slideIndexs[slideOrder] + step > listItems.length - 1) {
+            this.slideIndexs[slideOrder] = listItems.length - 1;
+            listBtn[1].classList.add('button--disabled')
+            listBtn[0].classList.remove('button--disabled')
             this.scrollToRight[slideOrder] = false;
-        }
-        if (currentIndex + step < 1) {
-            this.slideIndexs[slideOrder] = 1;
+        } else if (this.slideIndexs[slideOrder] + step < 0) {
+            this.slideIndexs[slideOrder] = 0;
+            listBtn[0].classList.add('button--disabled')
+            listBtn[1].classList.remove('button--disabled')
             this.scrollToRight[slideOrder] = true;
-        }
-        return currentIndex
-    },
-
-    plusSlides(step, slideOrder, listBtns) {
-        const listItems = $$(this.slideSelectors[slideOrder])
-        const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems, step);
-        if (currentIndex + step > listItems.length) {
-            listBtns[1].classList.add('button--disabled')
-            listBtns[0].classList.remove('button--disabled')
-        } else if (currentIndex + step < 1) {
-            listBtns[0].classList.add('button--disabled')
-            listBtns[1].classList.remove('button--disabled')
         } else {
-            Array.from(listBtns).forEach(itemBtn => {
-                itemBtn.classList.remove('button--disabled')
-            })
-        }
-
-        // Scroll Into View
-        if( this.scrollToRight[slideOrder] === true) {
-            listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'start'
-            })
-        } else if (this.scrollToRight[slideOrder] === false) {
-            listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'end'
-            })
+            listBtn[0].classList.remove('button--disabled')
+            listBtn[1].classList.remove('button--disabled')
         }
     },
+
+    showSlides(step, slideOrder, listContainer, listBtn) {
+        const listItems = $$(this.slideSelectors[slideOrder])
+        this.getSlideIndex(step, slideOrder, listItems, listBtn)
+        const currentIndex = Math.floor(this.slideIndexs[slideOrder] / Math.abs(step))
+        console.log(step)
+        // Scroll Into View
+        listContainer.scrollLeft = listContainer.offsetWidth * currentIndex
+ 
+    },
+
+    // getSlideIndex(currentIndex, slideOrder, listItems, step) {
+    //     if (currentIndex + step > listItems.length) {
+    //         this.slideIndexs[slideOrder] = listItems.length;
+    //         this.scrollToRight[slideOrder] = false;
+    //     }
+    //     if (currentIndex + step < 1) {
+    //         this.slideIndexs[slideOrder] = 1;
+    //         this.scrollToRight[slideOrder] = true;
+    //     }
+    //     return currentIndex
+    // },
+
+    // pickSlides(step, slideOrder, listBtns) {
+    //     const listItems = $$(this.slideSelectors[slideOrder])
+    //     console.log(listItems)
+
+    //     const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems, step);
+    //     if (currentIndex + step > listItems.length) {
+    //         listBtns[1].classList.add('button--disabled')
+    //         listBtns[0].classList.remove('button--disabled')
+    //     } else if (currentIndex + step < 1) {
+    //         listBtns[0].classList.add('button--disabled')
+    //         listBtns[1].classList.remove('button--disabled')
+    //     } else {
+    //         Array.from(listBtns).forEach(itemBtn => {
+    //             itemBtn.classList.remove('button--disabled')
+    //         })
+    //     }
+    //     // Scroll Into View
+    //     if( this.scrollToRight[slideOrder] === true) {
+    //         listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
+    //             behavior: 'smooth',
+    //             block: 'nearest',
+    //             inline: 'start'
+    //         })
+    //     } else if (this.scrollToRight[slideOrder] === false) {
+    //         listItems[this.slideIndexs[slideOrder] - 1].scrollIntoView({
+    //             behavior: 'smooth',
+    //             block: 'nearest',
+    //             inline: 'end'
+    //         })
+    //     }
+    // },
 
 
 

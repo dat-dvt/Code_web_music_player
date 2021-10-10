@@ -18,16 +18,14 @@ var listMV = [
         name: "Lời Yêu Ngây Dại",
         author: ["Kha"],
         time: "04:33",
-        authorAvatar:
-            "./assets/img/mvArtists/artist3.jpg",
+        authorAvatar: "./assets/img/mvArtists/artist3.jpg",
         image: "./assets/img/MVs/mv3.jpg"
     },
     {
         name: "24H",
         author: ["LyLy", "Magazine"],
         time: "04:18",
-        authorAvatar:
-            "./assets/img/mvArtists/artist4.jpg",
+        authorAvatar: "./assets/img/mvArtists/artist4.jpg",
         image: "./assets/img/MVs/mv4.jpg"
     },
     {
@@ -42,8 +40,7 @@ var listMV = [
         name: "Yêu Đơn Phương",
         author: ["OnlyC", "Karik"],
         time: "05:02",
-        authorAvatar:
-            "./assets/img/mvArtists/artist6.jpg",
+        authorAvatar: "./assets/img/mvArtists/artist6.jpg",
         image: "./assets/img/MVs/mv6.jpg"
     },
     {

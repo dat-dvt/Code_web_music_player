@@ -13,6 +13,7 @@
 .app__sidebar {
     width: 240px;
     height: 100%;
+    overflow: hidden;
     background-color: var(--sidebar-bg);
     -webkit-tap-highlight-color: transparent;
 }
@@ -78,9 +79,10 @@
 
 .sidebar__nav-item {
     display: flex;
+    cursor: pointer;
+    margin-left: 3px;
     align-items: center;
     justify-content:flex-start;
-    margin-left: 3px;
 }
 
 .sidebar__nav-item.active {
@@ -263,7 +265,6 @@
     width: 100%;
     height: 54px;
     padding: 0 29px;
-    margin-bottom: 89px;
     color: var(--text-color);
     display: flex;
     align-items: center;
@@ -2141,7 +2142,7 @@ label .container__header-icon {
     top: 50%;
     width: 100%;
     position: absolute;
-    transition: all 0.9s;
+    transition: all 0.6s;
     backface-visibility: hidden;
 }
 
@@ -2220,6 +2221,13 @@ label .container__header-icon {
 
 .row__item-info.radio--info .info__title {
     width: 100%;
+    font-size: 1.6rem;
+    line-height: 2.1rem;
+    font-weight: 600;
+}
+
+.row__item-info.radio--info .row__info-creator {
+    line-height: 15px;
 }
 
 .item--has-attach:hover .row__item-img {
@@ -2257,4 +2265,55 @@ label .container__header-icon {
 .radio__logo-img {
     /* width: 100%; */
     padding-top: 100%;
+}
+
+
+/* Singer slide */
+.singer__slide-row {
+    position: relative;
+}
+
+
+.singer-slide--container {
+    overflow: visible;
+    transition: transform 2s linear;
+}
+
+.singer__slide-move {
+    display: none;
+}
+
+
+.singer-slide--container:hover .singer__slide-move {
+    display: block;
+}
+
+.singer-slide--container .slide__move-btn:hover {
+    opacity: 0.8;
+}
+
+
+
+
+.singer__slide-item .row__item-display {
+    border-radius: 8px;
+}
+
+
+/* Explore event */
+.item--event .row__item-display {
+    margin-bottom: 8px;
+}
+
+.item--event .event__button {
+    min-width: 70px;
+}
+
+.item--event .event__button span{
+    padding: 9px 20px;
+    white-space: nowrap;
+}
+
+.info__title.event--title {
+    line-height: 2.1rem;
 }
