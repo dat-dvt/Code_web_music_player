@@ -677,7 +677,8 @@ const app = {
                 playerInfo.classList.add('playing')
             })
             popUpCdThumbAnimate.play();
-            _this.titleAnimate().play();
+            _this.titleAnimate(songAnimateTitles[0]).play();
+            _this.titleAnimate(songAnimateTitles[1]).play();
         }
         
         // When the song is paused
@@ -842,17 +843,22 @@ const app = {
 
         // Handle click on player
         player.onclick = (e) => {
-            const songNode = e.target.closest('.player__container .player__song-info.media')
+            const authorNode = e.target.closest('.player__container .player__song-info.media .player__song-author.info__author')
+            const actionNode = e.target.closest('.player__container .player__song-info.media .media__right')
             const controlNode = e.target.closest('.player__container .player__control-btn')
             const progressNode = e.target.closest('.player__container .progress-block')
             const optionNode = e.target.closest('.player__container .player__options-container')
+            const popUpNode = e.target.closest('.player .player__popup')
             const popDownBtn = e.target.closest('.popup__action-btn.btn--pop-down')
-            if(!player.classList.contains('open-popup') && !songNode && !controlNode && !progressNode && !optionNode && !popDownBtn) {
+            if(!player.classList.contains('open-popup') &&!actionNode &&!authorNode && !controlNode && !progressNode && !optionNode && !popUpNode) {
                 player.classList.add('open-popup')
+                console.log('vao')
             }
             // Handle close pop-up window
-            if(popDownBtn) {
-                player.classList.remove('open-popup')
+            if(popUpNode) {
+                if(popDownBtn) {
+                    player.classList.remove('open-popup')
+                }
             }
         }
 
@@ -1300,8 +1306,8 @@ const app = {
     },
 
     // Handle title runs/stops
-    titleAnimate() {
-        const titleAnimate = songAnimateTitles[0].animate([
+    titleAnimate(title) {
+        const titleAnimate = title.animate([
             {transform: 'translate(0px)'},
             {transform: `translateX(-${this.slideTitleWidth}px)`}
         ], {

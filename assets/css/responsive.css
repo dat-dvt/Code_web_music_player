@@ -376,15 +376,19 @@
 
     .player__container-song {
         width: unset;
-        max-width: 50%;
+        max-width: calc(100% - 110px);
     }
 
     .player__song-info {
         max-width: 100%;
     }
 
+    .player__song-title.info__title {
+        max-width: 100%;
+    }
+
     .player__song-info .media__content {
-        max-width: calc(100% - 60px)
+        max-width: calc(100% - 50px);
     }
 
     .player__song-info.playing {
