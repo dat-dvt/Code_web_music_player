@@ -18,6 +18,7 @@ const closeModalBtn = $('.modal__close-btn');
 const containerTabs = $$('.container__tab');
 const durationTimes = Array.from($$('.durationtime'));
 const eventLists = Array.from($$('.event--container'))
+const exploreSlideLists = Array.from($$('.explore__slide--container'));
 const header = $('.header');
 const headerNavTitles = $$('.tab-home .container__header-title');
 const homeMVs = $$('.tab-home .mv--container .row__item.item--mv');
@@ -32,6 +33,8 @@ const navSettingBtn = $('.header__nav-btn.btn--nav-setting');
 const navSettingMenu = $('.setting__menu');
 const navThemeBtn = $('.header__nav-btn.nav-btn--theme');
 const nextBtns = Array.from($$('.btn-next'));
+const newPlaylistLists = Array.from($$('.new-playlist--container'));
+const newPlaylistMoveBtns = Array.from($$('.move-btn--new-playlist'))
 const playAllBtns = $$('.btn--play-all');
 const player = $('.player');
 const playerContainer = $('.player__container');
@@ -61,8 +64,6 @@ const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink');
 const slideImgs = $$('.container__slide-item');
 const sidebarSubnav = $('.sidebar__subnav');
 const singerSlideContainers = Array.from($$('.singer-slide--container'));
-const slideMove = $('.explore__slide .explore__slide-move');
-const slideMoveItems = Array.from($$('.explore__slide .explore__slide-item'))
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitles = Array.from($$('.player__title-animate'));
 const themeContainer = $('.theme__container');
@@ -78,13 +79,13 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
-    scrollToRight: [true, true, true, true, true, true], //use when click move btn
+    scrollToRight: [true, true, true, true, true, true, true], //use when click move btn
     currentScreen: [],
     currentPlaylist: 0, //choose playlist
     themeList: 0, //Theme list index (have > 1 lists)
     currentTheme: 0, //Current theme index in theme list
     indexArray: [], //Use for random song
-    slideIndexs: [ 1, 1, 1, 1, 1, 0], //Index of Each tab  (playlist, album, mv, artist)
+    slideIndexs: [ 1, 1, 1, 1, 1, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
         '.tab-home .playlist--container .row__item.item--playlist',
         '.tab-home .album--container .row__item.item--album',
@@ -92,7 +93,7 @@ const app = {
         '.tab-home .artist--container .row__item.item--artist',
         '.tab--explore .radio--container .row__item.item--radio',
         '.tab--explore .singer-slide--container .singer__slide-item',
-
+        '.tab--explore .new-playlist--container .row__item.item--new-playlist',
     ],
     slideTitleWidth: 0, //Width of player title on footer
     
@@ -106,15 +107,17 @@ const app = {
 
     artists: JSON.parse(localStorage.getItem(ARTIST_STORAGE_KEY) || '[]'),
 
-    radios: JSON.parse(localStorage.getItem(RADIO_STORAGE_KEY) || '[]'),
+    exploreSlides: JSON.parse(localStorage.getItem(EXPLORE_SLIDE_STORAGE_KEY) || '[]'),
 
-    labels: JSON.parse(localStorage.getItem(LABEL_STORAGE_KEY) || '[]'),
+    radios: JSON.parse(localStorage.getItem(RADIO_STORAGE_KEY) || '[]'),
 
     labels: JSON.parse(localStorage.getItem(LABEL_STORAGE_KEY) || '[]'),
 
     singerSlides: JSON.parse(localStorage.getItem(SINGER_SLIDE_STORAGE_KEY) || '[]'),
 
     events: JSON.parse(localStorage.getItem(EVENT_STORAGE_KEY) || '[]'),
+
+    newPlaylists: JSON.parse(localStorage.getItem(NEW_PLAYLIST_STORAGE_KEY) || '[]'),
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
@@ -416,6 +419,38 @@ const app = {
         `
     },
 
+    renderExploreSlide() {
+        exploreSlideLists.forEach((exploreSlideList, slideIndex) => {
+            exploreSlideList.innerHTML = app.html`
+                <div class="explore__slide-move">
+                    <div class="slide__move-btn btn--prev">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
+                    <div class="slide__move-btn btn--next">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+                ${this.exploreSlides.map((exploreSlide, index) => {
+                    return app.html`
+                        <div 
+                            class="col l-4 m-4 c-6 explore__slide-item 
+                            ${index === 0 && 'first next'} 
+                            ${index === 1 && 'second'} 
+                            ${index === 2 && 'third'}
+                            ${index === 3 && 'fourth'}
+                            ${index > 3 && index < app.exploreSlides.length - 1 && 'fifth'}
+                            ${index === app.exploreSlides.length - 1 && 'sixth prev'}
+                        ">
+                            <div class="row__item-display">
+                                <div class="explore__slide-img row__item-img img--rec" style="background: url('${exploreSlide.image}') no-repeat center center / cover"></div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
     renderRadios() {
         radioLists.forEach((radioContainer, radioIndex) => {
             radioContainer.innerHTML = app.html`
@@ -495,7 +530,7 @@ const app = {
                 </div>
                 ${this.singerSlides.map((singerSlide, index) => {
                     return app.html`
-                        <div class="col l-2-4 m-2-4 c-3 row-item singer__slide-item">
+                        <div class="col l-2-4 m-3 c-4 row-item singer__slide-item">
                             <div class="row__item-display">
                                 <div class="singer__slide-img img--singer-slide" style="background: url('${singerSlide.image}') no-repeat center center / cover"></div>
                             </div>
@@ -544,7 +579,7 @@ const app = {
                                         </div>
                                         <div class="media__content">
                                             <button class="button button-primary event__button">
-                                                <span>Mở Radio</span>
+                                                <span>${event.action}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -553,6 +588,57 @@ const app = {
                         </div>
                     `
                 })}
+            `
+        })
+    },
+
+    renderNewPlaylist() {
+        newPlaylistLists.forEach((newPlaylistList, playlistIndex) => {
+            newPlaylistList.innerHTML = app.html`
+                ${this.newPlaylists.map((newPlaylist, index) => {
+                    return app.html`
+                        <div class="col l-4 m-6 c-12">
+                            <div class="row__item item--new-playlist">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--square" style="background: url('${newPlaylist.image}') no-repeat center center / cover"></div>
+                                        <div class="row__item-actions">
+                                            <div class="btn--play-new-playlist">
+                                                <div class="control-btn btn-toggle-play">
+                                                    <i class="bi bi-play-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="overlay"></div>
+                                    </div>
+                                    <div class="row__item-info new-playlist--info">
+                                        <a href="#" class="row__info-name">${newPlaylist.name}</a>
+                                        <h3 class="row__info-creator">
+                                            ${newPlaylist.singer.map((singer, index) => {
+                                                return app.html`
+                                                    <a href="#" class="is-ghost">${singer}</a>${index < newPlaylist.singer.length - 1 && ','}
+                                                `
+                                            })}
+                                            
+                                        </h3>
+                                        <div class="row__item-detail">
+                                            <div class="info__detail-order">#${newPlaylist.order}</div>
+                                            <div class="info__detail-time">${newPlaylist.time}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+                
+                <div class="col l-4 m-6 c-12">
+                    <div class="row__item item--new-playlist">
+                        <div class="row__item-container new-song--empty flex--top-left">
+                            <span>Xem tất cả</span>
+                        </div>
+                    </div>
+                </div>
             `
         })
     },
@@ -577,6 +663,9 @@ const app = {
         // Render Modal
         this.renderModal()
 
+        // Render explore slide
+        this.renderExploreSlide()
+
         // Render Radio
         this.renderRadios()
 
@@ -588,6 +677,9 @@ const app = {
 
         // Render event
         this.renderEvent()
+
+        // Render new playlist
+        this.renderNewPlaylist()
 
         this.scrollToActiveSong();
 
@@ -608,6 +700,10 @@ const app = {
         const listThemes = Array.from($$('.theme__container .theme__list'));
         const singerSlideMove = $('.singer-slide--container .singer__slide-move')
         const listSingersBtns = $$('.singer__slide-move .slide__move-btn')
+        const slideMove = $('.explore__slide--container .explore__slide-move');
+        const newPlaylistMove = $('.container__header-actions.new-playlist--move')
+
+
 
         sidebarSubnav.onscroll = (e) => {
             const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
@@ -732,7 +828,6 @@ const app = {
                 // Handling when seek
                 progress.forEach(progressChild => {
                     progressChild.onchange = function(e) {
-                        console.log('vao')
                         const seekTime = e.target.value * audio.duration / 100;
                         audio.currentTime = seekTime;
                         _this.isSeeking = false;
@@ -852,7 +947,6 @@ const app = {
             const popDownBtn = e.target.closest('.popup__action-btn.btn--pop-down')
             if(!player.classList.contains('open-popup') &&!actionNode &&!authorNode && !controlNode && !progressNode && !optionNode && !popUpNode) {
                 player.classList.add('open-popup')
-                console.log('vao')
             }
             // Handle close pop-up window
             if(popUpNode) {
@@ -1208,6 +1302,15 @@ const app = {
                 singerSlideShow(step)
             }, 5000)
 
+
+            singerSlideContainers.forEach(singerSlideContainer => {
+                singerSlideContainer.ontouchmove = (e) => {
+                    clearTimeout(singerSlideId)
+                    singerSlideId = setTimeout(function() {
+                        singerSlideShow(step)
+                    }, 5000)
+                }
+            })
             // Handle when click on singer slide move buttons
             singerSlideMove.onclick = (e) => {
                 const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
@@ -1230,12 +1333,64 @@ const app = {
         }
 
         // Depend on width of the screen
-        if(App.offsetWidth >= 740) {
+        if(App.offsetWidth >= 1024) {
             singerSlideShow(5)
-        } else {
+        } else if(App.offsetWidth >= 740 && App.offsetWidth < 1024) {
             singerSlideShow(4)
+        } else {
+            singerSlideShow(3)
         }
-        
+
+        // New playlist slide
+        function newPlaylistSlideShow(step) {
+            // Automatic slide
+            if(_this.scrollToRight[6] === true) {
+                _this.showSlides(step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
+            } else {
+                _this.showSlides(-step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
+            }
+            let newPlaylistId = setTimeout(function() {
+                newPlaylistSlideShow(step)
+            }, 5000)
+
+            newPlaylistLists.forEach(newPlaylistList => {
+                newPlaylistList.ontouchmove = (e) => {
+                    clearTimeout(newPlaylistId)
+                    newPlaylistId = setTimeout(function() {
+                        newPlaylistSlideShow(step)
+                    }, 5000)
+                }
+            })
+
+            // Handle when click on singer slide move buttons
+            newPlaylistMove.onclick = (e) => {
+                const prevBtn = e.target.closest('.move-btn--new-playlist.btn--prev')
+                const nextBtn = e.target.closest('.move-btn--new-playlist.btn--next')
+                if(nextBtn) {
+                        _this.showSlides(step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
+                        clearTimeout(newPlaylistId)
+                        newPlaylistId = setTimeout(function() {
+                            newPlaylistSlideShow(step)
+                        }, 5000)
+                }
+                if(prevBtn) {
+                        _this.showSlides(-step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
+                        clearTimeout(newPlaylistId)
+                        newPlaylistId = setTimeout(function() {
+                            newPlaylistSlideShow(step)
+                        }, 5000)
+                }
+            }
+        }
+
+        // Depend on width of the screen
+        if(App.offsetWidth >= 1024) {
+            newPlaylistSlideShow(3)
+        } else if(App.offsetWidth >= 740 && App.offsetWidth < 1024) {
+            newPlaylistSlideShow(2)
+        } else {
+            newPlaylistSlideShow(1)
+        }
 
     },
 
@@ -1406,6 +1561,7 @@ const app = {
     },
 
     prevSlide: function() {
+        const slideMoveItems = Array.from($$('.explore__slide--container .explore__slide-item'))
         $('.explore__slide-item.next').classList.remove('next')
         $('.explore__slide-item.prev').classList.remove('prev')
         const firstSlide = $('.explore__slide-item.first')
@@ -1427,6 +1583,7 @@ const app = {
     },
 
     nextSlide: function() {
+        const slideMoveItems = Array.from($$('.explore__slide--container .explore__slide-item'))
         $('.explore__slide-item.next').classList.remove('next')
         $('.explore__slide-item.prev').classList.remove('prev')
         const firstSlide = $('.explore__slide-item.first')

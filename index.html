@@ -637,7 +637,7 @@
                             </div>
                             <div class=" col l-12 m-12 c-12">
                                 <div class="container__playlist">
-                                    <div class="playlist__header hide-on-mobile mt-5">
+                                    <div class="playlist__header mt-5">
                                         <span class="playlist__header-title">Bài hát</span>
                                         <span class="playlist__header-time">Thời gian</span>
                                     </div>
@@ -761,50 +761,7 @@
                     <div class="grid">
                         <div class="row container__section">
                             <div class="col l-12 m-12 c-12">
-                                <div class="row explore__slide">
-                                    <div class="explore__slide-move">
-                                        <div class="slide__move-btn btn--prev">
-                                            <i class="bi bi-chevron-left"></i>
-                                        </div>
-                                        <div class="slide__move-btn btn--next">
-                                            <i class="bi bi-chevron-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item first next">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide1.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item second">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide2.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item third">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide3.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item fourth">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide4.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item fifth">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide5.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item fifth">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide6.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col l-4 m-4 c-6 explore__slide-item sixth prev">
-                                        <div class="row__item-display">
-                                            <div class="explore__slide-img row__item-img img--rec" style="background: url('./assets/img/tabExplore/slides/slide7.jpg') no-repeat center center / cover"></div>
-                                        </div>
-                                    </div>
+                                <div class="row explore__slide--container">
                                 </div>
                             </div>
                         </div>
@@ -857,7 +814,28 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="container__section row mt-30">
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Mới Phát Hành</h3>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Mới Phát Hành</h3>
+                                    <div class="container__header-actions new-playlist--move hide-on-tablet-mobile">
+                                        <div class="container__move-btn move-btn--new-playlist btn--prev button--disabled">
+                                            <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                        </div>
+                                        <div class="container__move-btn move-btn--new-playlist btn--next">
+                                            <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row no-wrap new-playlist--container">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1166,10 +1144,12 @@
     <script src="./data/albums.js"></script>
     <script src="./data/mvs.js"></script>
     <script src="./data/artists.js"></script>
+    <script src="./data/tabExplore/exploreSlides.js"></script>
     <script src="./data/tabExplore/radios.js"></script>
     <script src="./data/tabExplore/labels.js"></script>
     <script src="./data/tabExplore/singerSlides.js"></script>
     <script src="./data/tabExplore/events.js"></script>
+    <script src="./data/tabExplore/newPlaylists.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>

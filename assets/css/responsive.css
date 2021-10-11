@@ -210,7 +210,7 @@
 
 
     /* Tab explorer */
-    .explore__slide {
+    .explore__slide--container {
         min-height: 16vw;
     }
     
@@ -354,6 +354,10 @@
 
 
     /* Playlist - list song */
+    .container__playlist .playlist__header-title {
+        padding-left: 0;
+    }
+
     .playlist__song-info {
         flex: 1;
         margin-right: 0;
@@ -546,7 +550,7 @@
 
 
     /* Tab explorer */
-    .explore__slide {
+    .explore__slide--container {
         height: 26vw;
         overflow: hidden;
     }

@@ -57,8 +57,9 @@ var listPlaylist = [
     {
         name: "Playlist Này Chill Phết",
         creator: "Zing MP3",
-        image: "./assets/img/playlists/playlist12.jpg"},
-     {
+        image: "./assets/img/playlists/playlist12.jpg"
+    },
+    {
         name: "BlackJack",
         creator: "Zing MP3",
         image: "./assets/img/playlists/playlist13.jpg"
@@ -77,7 +78,8 @@ var listPlaylist = [
         name: "Top EDM Songs Of 2018",
         creator: "Zing MP3",
         image: "./assets/img/playlists/playlist16.jpg"
-    },{
+    },
+    {
         name: "Giai Điệu Và Trào Lưu Gây Sốt",
         creator: "Zing MP3",
         image: "./assets/img/playlists/playlist17.jpg"
