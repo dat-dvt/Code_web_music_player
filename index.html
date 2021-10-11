@@ -941,6 +941,9 @@
                     <div class="progress-block hide-on-mobile">
                         <span class="tracktime">00:00</span>
                         <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+                        <div class="progress__track song--track">
+                            <div class="progress__track-update"></div>
+                        </div>
                         <span class="durationtime">--:--</span>
                     </div>
                 </div>
@@ -957,6 +960,9 @@
                         </div>
                         <div class="player__volume-progress">
                             <input type="range" class="volume__range" value="100" step="1" min="0" max="100">
+                            <div class="progress__track volume--track">
+                                <div class="progress__track-update"></div>
+                            </div>
                             <span class="volume__background"></span>
                         </div>
                         <div class="player__list-icon">
@@ -1007,6 +1013,52 @@
                     <h3></h3>
                 </div>
                 <div class="player__popup-footer">
+                    <div class="player__container-song hide-on-mobile">
+                        <div class="player__song-info media">
+                            <div class="media__left">
+                                <div class="player__song-thumb media__thumb note-1">
+                                    <div class="thumb-img" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
+                                    <svg fill="#fff" viewBox="0 0 512 512" class="thumb-note note-1">
+                                        <path
+                                            d="M470.38 1.51L150.41 96A32 32 0 0 0 128 126.51v261.41A139 139 0 0 0 96 384c-53 0-96 28.66-96 64s43 64 96 64 96-28.66 96-64V214.32l256-75v184.61a138.4 138.4 0 0 0-32-3.93c-53 0-96 28.66-96 64s43 64 96 64 96-28.65 96-64V32a32 32 0 0 0-41.62-30.49z"
+                                        ></path>
+                                    </svg>
+                                    <svg fill="#fff" viewBox="0 0 384 512" class="thumb-note note-2">
+                                        <path d="M310.94 1.33l-96.53 28.51A32 32 0 0 0 192 60.34V360a148.76 148.76 0 0 0-48-8c-61.86 0-112 35.82-112 80s50.14 80 112 80 112-35.82 112-80V148.15l73-21.39a32 32 0 0 0 23-30.71V32a32 32 0 0 0-41.06-30.67z"></path>
+                                    </svg>
+                                    <svg fill="#fff" viewBox="0 0 512 512" class="thumb-note note-3">
+                                        <path
+                                            d="M470.38 1.51L150.41 96A32 32 0 0 0 128 126.51v261.41A139 139 0 0 0 96 384c-53 0-96 28.66-96 64s43 64 96 64 96-28.66 96-64V214.32l256-75v184.61a138.4 138.4 0 0 0-32-3.93c-53 0-96 28.66-96 64s43 64 96 64 96-28.65 96-64V32a32 32 0 0 0-41.62-30.49z"
+                                        ></path>
+                                    </svg>
+                                    <svg fill="#fff" viewBox="0 0 384 512" class="thumb-note note-4">
+                                        <path d="M310.94 1.33l-96.53 28.51A32 32 0 0 0 192 60.34V360a148.76 148.76 0 0 0-48-8c-61.86 0-112 35.82-112 80s50.14 80 112 80 112-35.82 112-80V148.15l73-21.39a32 32 0 0 0 23-30.71V32a32 32 0 0 0-41.06-30.67z"></path>
+                                    </svg>                                                                                                
+                                </div>
+                            </div>
+                            <div class="media__content">
+                                <div class="player__song-body media__info">
+                                    <div class="player__song-title info__title">
+                                        <div class="player__title-animate">
+                                            <div class="title__item">Music name</div>
+                                            <div class="title__item">Music name</div>
+                                        </div>
+                                    </div>
+                                    <div class="player__song-author info__author">Author</div>
+                                </div>
+                            </div>
+                            <div class="media__right hide-on-tablet-mobile">
+                                <div class="player__song-options">
+                                    <div class="player__song-btn option-btn">
+                                        <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                    </div>
+                                    <div class="player__song-btn option-btn">
+                                        <i class="btn--icon bi bi-three-dots"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="player__control">
                         <div class="player__control-btn">
                             <div class="control-btn btn-random is-small">
@@ -1029,7 +1081,33 @@
                         <div class="progress-block">
                             <span class="tracktime">00:00</span>
                             <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+                            <div class="progress__track song--track">
+                                <div class="progress__track-update"></div>
+                            </div>
                             <span class="durationtime">--:--</span>
+                        </div>
+                    </div>
+                    <div class="player__options hide-on-mobile">
+                        <div class="player__options-container">
+                            <div class="player__options-btn option-btn hide-on-tablet-mobile">
+                                <i class="bi bi-camera-video btn--icon"></i>
+                            </div>
+                            <div class="player__options-btn option-btn hide-on-tablet-mobile">
+                                <i class="bi bi-mic btn--icon"></i>
+                            </div>
+                            <div class="player__options-btn volume option-btn">
+                                <i class="bi bi-volume-up btn--icon"></i>
+                            </div>
+                            <div class="player__volume-progress">
+                                <input type="range" class="volume__range" value="100" step="1" min="0" max="100">
+                                <div class="progress__track volume--track">
+                                    <div class="progress__track-update"></div>
+                                </div>
+                                <span class="volume__background"></span>
+                            </div>
+                            <div class="player__list-icon">
+                                <i class="bi bi-music-note-list"></i>
+                            </div>
                         </div>
                     </div>
                 </div>

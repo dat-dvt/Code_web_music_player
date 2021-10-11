@@ -8,12 +8,12 @@ const DURATION_STORAGE_KEY = 'VIK_DURATION';
 
 const appContainers = Array.from($$('.app__container'));
 const audio = $('#audio');
-const author = $('.player__song-author');
+const authors = Array.from($$('.player__song-author'));
 const albumLists = Array.from($$('.album--container'));
 const albumScrollBtns = $$('.container__move-btn.move-btn--album');
 const artistLists = Array.from($$('.artist--container'));
 const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
-const cdThumb = $('.player__song-thumb .thumb-img');
+const cdThumbs = Array.from($$('.player__song-thumb .thumb-img'));
 const closeModalBtn = $('.modal__close-btn');
 const containerTabs = $$('.container__tab');
 const durationTimes = Array.from($$('.durationtime'));
@@ -35,7 +35,7 @@ const nextBtns = Array.from($$('.btn-next'));
 const playAllBtns = $$('.btn--play-all');
 const player = $('.player');
 const playerContainer = $('.player__container');
-const playerInfo = $('.player__song-info');
+const playerInfos = Array.from($$('.player__song-info'));
 const playerPopUp = $('.player .player__popup');
 const playerPopUpFooter = $('.player .player__popup .player__popup-footer');
 const popUpSongName = $('.player__popup-cd-info h2');
@@ -48,6 +48,7 @@ const playBtns = Array.from($$('.btn-toggle-play'));
 const prevBtns = Array.from($$('.btn-prev'));
 const progress = Array.from($$('.progress'));
 const progressBlocks = Array.from($$('.progress-block'));
+const progressTracks = Array.from($$('.progress__track.song--track .progress__track-update'));
 const radioLists = Array.from($$('.radio--container'));
 const randomBtns = Array.from($$('.btn-random'));
 const radioMoveBtns = Array.from($$('.container__move-btn.move-btn--radio'))
@@ -63,11 +64,12 @@ const singerSlideContainers = Array.from($$('.singer-slide--container'));
 const slideMove = $('.explore__slide .explore__slide-move');
 const slideMoveItems = Array.from($$('.explore__slide .explore__slide-item'))
 const songLists = Array.from($$('.playlist__list'));
-const songAnimateTitle = $('.player__title-animate');
+const songAnimateTitles = Array.from($$('.player__title-animate'));
 const themeContainer = $('.theme__container');
 const trackTimes = Array.from($$('.tracktime'));
-const volume = $('.volume__range');
-const volumeBtn = $('.volume .btn--icon');
+const volumes = Array.from($$('.volume__range'));
+const volumeTracks = Array.from($$('.progress__track.volume--track .progress__track-update'));
+const volumeBtns = Array.from($$('.volume .btn--icon'));
 const App = $('.app');
 
 
@@ -671,7 +673,9 @@ const app = {
                 songActive.classList.add('playing')
             })
             player.classList.add('playing');
-            playerInfo.classList.add('playing')
+            playerInfos.forEach(playerInfo => {
+                playerInfo.classList.add('playing')
+            })
             popUpCdThumbAnimate.play();
             _this.titleAnimate().play();
         }
@@ -684,7 +688,9 @@ const app = {
                 songActive.classList.remove('playing')
             })
             player.classList.remove('playing');
-            playerInfo.classList.remove('playing')
+            playerInfos.forEach(playerInfo => {
+                playerInfo.classList.remove('playing')
+            })
             popUpCdThumbAnimate.pause();
         }
 
@@ -700,59 +706,75 @@ const app = {
 
         // When the song progress changes
         audio.ontimeupdate = function(e) {
-            if (!_this.isSeeking && audio.duration) {
-                const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
-                trackTimes.forEach(trackTime => {
-                    trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
-                })
-                progress.forEach(progressChild => {
-                    progressChild.value = Math.floor(audio.currentTime / audio.duration * 100);
-                })
-                if(listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
-                    _this.durationList[_this.currentPlaylist].splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
-                    localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(_this.durationList));
-                    listDurationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
-                    durationTimes.forEach(durationTime => {
-                        durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
+            if (audio.duration) {
+                if(!_this.isSeeking) {
+                    const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
+                    trackTimes.forEach(trackTime => {
+                        trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                     })
+                    progress.forEach(progressChild => {
+                        progressChild.value = Math.floor(audio.currentTime / audio.duration * 100);
+                    })
+                    progressTracks.forEach(progressTrack => {
+                        progressTrack.style.width = Math.floor(audio.currentTime / audio.duration * 100) + '%';
+                    })
+                    if(listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
+                        _this.durationList[_this.currentPlaylist].splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
+                        localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(_this.durationList));
+                        listDurationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
+                        durationTimes.forEach(durationTime => {
+                            durationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
+                        })
+                    }
                 }
             } else {
                 // Handling when seek
                 progress.forEach(progressChild => {
                     progressChild.onchange = function(e) {
+                        console.log('vao')
                         const seekTime = e.target.value * audio.duration / 100;
                         audio.currentTime = seekTime;
-                        trackTimes.forEach(trackTime => {
-                            trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
-                        })
                         _this.isSeeking = false;
                     }
                 })
             }
         }
         
+        // Method 2 to seek
         function currentTime() {
-            const seekTime = progress[0].value * audio.duration / 100;
-            if(audio.duration) {
-                trackTimes.forEach(trackTime => {
-                    trackTime.innerText = _this.audioCalTime(seekTime);
+            if(_this.isSeeking) {
+                let seekTime;
+                progress.forEach(progressChild => {
+                    progressChild.oninput = (e) => {
+                        seekTime = e.target.value * audio.duration / 100;
+                        progressTracks.forEach(progressTrack => {
+                            progressTrack.style.width = e.target.value + '%';
+
+                        })
+                        trackTimes.forEach(trackTime => {
+                            trackTime.innerHTML = _this.audioCalTime(seekTime);
+                        })
+                    }
                 })
             }
         }
 
-        // progress.addEventListener('touchmove', currentTime);
         progress.forEach(progressChild => {
-            progressChild.addEventListener('mousemove', currentTime);
+            progressChild.onmousemove = currentTime;
+            progressChild.addEventListener('touchmove', currentTime);
         })
+
 
         function seekStart() {
             _this.isSeeking = true;
         }
 
         // progressBlock.addEventListener('touchstart', seekStart);
-        progressBlocks.forEach(progressBlock => {
-            progressBlock.onmousedown = seekStart;
+        progress.forEach(progressChild => {
+            progressChild.onmousedown = seekStart;
+            progressChild.ontouchstart = seekStart;
         })
+
 
         
 
@@ -880,27 +902,34 @@ const app = {
         })
 
         //Handle adjust volume change
-        function changeVolume() {
-            if(audio.volume * 100 != volume.value) {
-                audio.volume = volume.value / 100;
-                _this.setConfig('currentVolume', volume.value)
+        function changeVolume(index) {
+            if(audio.volume * 100 != volumes[index].value) {
+                audio.volume = volumes[index].value / 100;
+                volumeTracks.forEach(volumeTrack => {
+                    volumeTrack.style.width = volumes[index].value + '%';
+                })
+                _this.setConfig('currentVolume', volumes[index].value)
                 if (!audio.volume) {
-                    volumeBtn.classList.remove('bi-volume-up');
-                    volumeBtn.classList.add('bi-volume-mute')
+                    volumeBtns.forEach(volumeBtn => {
+                        volumeBtn.classList.replace('bi-volume-up', 'bi-volume-mute');
+                    })
                 } else {
-                    volumeBtn.classList.add('bi-volume-up');
-                    volumeBtn.classList.remove('bi-volume-mute')
+                    volumeBtns.forEach(volumeBtn => {
+                        volumeBtn.classList.replace('bi-volume-mute', 'bi-volume-up')
+                    })
                 }
             }
         }
         
-        volume.onchange = function(e) {
-            changeVolume();
-        }
-        volume.onmousemove = function(e) {
-            e.stopPropagation();
-            changeVolume();
-        }
+        volumes.forEach((volume, index) => {
+            volume.onchange = function(e) {
+                changeVolume(index);
+            }
+            volume.onmousemove = function(e) {
+                e.stopPropagation();
+                changeVolume(index);
+            }
+        })
         //Use addEventListener to fix the bug in the first loading
         // volume.addEventListener('touchmove', function(e) {
         //     e.stopPropagation();
@@ -1161,6 +1190,7 @@ const app = {
         exploreSlideShow()
 
 
+        // Singer slide on explore tab
         function singerSlideShow(step) {
             // Automatic slide
             if(_this.scrollToRight[5] === true) {
@@ -1199,13 +1229,6 @@ const app = {
         } else {
             singerSlideShow(4)
         }
-
-
-
-        
-
-        
-
         
 
     },
@@ -1233,17 +1256,21 @@ const app = {
     
 
     loadCurrentSong: function() {
-        songAnimateTitle.innerHTML = app.html`
-                <div class="title__item">${this.currentSong.name}</div>
-                <div class="title__item">${this.currentSong.name}</div>
-        `;
+        songAnimateTitles.forEach(songAnimateTitle => {
+            songAnimateTitle.innerHTML = app.html`
+                    <div class="title__item">${this.currentSong.name}</div>
+                    <div class="title__item">${this.currentSong.name}</div>
+            `;
+        })
         popUpSongName.innerText = this.currentSong.name
-        author.innerHTML = app.html`
-            ${this.currentSong.singer.map((singer, index) => {
-                return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
-            })}
-        
-        `;
+        authors.forEach(author => {
+            author.innerHTML = app.html`
+                ${this.currentSong.singer.map((singer, index) => {
+                    return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
+                })}
+            
+            `;
+        })
         popUpSongAuthor.innerHTML = app.html`
         ${this.currentSong.singer.map((singer, index) => {
             return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
@@ -1252,7 +1279,9 @@ const app = {
     `;
         this.setPlayerInfoWidth()
         popUpCdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
-        cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
+        cdThumbs.forEach(cdThumb => {
+            cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
+        })
         audio.src = `${this.currentSong.path}`;
         durationTimes.forEach(durationTime => {
             durationTime.innerHTML = this.durationList[this.currentPlaylist][this.currentIndex];          
@@ -1262,15 +1291,17 @@ const app = {
 
     setPlayerInfoWidth() {
         const animateTitleItems = $$('.player__title-animate .title__item')
-        const playerSongTitle = $('.player__song-title.info__title')
-        playerSongTitle.style.width = songAnimateTitle.offsetWidth / 2 + 'px'
-        this.slideTitleWidth = playerSongTitle.offsetWidth;
+        const playerSongTitles = Array.from($$('.player__song-title.info__title'))
+        playerSongTitles.forEach(playerSongTitle => {
+            playerSongTitle.style.width = songAnimateTitles[0].offsetWidth / 2 + 'px'
+        })
+        this.slideTitleWidth = playerSongTitles[0].offsetWidth;
         
     },
 
     // Handle title runs/stops
     titleAnimate() {
-        const titleAnimate = songAnimateTitle.animate([
+        const titleAnimate = songAnimateTitles[0].animate([
             {transform: 'translate(0px)'},
             {transform: `translateX(-${this.slideTitleWidth}px)`}
         ], {
@@ -1282,8 +1313,15 @@ const app = {
     },
     
     audioCalTime: function(time) {
-        const minute = Math.floor(time / 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-        const second = Math.floor(time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+        let minute;
+        let second;
+        if(time) {
+            minute = Math.floor(time / 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+            second = Math.floor(time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+        } else {
+            minute = (0).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+            second = (0).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+        }
         return `${minute}:${second}`;
     },
 
@@ -1297,10 +1335,16 @@ const app = {
         this.loadThemeBg(this.themeList, this.currentTheme);
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         if (!audio.volume) {
-            volumeBtn.classList.remove('bi-volume-up');
-            volumeBtn.classList.add('bi-volume-mute')
+            volumeBtns.forEach(volumeBtn => {
+                volumeBtn.classList.replace('bi-volume-up', 'bi-volume-mute');
+            })
         }
-        volume.value = this.config.currentVolume || 100;
+        volumes.forEach(volume => {
+            volume.value = this.config.currentVolume == 0 ? 0 : this.config.currentVolume || 100;
+        })
+        volumeTracks.forEach(volumeTrack => {
+            volumeTrack.style.width = (this.config.currentVolume == 0 ? 0 : this.config.currentVolume || 100) + '%';
+        })
         durationTimes.forEach(durationTime => {
             durationTime.textContent = this.audioCalTime(this.durationList[this.currentPlaylist][this.currentIndex]);
         })
@@ -1460,7 +1504,6 @@ const app = {
         const listItems = $$(this.slideSelectors[slideOrder])
         this.getSlideIndex(step, slideOrder, listItems, listBtn)
         const currentIndex = Math.floor(this.slideIndexs[slideOrder] / Math.abs(step))
-        console.log(step)
         // Scroll Into View
         listContainer.scrollLeft = listContainer.offsetWidth * currentIndex
  
@@ -1480,7 +1523,6 @@ const app = {
 
     // pickSlides(step, slideOrder, listBtns) {
     //     const listItems = $$(this.slideSelectors[slideOrder])
-    //     console.log(listItems)
 
     //     const currentIndex = this.getSlideIndex(this.slideIndexs[slideOrder] += step, slideOrder, listItems, step);
     //     if (currentIndex + step > listItems.length) {

@@ -1655,10 +1655,9 @@ label .container__header-icon {
     border: 1px solid var(--text-color);
 }
 
-.btn-toggle-play i::before {
+.btn-toggle-play .icon-play:before {
     transform: translateX(1px);
 }
-
 
 .player__control .btn-repeat,
 .player__control .btn-random,
@@ -1683,48 +1682,198 @@ label .container__header-icon {
 .progress-block {
     height: 18px;
     width: 100%;
-    margin-bottom: 5px;
     display: flex;
+    margin-bottom: 5px;
+    position: relative;
     align-items: center;
     justify-content: space-between;
+}
+
+.progress__track {
+    left: 50%;
+    height: 3px;
+    border-radius: 20px;
+    position: absolute;
+    transform: translate(-50%, 0);
+    background: var(--bg-content-color);
+}
+
+.progress__track.song--track {
+    width: calc(100% - 130px);
+}
+
+.progress__track-update {
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    border-radius: 20px;
+    position: absolute;
+    background-color: var(--text-item-hover);
+}
+
+.progress__track-update::after {
+    content: "";
+    top: 49.9%;
+    right: -4px;
+    width: 12px;
+    height: 12px;
+    display: none;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    background-color: var(--text-item-hover);
+}
+
+.progress:hover ~ .progress__track {
+    height: 5px;
+    border-radius: 100px;
+}
+
+.progress:hover ~ .progress__track .progress__track-update {
+    height: 5px;
+    border-radius: 100px;
+}
+
+.progress:hover ~ .progress__track .progress__track-update::after {
+    display: block;
 }
 
   .durationtime,
   .tracktime {
     width: 55px;
-    font-size: 1.2rem;
     margin: 0 5px;
-    color: var(--text-color);
     display: block;
+    font-size: 1.2rem;
     text-align: center;
+    color: var(--text-color);
 }
 
   
 .progress {
-    width: 100%;
-    height: 3px;
-    background: #5a5561;
+    flex: 1;
     opacity: 1;
+    z-index: 5;
+    height: 18px;
+    outline: none;
+    cursor: pointer;
     border-radius: 2px;
     -webkit-appearance: none;
-    outline: none;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
-    cursor: pointer;
+    background-color: transparent;
     -webkit-tap-highlight-color: transparent;
 }
 
 
   
 .progress::-webkit-slider-thumb {
-    -webkit-appearance: none;
     appearance: none;
-    width: 8px;
-    height: 8px;
-    border-radius: 6px;
-    background-color: var(--text-item-hover);
+    width: 18px;
+    height: 18px;
     cursor: pointer;
+    border-radius: 999px;
+    -webkit-appearance: none;
+    background-color: transparent;
 }
+
+ /* Volume */
+ .player__volume-progress {
+    width: 70px;
+    height: 20px;
+    display: flex;
+    margin-right: 20px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress__track.volume--track {
+    width: 100%;
+}
+
+
+.progress__track.volume--track .progress__track-update {
+
+}
+
+.player__volume-progress:hover .progress__track.volume--track {
+    height: 5px;
+    border-radius: 100px;
+}
+
+.player__volume-progress:hover .progress__track.volume--track .progress__track-update {
+    height: 5px;
+    border-radius: 100px;
+}
+
+.player__volume-progress:hover .progress__track.volume--track .progress__track-update::after {
+    display: block;
+}
+
+
+.volume__background {
+    content: "";
+    display: none;
+    width: 134%;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #353535;
+    position: absolute;
+    top: -169%;
+    right: -16%;
+    z-index: -1;
+}
+
+.volume:active .volume__range.horizontal ~ .volume__background,
+.volume:hover .volume__range.horizontal ~ .volume__background {
+    display:block;
+}
+
+.volume__range {
+    opacity: 1;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 0px;
+    position: absolute;
+    transform: rotate(0deg);
+    -webkit-appearance: none;
+    -webkit-transition: 0.2s;
+    background-color: transparent;
+    transition: opacity 0.2s, rotate 0.2s, translateX 0.2s;
+}
+
+
+.volume__range::before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 150%;
+    height: 60px;
+    position:absolute;
+    top: -30px;
+    right: -30%;
+    z-index: -1;
+}
+
+.volume:hover .volume__range,
+.volume:active .volume__range {
+    display: block;
+}
+
+.volume__range::-webkit-slider-thumb {
+    width: 8px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 999px;
+    -webkit-appearance: none;
+    background-color: transparent;
+}
+
 
 
 .player__options {
@@ -1754,74 +1903,6 @@ label .container__header-icon {
 }
 
 
-  /* Volume */
-.player__volume-progress {
-    width: 70px;
-    height: 20px;
-    margin-right: 20px;
-}
-
-
-.volume__background {
-    content: "";
-    display: none;
-    width: 134%;
-    height: 25px;
-    border-radius: 10px;
-    background-color: #353535;
-    position: absolute;
-    top: -169%;
-    right: -16%;
-    z-index: -1;
-}
-
-.volume:active .volume__range.horizontal ~ .volume__background,
-.volume:hover .volume__range.horizontal ~ .volume__background {
-    display:block;
-}
-
-.volume__range {
-    width: 100%;
-    height: 2px;
-    margin-bottom: 0px;
-    background-color: #5a5561;
-    outline: none;
-    opacity: 1;
-    transform: rotate(0deg);
-    -webkit-appearance: none;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s, rotate 0.2s, translateX 0.2s;
-    cursor: pointer;
-    z-index: 10;
-}
-
-
-.volume__range::before {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 150%;
-    height: 60px;
-    position:absolute;
-    top: -30px;
-    right: -30%;
-    z-index: -1;
-}
-
-.volume:hover .volume__range,
-.volume:active .volume__range {
-    display: block;
-}
-
-.volume__range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--text-item-hover);
-    cursor: pointer;
-}
   
 .player__list-icon {
     width: 28px;
@@ -2054,6 +2135,11 @@ label .container__header-icon {
     background-color: var(--player-bg);
 }
 
+.player__popup .player__right,
+.player__popup .player__left {
+    width: 30%;
+}
+
 .player__popup .player__control {
     flex: 1;
     flex-direction: column-reverse;
@@ -2062,6 +2148,7 @@ label .container__header-icon {
 .player__popup .progress-block {
     max-width: 530px;
 }
+
 
 
 /******** Tab explore content ********/
