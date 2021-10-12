@@ -611,6 +611,16 @@
         font-weight: 600;
     }
 
+
+    /* Explore playlist */
+    .explore-playlist--info .row__info-name {
+        font-size: 1.2rem;
+    }
+    
+    .explore-playlist--info .info__artist {
+        font-size: 1.2rem;
+    }
+
     
 
 }

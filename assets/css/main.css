@@ -953,6 +953,7 @@
 .container__header-title h3 {
     margin: 0;
     font-size: 2rem;
+    text-transform: capitalize;
 }
 
 .container__header-title:hover{
@@ -2468,4 +2469,150 @@ label .container__header-icon {
     font-size: 1.4rem;
     line-height: 2.1rem;
     color: var(--purple-primary);
+}
+
+
+/* Favotite artist */
+.row__item.item--fav-artist .row__item-display-content {
+    padding: 0 15px 15px;
+}
+
+
+.row__item.item--fav-artist .row__item-display .overlay {
+    background-color: rgba(0,0,0,0.3);
+}
+
+
+.row__item.item--fav-artist .row__item-actions {
+    height: 50%;
+    align-items: flex-end;
+}
+
+
+.display__content-explication {
+    margin: 0;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    color: var(--white-color);
+    text-transform: uppercase;
+}
+
+.display__content-artist {
+    margin: 0;
+    width: 100%;
+    font-weight: 700;
+    font-size: 2.8rem;
+    line-height: 3.3rem;
+    color: var(--white-color);
+    text-transform: capitalize;
+}
+
+.display__content-list {
+    width: 100%;
+    display: flex;
+    margin-top: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.display__content-list-song {
+    flex: 1;
+}
+
+.display__content-list-song + .display__content-list-song {
+    margin-left: 10px;
+}
+
+.display__content-song-img {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 6px;
+}
+
+.row__item.item--fav-artist .control-btn.btn-toggle-play {
+    font-size: 4.5rem;
+}
+
+
+
+/* Explore container footer */
+.container__footer {
+    padding: 0 36px;
+}
+
+.container__footer-header {
+    text-align: center;
+    letter-spacing: 1.71px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    margin-bottom: 27px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.container__footer-brand {
+    
+}
+
+
+
+.container__footer-brand-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__brand-container {
+    width: 100%;
+    position: relative;
+}
+
+.container__footer-brand-background {
+    width: 100%;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+}
+
+.container__footer-brand-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 90%;
+    max-height: 80%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Playlist header */
+.container__header.special-playlist--header {
+    height: unset;
+}
+
+.special-playlist--header .row__item-display {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+
+
+.media__info.explore-playlist--info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.explore-playlist--info .row__info-name {
+    font-weight: 700;
+}
+
+.explore-playlist--info .info__artist {
+    font-size: 1.4rem;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

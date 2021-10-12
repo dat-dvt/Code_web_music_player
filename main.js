@@ -13,12 +13,14 @@ const albumLists = Array.from($$('.album--container'));
 const albumScrollBtns = $$('.container__move-btn.move-btn--album');
 const artistLists = Array.from($$('.artist--container'));
 const artistScrollBtns = $$('.container__move-btn.move-btn--artist');
+const brandLists = Array.from($$('.brand--container'));
 const cdThumbs = Array.from($$('.player__song-thumb .thumb-img'));
 const closeModalBtn = $('.modal__close-btn');
 const containerTabs = $$('.container__tab');
 const durationTimes = Array.from($$('.durationtime'));
 const eventLists = Array.from($$('.event--container'))
 const exploreSlideLists = Array.from($$('.explore__slide--container'));
+const favArtistLists = Array.from($$('.fav-artist--container'))
 const header = $('.header');
 const headerNavTitles = $$('.tab-home .container__header-title');
 const homeMVs = $$('.tab-home .mv--container .row__item.item--mv');
@@ -35,6 +37,8 @@ const navThemeBtn = $('.header__nav-btn.nav-btn--theme');
 const nextBtns = Array.from($$('.btn-next'));
 const newPlaylistLists = Array.from($$('.new-playlist--container'));
 const newPlaylistMoveBtns = Array.from($$('.move-btn--new-playlist'))
+const normalPlaylistLists = Array.from($$('.normal-playlist--section'))
+const favArtistMoveBtns = Array.from($$('.move-btn--fav-artist'))
 const playAllBtns = $$('.btn--play-all');
 const player = $('.player');
 const playerContainer = $('.player__container');
@@ -66,11 +70,13 @@ const sidebarSubnav = $('.sidebar__subnav');
 const singerSlideContainers = Array.from($$('.singer-slide--container'));
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitles = Array.from($$('.player__title-animate'));
+const specialPlaylistLists = Array.from($$('.special-playlist--section'))
 const themeContainer = $('.theme__container');
 const trackTimes = Array.from($$('.tracktime'));
 const volumes = Array.from($$('.volume__range'));
+const volumeBtns = Array.from($$('.player__options-btn.volume.option-btn'))
 const volumeTracks = Array.from($$('.progress__track.volume--track .progress__track-update'));
-const volumeBtns = Array.from($$('.volume .btn--icon'));
+const volumeIcons = Array.from($$('.volume .btn--icon'));
 const App = $('.app');
 
 
@@ -79,13 +85,14 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isSeeking: false,
-    scrollToRight: [true, true, true, true, true, true, true], //use when click move btn
+    isChangeVolume: false,
+    scrollToRight: [true, true, true, true, true, true, true, true], //use when click move btn
     currentScreen: [],
     currentPlaylist: 0, //choose playlist
     themeList: 0, //Theme list index (have > 1 lists)
     currentTheme: 0, //Current theme index in theme list
     indexArray: [], //Use for random song
-    slideIndexs: [ 1, 1, 1, 1, 1, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
+    slideIndexs: [ 0, 0, 0, 0, 0, 0, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
         '.tab-home .playlist--container .row__item.item--playlist',
         '.tab-home .album--container .row__item.item--album',
@@ -94,6 +101,7 @@ const app = {
         '.tab--explore .radio--container .row__item.item--radio',
         '.tab--explore .singer-slide--container .singer__slide-item',
         '.tab--explore .new-playlist--container .row__item.item--new-playlist',
+        '.tab--explore .fav-artist--container .row__item.item--fav-artist',
     ],
     slideTitleWidth: 0, //Width of player title on footer
     
@@ -119,10 +127,18 @@ const app = {
 
     newPlaylists: JSON.parse(localStorage.getItem(NEW_PLAYLIST_STORAGE_KEY) || '[]'),
 
+    favArtists: JSON.parse(localStorage.getItem(FAVORITE_ARTIST_STORAGE_KEY) || '[]'),
+
+    brands: JSON.parse(localStorage.getItem(BRAND_STORAGE_KEY) || '[]'),
+
+    specialPlaylists: JSON.parse(localStorage.getItem(SPECIAL_PLAYLIST_STORAGE_KEY) || '[]'),
+
+    normalPlaylists: JSON.parse(localStorage.getItem(NORMAL_PLAYLIST_STORAGE_KEY) || '[]'),
+
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
             ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05"],
-            ["04:02","02:57","03:21","03:13","03:57","04:21","04:45","02:52","04:46","04:04","02:45","04:27","08:26","04:48","03:01","03:25","04:24","03:19"],
+            ["04:02","02:57","03:21","14:51","03:57","04:21","04:45","03:06","04:46","04:04","02:45","04:27","08:26","04:48","03:01","03:25","04:24","03:19"],
             ["03:16","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:17","02:37","03:28"],
             ["03:25","04:45","03:14","04:15","02:54","02:51","02:01","04:28","03:23","03:21","02:28","03:57"]
         ]
@@ -181,7 +197,7 @@ const app = {
                                 <p class="playlist__song-author info__author">
                                     ${song.singer.map((singer,index) => {
                                         return app.html`
-                                        <a href="#" class="is-ghost">${singer}</a>${index < song.singer.length - 1 && ',&nbsp;'}
+                                        <a href="#" class="is-ghost">${singer}</a>${index < song.singer.length - 1 && ', '}
                                         `
                                     })}
                                 </p>
@@ -189,11 +205,11 @@ const app = {
                         </div>
                         <span class="playlist__song-time media__content">${app.durationList[app.currentPlaylist][index]}</span>
                         <div class="playlist__song-option ${songIndex === 1 && "song--tab"} media__right">
-                            <div class="playlist__song-btn option-btn hide-on-mobile">
+                            <div class="playlist__song-btn btn--mic option-btn hide-on-mobile">
                                 <i class="btn--icon song__icon bi bi-mic-fill"></i>
                             </div>
-                            <div class="playlist__song-btn option-btn hide-on-mobile">
-                                <i class="btn--icon song__icon bi bi-heart-fill primary"></i>
+                            <div class="playlist__song-btn btn--heart option-btn hide-on-mobile">
+                                <i class="btn--icon song__icon icon--heart bi bi-heart-fill primary"></i>
                             </div>
                             <div class="playlist__song-btn option-btn ${songIndex === 0 && 'hide-on-tablet'}">
                                 <i class="btn--icon bi bi-three-dots"></i>
@@ -224,7 +240,7 @@ const app = {
                                     <div class="row__item-display br-5">
                                         <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
                                         <div class="row__item-actions">
-                                            <div class="action-btn">
+                                            <div class="action-btn btn--heart">
                                                 <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
                                             </div>
                                             <div class="btn--play-playlist">
@@ -261,7 +277,7 @@ const app = {
                                     <div class="row__item-display br-5">
                                         <div class="row__item-img img--square" style="background: url('${album.image}') no-repeat center center / cover"></div>
                                         <div class="row__item-actions">
-                                            <div class="action-btn">
+                                            <div class="action-btn btn--heart">
                                                 <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
                                             </div>
                                             <div class="btn--play-playlist">
@@ -318,7 +334,7 @@ const app = {
                                                 <p class="info__author">
                                                     ${mv.author.map((author, index) => {
                                                         return app.html`
-                                                            <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ',&nbsp;'}
+                                                            <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ', '}
                                                         `
                                                     })}
                                                 </p>
@@ -643,6 +659,191 @@ const app = {
         })
     },
 
+    renderFavArtist() {
+        favArtistLists.forEach((favArtistList, artistIndex) => {
+            favArtistList.innerHTML = app.html`
+                ${this.favArtists.map((favArtist, index) => {
+                    return app.html`
+                        <div class="col l-4 m-6 c-6">
+                            <div class="row__item item--fav-artist">
+                                <div class="row__item-container flex--top-left">
+                                    <div class="row__item-display br-5">
+                                        <div class="row__item-img img--square" style="background: url('${favArtist.image}') no-repeat center center / cover"></div>
+                                        <div class="row__item-actions">
+                                            <div class="btn--fav-artist">
+                                                <div class="control-btn btn-toggle-play">
+                                                    <i class="bi bi-play-fill icon-play"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="overlay"></div>
+                                        <div class="blur"></div>
+                                        <div class="row__item-display-content">
+                                            <h3 class="display__content-explication">${favArtist.explication}</h3>
+                                            <p class="display__content-artist">${favArtist.name}</p>
+                                            <div class="display__content-list">
+                                                ${favArtist.songs.map((song, index) => {
+                                                    return app.html`
+                                                        <div class="display__content-list-song">
+                                                            <div class="display__content-song-img" style="background: url('${song}') no-repeat center center / cover"></div>
+                                                        </div>
+                                                    `
+                                                })}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
+    renderBrand() {
+        brandLists.forEach((brandList, brandIndex) => {
+            brandList.innerHTML = app.html`
+                ${this.brands.map((brand, index) => {
+                    return app.html`
+                        <div class="col l-1-5 m-3 c-4 container__footer-brand-item mb-30">
+                            <div class="footer__brand-container">
+                                <div class="container__footer-brand-background img--rec"></div>
+                                <img src="${brand.image}" alt="brand" class="container__footer-brand-img">
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+    
+    renderSpecialPlaylist() {
+        specialPlaylistLists.forEach((specialPlaylistList, playlistListIndex) => {
+            specialPlaylistList.innerHTML = app.html`
+                <div class="col l-12 m-12 c-12 mb-16">
+                    <div class="container__header special-playlist--header">
+                        <div class="row__item-info media">
+                            <div class="media__left">
+                                <div class="row__item-display br-5">
+                                    <div class="row__item-img img--square" style="background: url('${app.specialPlaylists[playlistListIndex].header.image}') no-repeat center center / cover"></div>
+                                </div>
+                                <div class="media__info special-playlist--info">
+                                    <span class="info__explication">${app.specialPlaylists[playlistListIndex].header.explication}</span>
+                                    <h3 class="info__topic-name is-active">${app.specialPlaylists[playlistListIndex].header.topicName}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l-12 m-12 c-12">
+                    <div class="row no-wrap special-playlist--container">
+                        ${app.specialPlaylists[playlistListIndex].playlists.map((playlist, index) => {
+                            return app.html`
+                                <div class="col l-2-4 m-3 c-4">
+                                    <div class="row__item item--playlist">
+                                        <div class="row__item-container flex--top-left">
+                                            <div class="row__item-display br-5">
+                                                <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
+                                                <div class="row__item-actions">
+                                                    <div class="action-btn btn--heart">
+                                                        <i class="btn--icon icon--heart bi bi-heart-fill primary"></i>
+                                                    </div>
+                                                    <div class="btn--play-playlist">
+                                                        <div class="control-btn btn-toggle-play">
+                                                            <i class="bi bi-play-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="btn--icon bi bi-three-dots"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="overlay"></div>
+                                            </div>
+                                            <div class="row__item-info explore-playlist--info">
+                                                <a href="#" class="row__info-name is-oneline">${playlist.name}</a>
+                                                <p class="info__artist">
+                                                    ${playlist.artists.map((artist, artistIndex) => {
+                                                        return app.html`
+                                                            <a href="#" class="is-ghost">${artist}</a>${artistIndex < playlist.artists.length -1 && ', '}
+                                                        `
+                                                    })}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        })}
+                    </div>
+                </div>
+            `
+        })
+    },
+
+    renderNormalPlaylist() {
+        normalPlaylistLists.forEach((normalPlaylistList, playlistListIndex) => {
+            normalPlaylistList.innerHTML = app.html`
+                ${playlistListIndex != 6 && app.html`
+                    <div class="col l-12 m-12 c-12 mb-16">
+                        <div class="container__header">
+                            <a href="#" class="container__header-title">
+                                <h3>${this.normalPlaylists[playlistListIndex].header}</h3>
+                            </a>
+                            <h3 class="container__header-subtitle">${this.normalPlaylists[playlistListIndex].header}</h3>
+                        </div>
+                    </div>
+                `}
+                <div class="col l-12 m-12 c-12">
+                    <div class="row no-wrap normal-playlist--container">
+                        ${app.normalPlaylists[playlistListIndex].playlists.map((playlist, index) => {
+                            return app.html`
+                                <div class="col l-2-4 m-3 c-4">
+                                    <div class="row__item item--playlist">
+                                        <div class="row__item-container flex--top-left">
+                                            <div class="row__item-display br-5">
+                                                <div class="row__item-img img--square" style="background: url('${playlist.image}') no-repeat center center / cover"></div>
+                                                <div class="row__item-actions">
+                                                    <div class="action-btn btn--heart">
+                                                        <i class="btn--icon icon--heart bi bi-heart"></i>
+                                                    </div>
+                                                    <div class="btn--play-playlist">
+                                                        <div class="control-btn btn-toggle-play">
+                                                            <i class="bi bi-play-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="btn--icon bi bi-three-dots"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="overlay"></div>
+                                            </div>
+                                            <div class="row__item-info explore-playlist--info">
+                                                ${playlistListIndex != 3 && app.html`
+                                                    <a href="#" class="row__info-name ${playlistListIndex != 5 && "is-oneline" || "is-twoline"}">${playlist.name}</a>
+                                                `
+                                                }
+                                                ${playlistListIndex != 5 && app.html`
+                                                    <p class="info__artist">
+                                                        ${playlist.artists.map((artist, artistIndex) => {
+                                                            return app.html`
+                                                                <a href="#" class="${playlistListIndex != 1 && playlistListIndex != 2 && 'is-ghost' || 'is-description'}">${artist}</a>${artistIndex < playlist.artists.length -1 && ', '}
+                                                            `
+                                                        })}
+                                                    </p>
+                                                `}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        })}
+                    </div>
+                </div>
+            `
+        })
+    },
+
 
     render : function() {
         // Render songs
@@ -681,6 +882,18 @@ const app = {
         // Render new playlist
         this.renderNewPlaylist()
 
+        // Render favorite artist
+        this.renderFavArtist()
+
+        // Render brand
+        this.renderBrand()
+
+        //Render special playlist
+        this.renderSpecialPlaylist()
+
+        // Render normal playlist
+        this.renderNormalPlaylist()
+
         this.scrollToActiveSong();
 
     },
@@ -702,6 +915,7 @@ const app = {
         const listSingersBtns = $$('.singer__slide-move .slide__move-btn')
         const slideMove = $('.explore__slide--container .explore__slide-move');
         const newPlaylistMove = $('.container__header-actions.new-playlist--move')
+        const favArtistMove = $('.container__header-actions.fav-artist--move')
 
 
 
@@ -962,8 +1176,6 @@ const app = {
                 const checkNode = e.target.closest('.playlist__list-song:not(.active) .playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.playlist__song-option')
-                const iconNode = e.target.closest('.btn--icon.song__icon')
-                const activeOption = $('.playlist__song-option.active');
                 if(songNode && !optionNode && !checkNode) {
                     // Handle when clicking on the song
                     if(songNode) {
@@ -990,10 +1202,6 @@ const app = {
                     }
                 }
 
-                // Handle when click on icon
-                if(iconNode) {
-                    iconNode.classList.toggle('primary')
-                }
     
                 // Handle when clicking on the song option
                 if(optionNode) {
@@ -1010,31 +1218,80 @@ const app = {
                 })
                 _this.setConfig('currentVolume', volumes[index].value)
                 if (!audio.volume) {
-                    volumeBtns.forEach(volumeBtn => {
-                        volumeBtn.classList.replace('bi-volume-up', 'bi-volume-mute');
+                    volumeIcons.forEach(volumeIcon => {
+                        volumeIcon.classList.replace('bi-volume-up', 'bi-volume-mute');
                     })
                 } else {
-                    volumeBtns.forEach(volumeBtn => {
-                        volumeBtn.classList.replace('bi-volume-mute', 'bi-volume-up')
+                    volumeIcons.forEach(volumeIcon => {
+                        volumeIcon.classList.replace('bi-volume-mute', 'bi-volume-up')
                     })
                 }
             }
         }
+
+        volumeBtns.forEach((volumeBtn, index) => {
+            volumeBtn.onclick = (e) => {
+                let currentVolume;
+                if(audio.volume > 0) {
+                    currentVolume = 0;
+                } else {
+                    if(volumes[index].value > 0) {
+                        currentVolume = volumes[index].value
+                    } else {
+                        currentVolume = 100;
+                        volumes.forEach(volume => {
+                            volume.value = 100;
+                        })
+                    }
+                }
+                audio.volume = currentVolume / 100;
+                volumeTracks.forEach(volumeTrack => {
+                    volumeTrack.style.width = currentVolume + '%';
+                })
+                _this.setConfig('currentVolume', currentVolume)
+                if (!audio.volume) {
+                    volumeIcons.forEach(volumeIcon => {
+                        volumeIcon.classList.replace('bi-volume-up', 'bi-volume-mute');
+                    })
+                } else {
+                    volumeIcons.forEach(volumeIcon => {
+                        volumeIcon.classList.replace('bi-volume-mute', 'bi-volume-up')
+                    })
+                }
+            }
+        })
+
         
         volumes.forEach((volume, index) => {
             volume.onchange = function(e) {
                 changeVolume(index);
             }
-            volume.onmousemove = function(e) {
-                e.stopPropagation();
-                changeVolume(index);
+            volume.onmousedown = (e) => {
+                _this.isChangeVolume = true;
             }
+            volume.onmouseup = () => {
+                _this.isChangeVolume = false;
+            }
+            volume.onmousemove = function(e) {
+                if(_this.isChangeVolume === true) {
+                    changeVolume(index);
+                    e.stopPropagation();
+                }
+            }
+            // Use addEventListener to fix the bug when the first loading
+            volume.addEventListener('touchstart', function(e) {
+                _this.isChangeVolume = true;
+            })
+            volume.addEventListener('touchend', function(e) {
+                _this.isChangeVolume = false;
+            })
+            volume.addEventListener('touchmove', function(e) {
+                if(_this.isChangeVolume === true) {
+                    changeVolume(index);
+                    e.stopPropagation();
+                }
+            })
         })
-        //Use addEventListener to fix the bug in the first loading
-        // volume.addEventListener('touchmove', function(e) {
-        //     e.stopPropagation();
-        //     changeVolume();
-        // })
 
 
         //Handle slide show
@@ -1151,9 +1408,10 @@ const app = {
 
         
         // Handle when click on icons heart
-        const heartIconBtns = $$('.btn--icon.icon--heart');
-        Array.from(heartIconBtns).forEach(heartIcon => {
-            heartIcon.onclick = () => {
+        const heartIconBtns = $$('.btn--heart');
+        Array.from(heartIconBtns).forEach(heartIconBtn => {
+            heartIconBtn.onclick = (e) => {
+                const heartIcon = heartIconBtn.firstElementChild
                 if(heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
                 else heartIcon.classList.replace('bi-heart', 'bi-heart-fill')
                 heartIcon.classList.toggle('primary')
@@ -1161,11 +1419,10 @@ const app = {
         })
 
         //Handle when click on icons micro
-        const micIconBtns = $$('.btn--icon.icon--mic')
-        Array.from(micIconBtns).forEach(micIcon => {
-            micIcon.onclick = () => {
-                if(micIcon.classList.contains('primary')) micIcon.classList.replace('bi-mic-fill', 'bi-mic')
-                else micIcon.classList.replace('bi-mic', 'bi-mic-fill')
+        const micIconBtns = $$('.btn--mic')
+        Array.from(micIconBtns).forEach(micIconBtn => {
+            micIconBtn.onclick = () => {
+                const micIcon = micIconBtn.firstElementChild
                 micIcon.classList.toggle('primary')
             }
         })
@@ -1362,7 +1619,7 @@ const app = {
                 }
             })
 
-            // Handle when click on singer slide move buttons
+            // Handle when click on new playlist slide move buttons
             newPlaylistMove.onclick = (e) => {
                 const prevBtn = e.target.closest('.move-btn--new-playlist.btn--prev')
                 const nextBtn = e.target.closest('.move-btn--new-playlist.btn--next')
@@ -1392,6 +1649,54 @@ const app = {
             newPlaylistSlideShow(1)
         }
 
+        // Favorite artist slide
+        function favArtistSlideShow(step) {
+            // Automatic slide
+            if(_this.scrollToRight[7] === true) {
+                _this.showSlides(step, 7, favArtistLists[0], favArtistMoveBtns)
+            } else {
+                _this.showSlides(-step, 7, favArtistLists[0], favArtistMoveBtns)
+            }
+            let favArtistId = setTimeout(function() {
+                favArtistSlideShow(step)
+            }, 5000)
+
+            favArtistLists.forEach(favArtist => {
+                favArtist.ontouchmove = (e) => {
+                    clearTimeout(favArtistId)
+                    favArtistId = setTimeout(function() {
+                        favArtistSlideShow(step)
+                    }, 5000)
+                }
+            })
+
+            // Handle when click on new playlist slide move buttons
+            favArtistMove.onclick = (e) => {
+                const prevBtn = e.target.closest('.move-btn--fav-artist.btn--prev')
+                const nextBtn = e.target.closest('.move-btn--fav-artist.btn--next')
+                if(nextBtn) {
+                        _this.showSlides(step, 7, favArtistLists[0], favArtistMoveBtns)
+                        clearTimeout(favArtistId)
+                        favArtistId = setTimeout(function() {
+                            favArtistSlideShow(step)
+                        }, 5000)
+                }
+                if(prevBtn) {
+                        _this.showSlides(-step, 7, favArtistLists[0], favArtistMoveBtns)
+                        clearTimeout(favArtistId)
+                        favArtistId = setTimeout(function() {
+                            favArtistSlideShow(step)
+                        }, 5000)
+                }
+            }
+        }
+
+        // Depend on width of the screen
+        if(App.offsetWidth >= 1024) {
+            favArtistSlideShow(3)
+        } else {
+            favArtistSlideShow(2)
+        }
     },
 
     loadCurrentSongPlaylist (index) {
@@ -1427,14 +1732,14 @@ const app = {
         authors.forEach(author => {
             author.innerHTML = app.html`
                 ${this.currentSong.singer.map((singer, index) => {
-                    return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
+                    return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
                 })}
             
             `;
         })
         popUpSongAuthor.innerHTML = app.html`
         ${this.currentSong.singer.map((singer, index) => {
-            return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ',&nbsp;'}`
+            return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
         })}
     
     `;
@@ -1496,8 +1801,8 @@ const app = {
         this.loadThemeBg(this.themeList, this.currentTheme);
         audio.volume = this.config.currentVolume == 0 ? 0 : this.config.currentVolume / 100 || 1;
         if (!audio.volume) {
-            volumeBtns.forEach(volumeBtn => {
-                volumeBtn.classList.replace('bi-volume-up', 'bi-volume-mute');
+            volumeIcons.forEach(volumeIcon => {
+                volumeIcon.classList.replace('bi-volume-up', 'bi-volume-mute');
             })
         }
         volumes.forEach(volume => {

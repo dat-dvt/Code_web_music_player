@@ -14,6 +14,7 @@
     flex-wrap: wrap;
     margin-left: -4px;
     margin-right: -4px;
+    backface-visibility: hidden;
 }
 
 .row.no-gutters {
@@ -293,6 +294,11 @@
         margin-right: -7px;
     }
 
+    .row.medium-gutter {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
     .col {
         padding-left: 15px;
         padding-right: 15px;
@@ -303,11 +309,17 @@
         padding-right: 7px;
     }
 
+    .row.medium-gutter .col {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
     .l-0 {
         display: none;
     }
 
     .l-1,
+    .l-1-5,
     .l-1-7,
     .l-2,
     .l-2-4,
@@ -327,6 +339,11 @@
     .l-1 {
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
+    }
+
+    .l-1-5 {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
     }
 
     .l-1-7 {
@@ -477,6 +494,7 @@
     }
 
     .wide .l-1,
+    .wide .l-1-5,
     .wide .l-1-7,
     .wide .l-2,
     .wide .l-2-4,
@@ -496,6 +514,11 @@
     .wide .l-1 {
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
+    }
+
+    .wide .l-1-5 {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
     }
 
     .wide .l-1-7 {

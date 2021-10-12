@@ -130,8 +130,8 @@ var listSong = [
             image: "./assets/img/music/listSong2/song3.jpg"
         },
         {
-            name: "Dịu Dàng Em Đến (Cukak Remix)",
-            singer: ["ERIK", "NinjaZ", "Cukak"],
+            name: "Chúng Ta Của Hiện Tại",
+            singer: ["Sơn Tùng M-TP"],
             path: "./assets/music/listSong2/song4.mp3",
             image: "./assets/img/music/listSong2/song4.jpg"
         },
@@ -154,8 +154,8 @@ var listSong = [
             image: "./assets/img/music/listSong2/song7.jpg"
         },
         {
-            name: "Có Hẹn Với Thanh Xuân",
-            singer: ["Monstar", "AnhVu"],
+            name: "Ái Nộ",
+            singer: ["Masew", "Khoi Vu"],
             path: "./assets/music/listSong2/song8.mp3",
             image: "./assets/img/music/listSong2/song8.jpg"
         },
