@@ -155,7 +155,7 @@
 
 
     .sidebar__subnav {
-        height: calc(var(--sidebar-height) - 305px);
+        height: calc(100% - 425px);
         margin-top: 10px;
     }
 
@@ -546,6 +546,22 @@
         height: 400px;
     }
 
+    .theme__item-actions.row__item-actions {
+        top:0;
+        left: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        transform: none;
+    }
+
+    .button.theme__actions-btn.btn--apply-theme {
+        margin: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+    }
+
 
 
 
@@ -621,6 +637,26 @@
         font-size: 1.2rem;
     }
 
+
+
+    /* Tab charts */
+    .playlist__list-charts .playlist__song-body {
+        max-width: calc(100% - 123px);
+    }
+
+    .playlist__song-rank {
+        margin-right: 5px;
+    }
+
+    .playlist__rank-number {
+        width: 50px;
+    }
     
+
+
+    /* Tab following */
+    .following__navbar-item {
+        min-width: 70px;
+    }
 
 }

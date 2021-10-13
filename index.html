@@ -162,13 +162,13 @@
                             <span>Cá Nhân</span>
                         </a>
                     </li>
-                    <li class="sidebar__nav-item active">
+                    <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-vinyl"></i>
                             <span>Khám Phá</span>
                         </a>
                     </li>
-                    <li class="sidebar__nav-item">
+                    <li class="sidebar__nav-item active">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-music-note-list"></i>
                             <span>#zingchart</span>
@@ -223,7 +223,7 @@
                 <ul class="sidebar__subnav-menu">
                     <li class="sidebar__menu-item menu-header">
                         <h2 class="sidebar__menu-title">THƯ VIỆN</h2>
-                        <i class="bi bi-pencil"></i>
+                        <i class="bi bi-pencil hide-on-tablet"></i>
                     </li>
                     <li class="sidebar__menu-item">
                         <a href="#" class="sidebar__menu-link">
@@ -486,29 +486,6 @@
                                     </div>
                                     <div class="container__playlist">
                                         <div class="playlist__list">
-                                            <div class="playlist__list-song media">
-                                                <div class="playlist__song-info media__left">
-                                                    <div class="playlist__song-thumb media__thumb" style="background: url('https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg') no-repeat center center / cover"></div>
-                                                    <div class="playlist__song-body media__info">
-                                                        <span class="playlist__song-title info__title">Music Name</span>
-                                                        <p class="playlist__song-author info__author">
-                                                            <a href="#" class="is-ghost">Singer</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <span class="playlist__song-time media__content">--/--</span>
-                                                <div class="playlist__song-option media__right">
-                                                    <div class="playlist__song-btn option-btn">
-                                                        <i class="btn--icon bi bi-mic-fill"></i>
-                                                    </div>
-                                                    <div class="playlist__song-btn option-btn">
-                                                        <i class="btn--icon bi bi-suit-heart"></i>
-                                                    </div>
-                                                    <div class="playlist__song-btn option-btn">
-                                                        <i class="btn--icon bi bi-three-dots"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -755,7 +732,7 @@
             </div>
         </div>
 
-        <div class="app__container tab--explore active">
+        <div class="app__container tab--explore">
             <div class="app__container-content">
                 <div class="explore__container">
                     <div class="grid">
@@ -889,14 +866,77 @@
                 </div>
             </div>
         </div>
-        <div class="app__container tab--explore">
-            
+        <div class="app__container tab--charts">
         </div>
-        <div class="app__container tab--explore">
-            
+        <div class="app__container tab--radio">
+            <div class="app__container-content">
+                <div class="radio__container">
+                    <div class="grid">
+                        <div class="row container__section mt-30">
+                            <div class="col l-12 m-12 c-12 mb-16">
+                                <div class="container__header">
+                                    <a href="#" class="container__header-title">
+                                        <h3>Radio Nổi bật&nbsp;</h3>
+                                    </a>
+                                    <h3 class="container__header-subtitle">Radio Nổi bật</h3>
+                                    <div class="container__header-actions hide-on-tablet-mobile">
+                                        <div class="container__move-btn move-btn--radio button--disabled">
+                                            <i class="bi bi-chevron-left container__move-btn-icon"></i>
+                                        </div>
+                                        <div class="container__move-btn move-btn--radio">
+                                            <i class="bi bi-chevron-right container__move-btn-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row no-wrap radio--container">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row container__section special-playlist--section mt-30">
+                        </div>
+                        <div class="row container__section special-playlist--section mt-30">
+                        </div>
+                        <div class="row container__section special-playlist--section mt-30">
+                        </div>
+                        <div class="row container__section normal-playlist--section mt-30">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="app__container tab--explore">
-            
+        <div class="app__container tab--following active">
+            <div class="app__container-content">
+                <div class="following__container">
+                    <div class="grid">
+                        <div class="following__navbar">
+                            <div class="following__navbar-container">
+                                <ul class="following__navbar-menu">
+                                    <li class="following__navbar-item active hide-on-tablet">
+                                        <span>Việt Nam</span>
+                                    </li>
+                                    <li class="following__navbar-item">
+                                        <span>US-UK</span>
+                                    </li>
+                                    <li class="following__navbar-item">
+                                        <span>K-Pop</span>
+                                    </li>
+                                    <li class="following__navbar-item">
+                                        <span>Hoa Ngữ</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row container__section">
+                            <div class="col l-12 m-12 c-12 singer__slide-row">
+                                <div class="row no-wrap singer-slide--container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="player grid">
             <div class="player__container">
@@ -1201,8 +1241,9 @@
     <script src="./data/tabExplore/newPlaylists.js"></script>
     <script src="./data/tabExplore/favArtists.js"></script>
     <script src="./data/tabExplore/brands.js"></script>
-    <script src="./data/tabExplore/specialPlaylists.js"></script>
-    <script src="./data/tabExplore/normalPlaylists.js"></script>
+    <script src="./data/specialPlaylists.js"></script>
+    <script src="./data/normalPlaylists.js"></script>
+    <script src="./data/tabCharts/playlistCharts.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>

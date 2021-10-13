@@ -58,7 +58,8 @@ const progressBlocks = Array.from($$('.progress-block'));
 const progressTracks = Array.from($$('.progress__track.song--track .progress__track-update'));
 const radioLists = Array.from($$('.radio--container'));
 const randomBtns = Array.from($$('.btn-random'));
-const radioMoveBtns = Array.from($$('.container__move-btn.move-btn--radio'))
+const exploreRadioMoveBtns = Array.from($$('.tab--explore .container__move-btn.move-btn--radio'))
+const radioTabMoveBtns = Array.from($$('.tab--radio .container__move-btn.move-btn--radio'))
 const repeatBtns = Array.from($$('.btn-repeat'));
 const searchHistory = $('.header__search-history');
 const sidebar = $('.app__sidebar');
@@ -71,6 +72,7 @@ const singerSlideContainers = Array.from($$('.singer-slide--container'));
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitles = Array.from($$('.player__title-animate'));
 const specialPlaylistLists = Array.from($$('.special-playlist--section'))
+const tabCharts = $('.app__container.tab--charts');
 const themeContainer = $('.theme__container');
 const trackTimes = Array.from($$('.tracktime'));
 const volumes = Array.from($$('.volume__range'));
@@ -86,13 +88,13 @@ const app = {
     isRepeat: false,
     isSeeking: false,
     isChangeVolume: false,
-    scrollToRight: [true, true, true, true, true, true, true, true], //use when click move btn
+    scrollToRight: [true, true, true, true, true, true, true, true, true, true], //use when click move btn
     currentScreen: [],
     currentPlaylist: 0, //choose playlist
     themeList: 0, //Theme list index (have > 1 lists)
     currentTheme: 0, //Current theme index in theme list
     indexArray: [], //Use for random song
-    slideIndexs: [ 0, 0, 0, 0, 0, 0, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
+    slideIndexs: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
         '.tab-home .playlist--container .row__item.item--playlist',
         '.tab-home .album--container .row__item.item--album',
@@ -102,6 +104,8 @@ const app = {
         '.tab--explore .singer-slide--container .singer__slide-item',
         '.tab--explore .new-playlist--container .row__item.item--new-playlist',
         '.tab--explore .fav-artist--container .row__item.item--fav-artist',
+        '.tab--radio .radio--container .row__item.item--radio',
+        '.tab--following .singer-slide--container .singer__slide-item',
     ],
     slideTitleWidth: 0, //Width of player title on footer
     
@@ -134,6 +138,8 @@ const app = {
     specialPlaylists: JSON.parse(localStorage.getItem(SPECIAL_PLAYLIST_STORAGE_KEY) || '[]'),
 
     normalPlaylists: JSON.parse(localStorage.getItem(NORMAL_PLAYLIST_STORAGE_KEY) || '[]'),
+
+    listSongCharts: JSON.parse(localStorage.getItem(SONG_CHARTS_STORAGE_KEY) || '[]'),
 
     durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
         [
@@ -170,7 +176,7 @@ const app = {
     renderSong() {
         this.songs = this.songPlaylists[this.currentPlaylist]
         songLists.forEach((songList, songIndex) => {
-            songList.innerHTML = app.html`${app.songs.map(function(song,index) {
+            songList.innerHTML = app.html`${app.songs.map(function(song, index) {
                 return app.html`
                     <div class="playlist__list-song media ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
                         <div class="playlist__song-info media__left">
@@ -395,7 +401,7 @@ const app = {
         })
     },
 
-    renderModal() {
+    renderModalTheme() {
         themeContainer.innerHTML = app.html`
             ${this.themeLists.map((themeList, themeIndex)=> {
                 return app.html`
@@ -416,7 +422,7 @@ const app = {
                                                 <button class="button theme__actions-btn btn--apply-theme button-primary">
                                                     <span class="theme__btn-title">Áp dụng</span>
                                                 </button>
-                                                <button class="button theme__actions-btn btn--preview">
+                                                <button class="button theme__actions-btn btn--preview hide-on-mobile">
                                                     <span class="theme__btn-title">Xem trước</span>
                                                 </button>
                                             </div>
@@ -795,10 +801,10 @@ const app = {
                     </div>
                 `}
                 <div class="col l-12 m-12 c-12">
-                    <div class="row no-wrap normal-playlist--container">
+                    <div class="row ${playlistListIndex !== 7 && 'no-wrap'} normal-playlist--container">
                         ${app.normalPlaylists[playlistListIndex].playlists.map((playlist, index) => {
                             return app.html`
-                                <div class="col l-2-4 m-3 c-4">
+                                <div class="col l-2-4 m-3 c-4 ${playlistListIndex === 7 && 'mb-30'}">
                                     <div class="row__item item--playlist">
                                         <div class="row__item-container flex--top-left">
                                             <div class="row__item-display br-5">
@@ -820,7 +826,7 @@ const app = {
                                             </div>
                                             <div class="row__item-info explore-playlist--info">
                                                 ${playlistListIndex != 3 && app.html`
-                                                    <a href="#" class="row__info-name ${playlistListIndex != 5 && "is-oneline" || "is-twoline"}">${playlist.name}</a>
+                                                    <a href="#" class="row__info-name ${playlistListIndex != 5 && playlistListIndex != 7 && "is-oneline" || "is-twoline"}">${playlist.name}</a>
                                                 `
                                                 }
                                                 ${playlistListIndex != 5 && app.html`
@@ -844,6 +850,89 @@ const app = {
         })
     },
 
+    renderTabCharts() {
+        tabCharts.innerHTML = app.html`
+            <div class="app__container-content">
+                <div class="charts__container">
+                    <div class="grid">
+                        <div class="chart__container-header mb-40">
+                            <h3 class="chart__header-name">#zingchart</h3>
+                            <div class="chart__header-btn">
+                                <i class="bi bi-play-fill chart__header-icon"></i>
+                            </div>
+                        </div>
+                        <div class="row no-gutters chart--container mt-10 mb-20">
+                            <div class=" col l-12 m-12 c-12">
+                                <div class="container__playlist">
+                                    <div class="playlist__list-charts overflow-visible">
+                                        ${this.listSongCharts.map((song, songIndex) => {
+                                            return app.html`
+                                                <div class="playlist__list-song media ${songIndex > 9 && 'song--not-expand'}">
+                                                    <div class="playlist__song-info media__left">
+                                                        <div class="playlist__song-rank">
+                                                            <div
+                                                                class="playlist__rank-number 
+                                                                ${songIndex === 0 &&'is-outline--blue'}
+                                                                ${songIndex === 1 &&'is-outline--green'}
+                                                                ${songIndex === 2 &&'is-outline--red'}
+                                                                ${songIndex > 2 &&'is-outline--text'}
+                                                            ">
+                                                                ${song.rank}
+                                                            </div>
+                                                            <div class="playlist__rank-icon">
+                                                                <i class="bi bi-dash-lg"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${song.image}') no-repeat center center / cover">
+                                                            <div class="thumb--animate">
+                                                                <div class="thumb--animate-img" style="background: url('./assets/img/SongActiveAnimation/icon-playing.gif') no-repeat 50% / contain">
+                                                                </div>
+                                                            </div>
+                                                            <div class="play-song--actions">
+                                                                <div class="control-btn btn-toggle-play">
+                                                                    <i class="bi bi-play-fill"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="playlist__song-body media__info">
+                                                            <span class="playlist__song-title info__title">${song.name}</span>
+                                                            <p class="playlist__song-author info__author">
+                                                                ${song.singers.map((singer, index) => {
+                                                                    return app.html`
+                                                                        <a href="#" class="is-ghost">${singer}</a>${index < song.singers.length - 1 && ', '}
+                                                                    `
+                                                                })}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <span class="playlist__song-time media__content">${song.time}</span>
+                                                    <div class="playlist__song-option song--tab media__right hide-on-mobile">
+                                                        <div class="playlist__song-btn btn--mic option-btn">
+                                                            <i class="btn--icon song__icon bi bi-mic-fill"></i>
+                                                        </div>
+                                                        <div class="playlist__song-btn btn--heart option-btn">
+                                                            <i class="btn--icon song__icon icon--heart bi bi-heart-fill primary"></i>
+                                                        </div>
+                                                        <div class="playlist__song-btn option-btn">
+                                                            <i class="btn--icon bi bi-three-dots"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="charts__expand">
+                            <button class="button charts__expand-btn">Xem top 100</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+    },
+
 
     render : function() {
         // Render songs
@@ -862,7 +951,7 @@ const app = {
         this.renderArtist()
 
         // Render Modal
-        this.renderModal()
+        this.renderModalTheme()
 
         // Render explore slide
         this.renderExploreSlide()
@@ -894,6 +983,9 @@ const app = {
         // Render normal playlist
         this.renderNormalPlaylist()
 
+        // Render tab charts
+        this.renderTabCharts()
+
         this.scrollToActiveSong();
 
     },
@@ -911,14 +1003,18 @@ const app = {
         const _this = this;
         const playBtns = Array.from($$('.btn-toggle-play.btn--play-song'));
         const listThemes = Array.from($$('.theme__container .theme__list'));
-        const singerSlideMove = $('.singer-slide--container .singer__slide-move')
-        const listSingersBtns = $$('.singer__slide-move .slide__move-btn')
+        const singerSlideMove = $('.tab--explore .singer-slide--container .singer__slide-move');
+        const followingSingerSlideMove = $('.tab--following .singer-slide--container .singer__slide-move');
+        const listSingersBtns = $$('.tab--explore .singer__slide-move .slide__move-btn');
+        const followingListSingerBtns = $$('.tab--following .singer__slide-move .slide__move-btn');
         const slideMove = $('.explore__slide--container .explore__slide-move');
-        const newPlaylistMove = $('.container__header-actions.new-playlist--move')
-        const favArtistMove = $('.container__header-actions.fav-artist--move')
+        const newPlaylistMove = $('.container__header-actions.new-playlist--move');
+        const favArtistMove = $('.container__header-actions.fav-artist--move');
+        const chartExpandBtn = $('.button.charts__expand-btn');
+        const chartSongContainer = $('.row.chart--container');
 
 
-
+        // hide and visible shadow of subnav on sidebar
         sidebarSubnav.onscroll = (e) => {
             const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
             if(scrollTop > 10) {
@@ -928,7 +1024,8 @@ const app = {
             }
         }
 
-        
+
+        // Set background for header when scroll
         appContainers.forEach(appContainer => {
             appContainer.onscroll = function() {
                 const scrollTop = appContainer.scrollY || appContainer.scrollTop;
@@ -1089,6 +1186,7 @@ const app = {
         
 
         //  Handle CD spins / stops
+        _this.smoothAnimation(popUpCdThumb)
         const popUpCdThumbAnimate = popUpCdThumb.animate([
             { transform: 'rotate(360deg)'}
         ], {
@@ -1376,15 +1474,23 @@ const app = {
             _this.showSlides(5, 3, artistLists[0],artistScrollBtns)
         }
 
-        // Artist
-        radioMoveBtns[0].onclick = function() {
-            _this.showSlides(-7, 4, radioLists[0], radioMoveBtns)
+        // Explore radio
+        exploreRadioMoveBtns[0].onclick = function() {
+            _this.showSlides(-7, 4, radioLists[0], exploreRadioMoveBtns)
         }
 
-        radioMoveBtns[1].onclick = function() {
-            _this.showSlides(7, 4, radioLists[0], radioMoveBtns)
+        exploreRadioMoveBtns[1].onclick = function() {
+            _this.showSlides(7, 4, radioLists[0], exploreRadioMoveBtns)
         }
 
+        // Radio in tab Radio
+        radioTabMoveBtns[0].onclick = function() {
+            _this.showSlides(-7, 8, radioLists[1], radioTabMoveBtns)
+        }
+
+        radioTabMoveBtns[1].onclick = function() {
+            _this.showSlides(7, 8, radioLists[1], radioTabMoveBtns)
+        }
 
 
         
@@ -1548,15 +1654,15 @@ const app = {
 
 
         // Singer slide on explore tab
-        function singerSlideShow(step) {
+        function singerSlideShow(step, order, index, listBtns) {
             // Automatic slide
-            if(_this.scrollToRight[5] === true) {
-                _this.showSlides(step, 5, singerSlideContainers[0], listSingersBtns)
+            if(_this.scrollToRight[order] === true) {
+                _this.showSlides(step, order, singerSlideContainers[index], listBtns)
             } else {
-                _this.showSlides(-step, 5, singerSlideContainers[0], listSingersBtns)
+                _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
             }
             let singerSlideId = setTimeout(function() {
-                singerSlideShow(step)
+                singerSlideShow(step, order, index, listBtns)
             }, 5000)
 
 
@@ -1564,38 +1670,64 @@ const app = {
                 singerSlideContainer.ontouchmove = (e) => {
                     clearTimeout(singerSlideId)
                     singerSlideId = setTimeout(function() {
-                        singerSlideShow(step)
+                        singerSlideShow(step, order, index, listBtns)
                     }, 5000)
                 }
             })
             // Handle when click on singer slide move buttons
-            singerSlideMove.onclick = (e) => {
-                const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
-                const nextBtn = e.target.closest('.slide__move-btn.btn--next')
-                if(nextBtn) {
-                        _this.showSlides(step, 5, singerSlideContainers[0], listSingersBtns)
+            if(order === 5) {
+                singerSlideMove.onclick = (e) => {
+                    const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
+                    const nextBtn = e.target.closest('.slide__move-btn.btn--next')
+                    if(nextBtn) {
+                        _this.showSlides(step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
                         singerSlideId = setTimeout(function() {
-                            singerSlideShow(step)
+                            singerSlideShow(step, order, index, listBtns)
                         }, 5000)
+                    }
+                    if(prevBtn) {
+                        _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
+                        clearTimeout(singerSlideId)
+                        singerSlideId = setTimeout(function() {
+                            singerSlideShow(step, order, index, listBtns)
+                        }, 5000)
+                    }
                 }
-                if(prevBtn) {
-                        _this.showSlides(-step, 5, singerSlideContainers[0], listSingersBtns)
+            }
+
+            if(order === 9) {
+                followingSingerSlideMove.onclick = (e) => {
+                    const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
+                    const nextBtn = e.target.closest('.slide__move-btn.btn--next')
+                    if(nextBtn) {
+                        _this.showSlides(step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
                         singerSlideId = setTimeout(function() {
-                            singerSlideShow(step)
+                            singerSlideShow(step, order, index, listBtns)
                         }, 5000)
+                    }
+                    if(prevBtn) {
+                        _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
+                        clearTimeout(singerSlideId)
+                        singerSlideId = setTimeout(function() {
+                            singerSlideShow(step, order, index, listBtns)
+                        }, 5000)
+                    }
                 }
             }
         }
 
         // Depend on width of the screen
         if(App.offsetWidth >= 1024) {
-            singerSlideShow(5)
+            singerSlideShow(5, 5, 0, listSingersBtns)
+            singerSlideShow(5, 9, 1, followingListSingerBtns)
         } else if(App.offsetWidth >= 740 && App.offsetWidth < 1024) {
-            singerSlideShow(4)
+            singerSlideShow(4, 5, 0, listSingersBtns)
+            singerSlideShow(4, 9, 1, followingListSingerBtns)
         } else {
-            singerSlideShow(3)
+            singerSlideShow(3, 5, 0, listSingersBtns)
+            singerSlideShow(3, 9, 1, followingListSingerBtns)
         }
 
         // New playlist slide
@@ -1697,6 +1829,16 @@ const app = {
         } else {
             favArtistSlideShow(2)
         }
+
+
+
+        //****** Tab charts
+        // Handle when click on expand btn
+        chartExpandBtn.onclick = (e) => {
+            chartSongContainer.classList.add('expand-song');
+        }
+
+
     },
 
     loadCurrentSongPlaylist (index) {
@@ -1767,6 +1909,8 @@ const app = {
 
     // Handle title runs/stops
     titleAnimate(title) {
+        // Smooth Animation
+        this.smoothAnimation(title)
         const titleAnimate = title.animate([
             {transform: 'translate(0px)'},
             {transform: `translateX(-${this.slideTitleWidth}px)`}
@@ -1789,6 +1933,10 @@ const app = {
             second = (0).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
         }
         return `${minute}:${second}`;
+    },
+
+    smoothAnimation(element) {
+            element.style.willChange = 'transform, opacity';
     },
 
     loadConfig: function() {
@@ -1837,6 +1985,8 @@ const app = {
         document.documentElement.style.setProperty('--text-color', currentThemeColor.textColor)
         document.documentElement.style.setProperty('--text-item-hover', currentThemeColor.textItemHover)
         document.documentElement.style.setProperty('--text-secondary', currentThemeColor.textSecondary)
+        document.documentElement.style.setProperty('--navigation-text', currentThemeColor.navigationText)
+        document.documentElement.style.setProperty('--placeholder-text', currentThemeColor.placeholderText)
 
         if(this.themes[themeListIndex][currentTheme].image) {
             App.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
@@ -1932,6 +2082,7 @@ const app = {
             newIndex = Math.floor(Math.random() * this.songs.length);
         } while (newIndex === this.currentIndex || this.indexArray.includes(newIndex))
         this.indexArray.push(newIndex);
+        console.log(this.indexArray)
         this.currentIndex = newIndex;
         this.loadCurrentSong();
         if(this.indexArray.length === this.songs.length) {

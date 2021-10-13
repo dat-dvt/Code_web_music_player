@@ -5,7 +5,7 @@
     --border-primary: rgba(255, 255, 255, 0.1);
     --layout-bg: #170f23;
     --link-text-hover: #c662ef;
-    --modal-scrollbar: rgba(41, 21, 71,0.8);
+    --modal-scrollbar: rgba(41, 21, 71, 0.8);
     --navigation-text: #dadada;
     --placeholder-text: #dadada;
     --player-bg: rgba(0,0,0,0.2);
@@ -84,8 +84,16 @@ a {
     margin-bottom: 30px !important;
 }
 
+.mb-40 {
+    margin-bottom: 40px !important;
+}
+
 .mt-5 {
     margin-top: 5px !important;
+}
+
+.mt-10 {
+    margin-top: 10px !important;
 }
 
 .mt-15 {
@@ -137,6 +145,23 @@ a {
     border-radius: 999px !important;
 }
 
+.is-outline--blue {
+    -webkit-text-stroke: 1px #4a90e2;
+}
+
+.is-outline--green {
+    -webkit-text-stroke: 1px #50e3c2;
+}
+
+.is-outline--red {
+    -webkit-text-stroke: 1px #e35050;
+}
+
+.is-outline--text {
+    -webkit-text-stroke: 1.5px var(--text-color);
+    opacity: 0.7;
+}
+
 .is-description {
     cursor: default;
 }
@@ -149,6 +174,7 @@ a {
 
 .is-twoline {
     display: block;
+    overflow: hidden;
     display: -webkit-box !important;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -166,6 +192,7 @@ a {
     display: flex;
     scroll-behavior: smooth;
     flex-wrap: nowrap !important;
+    will-change: scroll-position;
     overflow: overlay hidden !important;
 }
 
@@ -565,9 +592,10 @@ a {
 
 .row__item-img {
     width: 100%;    
-    transform: perspective(1px) translateZ(0);
-    backface-visibility: hidden;
+    will-change: transform;
     transition: transform 0.7s;
+    backface-visibility: hidden;
+    transform: perspective(1px) translateZ(0);
 }
 
 .img--square {
@@ -952,7 +980,8 @@ a {
     width: 100%;
     height: 500px;
     padding: 0 30px;
-    overflow: hidden overlay;   
+    overflow: hidden overlay;  
+    will-change: scroll-position; 
 }
 
 .theme__content::-webkit-scrollbar {

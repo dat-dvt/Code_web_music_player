@@ -154,27 +154,27 @@ var listNormalPlaylist = [
         playlists: [
             {
                 name: "Top 100 Nhạc Dance Việt Nam Hay Nhất",
-                artists: ["", "", ""],
+                artists: [],
                 image: "./assets/img/tabExplore/normalPlaylists/playlistList6/playlist1.jpg"
             },
             {
                 name: "Top 100 Bài Hát Nhạc Trẻ Hay Nhất",
-                artists: ["", "", ""],
+                artists: [],
                 image: "./assets/img/tabExplore/normalPlaylists/playlistList6/playlist2.jpg"
             },
             {
                 name: "Top 100 Pop Âu Mỹ Hay Nhất",
-                artists: ["", "", ""],
+                artists: [],
                 image: "./assets/img/tabExplore/normalPlaylists/playlistList6/playlist3.jpg"
             },
             {
                 name: "Top 100 Nhạc Electronic/Dance Âu Mỹ Hay Nhất",
-                artists: ["", "", ""],
+                artists: [],
                 image: "./assets/img/tabExplore/normalPlaylists/playlistList6/playlist4.jpg"
             },
             {
                 name: "Top 100 Nhạc Hàn Quốc Hay Nhất",
-                artists: ["", "", ""],
+                artists: [],
                 image: "./assets/img/tabExplore/normalPlaylists/playlistList6/playlist5.jpg"
             },
         ],
@@ -209,6 +209,81 @@ var listNormalPlaylist = [
             },
         ],
     },
+    {
+        header: "Khám phá Podcast",
+        playlists: [
+            {
+                name: "the finding audio",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist1.jpg"
+            },
+            {
+                name: "Oddly Normal",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist2.jpg"
+            },
+            {
+                name: "Amateur Psychology - Tay mơ học đời bằng Tâm lý học",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist3.jpg"
+            },
+            {
+                name: "Hà Nội FM",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist4.jpg"
+            },
+            {
+                name: "Ghi-đông Radio",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist5.jpg"
+            },
+            {
+                name: "Trạm Radio",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist6.jpg"
+            },
+            {
+                name: "Chàng-Ngốc-Già",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist7.jpg"
+            },
+            {
+                name: "Lam's Story",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist8.jpg"
+            },
+            {
+                name: "Luyện Nghe Tiếng Anh Hàng Ngày - Ms Thuỷ KISS English",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist9.jpg"
+            },
+            {
+                name: "Nằm nghe đọc truyện - Hathaya Audio",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist10.jpg"
+            },
+            {
+                name: "Cạn Ly",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist11.jpg"
+            },
+            {
+                name: "Nghe Lỏm",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist12.jpg"
+            },
+            {
+                name: "Tóm Tắt Sách Cùng Tanya",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist13.jpg"
+            },
+            {
+                name: "Career Success | Take Away Series",
+                artists: [],
+                image: "./assets/img/tabRadio/normalPlaylists/playlistList1/playlist14.jpg"
+            },
+        ],
+    },
     // {
     //     header: "",
     //     playlists: [
@@ -239,6 +314,7 @@ var listNormalPlaylist = [
     //         },
     //     ],
     // },
+    
 ];
 
 const NORMAL_PLAYLIST_STORAGE_KEY = 'VIK_NORMAL_PLAYLIST';

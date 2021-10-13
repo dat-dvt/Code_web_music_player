@@ -4,6 +4,7 @@
     overflow: hidden overlay;
     background-repeat: repeat;
     background-size: 1920px auto;
+    will-change: scroll-position;
     background-color: var(--layout-bg);
     -webkit-tap-highlight-color: transparent;
     height: calc(100vh - var(--player-height));
@@ -138,10 +139,11 @@
 }
 
 .sidebar__subnav {
-    height: 223px;
     width: 100%;
-    overflow: hidden overlay;
+    height: 223px;
     margin: 30px 0 0;
+    overflow: hidden overlay;
+    will-change: scroll-position;
 }
 
 .sidebar__subnav.has-mask {
@@ -285,13 +287,16 @@
 .sidebar__expand {
     width: 100%;
     display: none;
-    padding: 0 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px 10px;
     justify-content: center;
 }
 
 .sidebar__expand-btn {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     display: block;
     cursor: pointer;
     border-radius: 50%;
@@ -303,7 +308,7 @@
 }
 
 .sidebar__expand-btn {
-    padding: 13px;
+    padding: 18px;
     font-size: 1.4rem;
     line-height: 1.4rem;
     color: var(--text-color);
@@ -319,12 +324,13 @@
     right: 0;
     height: 100%;
     display: none;
-    overflow: hidden overlay;
     scroll-behavior: smooth;
+    overflow: hidden overlay;
+    will-change: scroll-position;
     overflow-anchor: none !important;
     scroll-snap-stop: normal !important;
-    overscroll-behavior: unset !important;
     scroll-behavior: unset !important;
+    overscroll-behavior: unset !important;
 }
 
 .app__container.active {
@@ -1059,9 +1065,10 @@ label .container__header-icon {
     width: 230px;
     height: 230px;
     position: absolute;
-    transform: perspective(1px) translateZ(0);
-    backface-visibility: hidden;
     transition: all 0.9s;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    transform: perspective(1px) translateZ(0);
 }
 
 
@@ -1136,12 +1143,12 @@ label .container__header-icon {
     flex: 1;
     display: flex;
     font-weight: 500;
-    color: #b0a8b9;
     font-size: 1.2rem;
     flex-direction: column;
     overflow:hidden overlay;
     scroll-behavior: smooth;
     justify-content: flex-start;
+    will-change: scroll-position;
 }
 
 .playlist__list::-webkit-scrollbar {
@@ -1417,8 +1424,9 @@ label .container__header-icon {
 }
 
 .player__song-info {
-    flex-basis: auto;
     width: unset;
+    flex-basis: auto;
+    will-change: transform;
     transition: transform 0.5s;
 }
 
@@ -1446,6 +1454,7 @@ label .container__header-icon {
 }
 
 .player__song-info.playing .player__song-thumb .thumb-img {
+    will-change: transform;
     animation: rotateThumb 10s linear infinite;
     -webkit-animation: rotateThumb 10s linear infinite;
 }
@@ -1460,12 +1469,13 @@ label .container__header-icon {
 
 
 .player__song-thumb .thumb-note {
-    height: 10px;
+    opacity: 0;
     width: 10px;
+    height: 10px;
     position: absolute;
     top: calc(50% - 5px);
     left: calc(50% - 5px);
-    opacity: 0;
+    will-change: transform, opacity;
 }
 
 .player__song-info.playing .thumb-note.note-1 {
@@ -1759,9 +1769,10 @@ label .container__header-icon {
     outline: none;
     cursor: pointer;
     border-radius: 2px;
+    will-change: opacity;
     -webkit-appearance: none;
     -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
+    /* transition: opacity 0.2s; */
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
 }
@@ -1931,13 +1942,14 @@ label .container__header-icon {
 
 /* Player Popup CD thumbnail */
 .player__popup {
-    top: 0;
+    top: 100%;
     left: 0;
     z-index: 600;
     width: 100%;
     height: 100%;
-    display: none;
+    display: flex;
     position: fixed;
+    will-change: top;
     align-items: center;
     flex-direction: column;
     background-repeat: repeat;
@@ -1947,7 +1959,8 @@ label .container__header-icon {
 }
 
 .player.open-popup .player__popup {
-    display: flex;
+    top: 0;
+    will-change: top;
     animation: popUpPlayer 0.3s linear;
     -webkit-animation: popUpPlayer 0.3s linear;
 }
@@ -2231,6 +2244,7 @@ label .container__header-icon {
     width: 100%;
     position: absolute;
     transition: all 0.6s;
+    will-change: transform, opacity;
     backface-visibility: hidden;
 }
 
@@ -2615,4 +2629,212 @@ label .container__header-icon {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+
+
+/* Tab charts */
+.app__container.tab--charts .app__container-content {
+    padding-top: 110px;
+}
+
+.charts__container {
+    padding-bottom: 30px;
+}
+
+.chart__container-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.chart__header-name {
+    margin: 0;
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 4.9rem;
+    color: var(--text-item-hover);
+}
+
+.chart__header-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 50%;
+    background-color: var(--purple-primary);
+}
+
+.chart__header-icon {
+    margin: auto;
+    width: 22px;
+    height: 22px;
+    font-size: 2.2rem;
+    color: var(--white-color);
+}
+
+.playlist__list-charts {
+    flex: 1;
+    display: flex;
+    font-weight: 500;
+    font-size: 1.2rem;
+    flex-direction: column;
+    overflow:hidden overlay;
+    scroll-behavior: smooth;
+    justify-content: flex-start;
+    will-change: scroll-position;
+}
+
+.playlist__list-charts::-webkit-scrollbar {
+    display: none;
+}
+
+.playlist__list-charts:hover::-webkit-scrollbar {
+    display: block;
+    width: 4px;
+}
+
+  
+  /* Track */
+.playlist__list-charts::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+}
+  
+  /* Handle */
+.playlist__list-charts::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888;
+}
+  
+  /* Handle on hover */
+.playlist__list-charts::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.playlist__song-rank {
+    height: 100%;
+    display: flex;
+    cursor: default;
+    margin-right: 15px;
+    align-items: center;
+}
+
+.playlist__rank-number {
+    width: 60px;
+    font-size: 3.2rem;
+    line-height: 4rem;
+    font-weight: 900;
+    text-align: center;
+    color: transparent;
+    font-family: "Roboto", sans-serif;
+}
+
+.playlist__rank-icon {
+    width: 18px;
+    height: 100%;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+
+.charts__expand {
+    width: 100%;
+    display: flex;
+}
+
+.charts__expand-btn.button {
+    margin: auto;
+    font-weight: 500;
+    font-size: 1.4rem;
+    padding: 8px 25px;
+    line-height: 2.2rem;
+    text-transform: none;
+    color: var(--text-item-hover);
+    background-color: transparent;
+    border: 1px solid var(--text-item-hover);
+}
+
+.charts__expand-btn.button:hover {
+    background-color: var(--bg-content-color);
+}
+
+.row.chart--container .playlist__list-song.song--not-expand {
+    display: none;
+}
+
+.row.chart--container.expand-song .playlist__list-song.song--not-expand {
+    display: flex;
+}
+
+.row.chart--container.expand-song ~ .charts__expand {
+    display: none;
+}
+
+
+
+/* Tab radio */
+.app__container.tab--radio .app__container-content {
+    padding: 100px 0 0;
+}
+
+.radio__container {
+    margin: 30px 30px 0;
+}
+
+
+
+/* Tab following */
+.following__navbar {
+    display: flex;
+    min-height: 52px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.following__navbar-container {
+    width: 100%;
+    display: flex;
+}
+
+.following__navbar-menu {
+    height: 32px;
+    padding: 3px;
+    margin: 0 auto;
+    border-radius: 15px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-content-color);
+}
+
+.following__navbar-item {
+    display: flex;
+    height: 100%;
+    cursor: pointer;
+    min-width: 120px;
+    padding: 7px 0;
+    text-align: center;
+    border-radius: 15px;
+    color: var(--text-color);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.following__navbar-item.active {
+    background-color: var(--tab-active-color);
+    color: var(--text-item-hover)
+}
+
+.following__navbar-item span {
+    width: 100%;
+    height: 12px;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.2rem;
+    text-transform: uppercase;
 }

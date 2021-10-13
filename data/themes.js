@@ -15,7 +15,9 @@ const Themes = [
                 sidebarPopupBg: "#572f90",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
             playerImage: './assets/img/themeBgs/listTheme1/playerThemes/theme1.png',
         },
@@ -34,7 +36,9 @@ const Themes = [
                 sidebarPopupBg: "#292929",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#a0a0a0",
+                placeholderText: "#757575",
             },
         },
     ],
@@ -54,7 +58,9 @@ const Themes = [
                 sidebarPopupBg: "#1d2a49",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -72,7 +78,9 @@ const Themes = [
                 sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#409abc",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -90,7 +98,9 @@ const Themes = [
                 sidebarPopupBg: "#cce0e0",
                 textColor:"#32323d",
                 textItemHover:"#239292",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -108,7 +118,9 @@ const Themes = [
                 sidebarPopupBg: "#fbd3d2",
                 textColor:"#32323d",
                 textItemHover:"#ea7aa0",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -126,7 +138,9 @@ const Themes = [
                 sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#2a5e6b",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -144,7 +158,9 @@ const Themes = [
                 sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#6b3483",
-                textSecondary:"rgba(0,0,0,0.6)"
+                textSecondary:"rgba(0,0,0,0.6)",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
     ],
@@ -163,7 +179,9 @@ const Themes = [
                 sidebarPopupBg: "#292929",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#a0a0a0",
+                placeholderText: "#757575",
             },
         },
         {
@@ -180,7 +198,9 @@ const Themes = [
                 sidebarPopupBg: "#2a213a",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -197,7 +217,9 @@ const Themes = [
                 sidebarPopupBg: "#1d2a49",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -214,7 +236,9 @@ const Themes = [
                 sidebarPopupBg: "#2a4162",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -231,7 +255,9 @@ const Themes = [
                 sidebarPopupBg: "#244f3f",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -248,7 +274,9 @@ const Themes = [
                 sidebarPopupBg: "#604a45",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -265,7 +293,9 @@ const Themes = [
                 sidebarPopupBg: "#883c6c",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
         {
@@ -282,7 +312,9 @@ const Themes = [
                 sidebarPopupBg: "#7a2922",
                 textColor:"#fff",
                 textItemHover:"#fff",
-                textSecondary:"rgb(255 255 255 / 50%)"
+                textSecondary:"rgb(255 255 255 / 50%)",
+                navigationText: "#dadada",
+                placeholderText: "#dadada",
             },
         },
     ],
@@ -301,7 +333,9 @@ const Themes = [
                 sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#6b3483",
-                textSecondary:"rgba(0,0,0,0.6)"
+                textSecondary:"rgba(0,0,0,0.6)",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -318,7 +352,9 @@ const Themes = [
                 sidebarPopupBg: "#f2f2f2",
                 textColor:"#32323d",
                 textItemHover:"#8c8471",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -335,7 +371,9 @@ const Themes = [
                 sidebarPopupBg: "#cce0e0",
                 textColor:"#32323d",
                 textItemHover:"#239292",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
         {
@@ -352,7 +390,9 @@ const Themes = [
                 sidebarPopupBg: "#fbd3d2",
                 textColor:"#32323d",
                 textItemHover:"#ea7aa0",
-                textSecondary:"#696969"
+                textSecondary:"#696969",
+                navigationText: "#32323d",
+                placeholderText: "#757575",
             },
         },
     ],
