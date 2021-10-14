@@ -332,30 +332,32 @@
                 <ul class="sidebar__nav-list hide-on-tablet-mobile">
                     <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
-                            <span>Tháng 1</span>
+                            <span class="sidebar__link-topic">Tháng 1</span>
                         </a>
                     </li>
                     <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
-                            <span>Nhạc Quốc Tế</span>
+                            <span class="sidebar__link-topic">Nhạc Quốc Tế</span>
                         </a>
                     </li>
                     <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
-                            <span>Sky Ơi</span>
+                            <span class="sidebar__link-topic">Sky Ơi</span>
                         </a>
                     </li>
             </div>
             <div class="sidebar__create-playlist">
-                <i class="bi bi-plus-lg"></i>
-                <h2 class="sidebar__create-title">Tạo playlist mới</h2>
-            </div>
-            <div class="sidebar__expand">
-                <div class="sidebar__expand-btn btn--expand">
-                    <i class="bi bi-chevron-right"></i>
+                <div class="sidebar__create-container hide-on-tablet-mobile">
+                    <i class="bi bi-plus-lg"></i>
+                    <h2 class="sidebar__create-title">Tạo playlist mới</h2>
                 </div>
-                <div class="sidebar__expand-btn btn--shrink">
-                    <i class="bi bi-chevron-left"></i>
+                <div class="sidebar__expand">
+                    <div class="sidebar__expand-btn btn--expand">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                    <div class="sidebar__expand-btn btn--shrink">
+                        <i class="bi bi-chevron-left"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -392,7 +394,7 @@
                 <div class="content__navbar">
                     <div class="content__navbar-container">
                         <ul class="content__navbar-menu">
-                            <li class="content__navbar-item active hide-on-tablet">
+                            <li class="content__navbar-item active">
                                 <span>Tổng quan</span>
                             </li>
                             <li class="content__navbar-item">
@@ -410,7 +412,7 @@
                             <li class="content__navbar-item hide-on-mobile">
                                 <span>Nghệ sĩ</span>
                             </li>
-                            <li class="content__navbar-item hide-on-mobile">
+                            <li class="content__navbar-item hide-on-tablet-mobile">
                                 <span>Tải lên</span>
                             </li>
                         </ul>
@@ -1144,7 +1146,7 @@
                 </div>
                 <div class="player__popup-cd-info">
                     <h4>Now playing</h4>
-                    <h2></h2>
+                    <h2 class="is-twoline"></h2>
                     <h3></h3>
                 </div>
                 <div class="player__popup-footer">
@@ -1321,4 +1323,5 @@
     <script src="./main.js"></script>
 </body>
 </html>
+
 

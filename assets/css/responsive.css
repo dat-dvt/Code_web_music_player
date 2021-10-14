@@ -8,7 +8,6 @@
 
     .playlist__song-time.media__content,
     .playlist__header-time,
-    .sidebar__create-playlist,
     .sidebar__login,
     .sidebar__item-link .sidebar__nav-label {
         display: none;
@@ -155,8 +154,9 @@
 
 
     .sidebar__subnav {
-        height: calc(100% - 425px);
+        /* flex: 0; */
         margin-top: 10px;
+        height: calc(100% - 425px);
     }
 
     .sidebar__menu-item {
@@ -186,6 +186,15 @@
     .sidebar__expand {
         display: flex;
     }
+
+    /* Content play music slide */
+    /* .container__slide-show {
+    }
+
+    .container__slide-item {
+        width: 230px;
+        height: 230px;
+    } */
     
 
     /* Player */
@@ -216,6 +225,12 @@
     
     .explore__slide-item {
     }
+
+    /* Tab following */
+    .media__info-header .info__title {
+        max-width: calc(100% - 90px)
+    }
+
 }
 
 /* Mobile */
@@ -353,6 +368,7 @@
 
 
 
+
     /* Playlist - list song */
     .container__playlist .playlist__header-title {
         padding-left: 0;
@@ -364,6 +380,10 @@
     }
 
     .playlist__song-info > i {
+        display: none;
+    }
+
+    .row__item-actions .action-btn {
         display: none;
     }
 
@@ -539,11 +559,12 @@
 
     /* Modal theme */
     .modal-container {
-        max-height: 70vh;
+        max-height: 400px;
+        min-height: unset
     }
 
     .theme__content {
-        height: 400px;
+        height: 300px;
     }
 
     .theme__item-actions.row__item-actions {
@@ -637,6 +658,11 @@
         font-size: 1.2rem;
     }
 
+    .display__content-artist {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+    }
+
 
 
     /* Tab charts */
@@ -658,6 +684,16 @@
     .following__navbar-item {
         min-width: 70px;
     }
+
+    .row__item-info.story__header-info .media__left {
+        flex-wrap: nowrap;
+    }
+
+    .media__info-header .info__title {
+        max-width: 55%;
+    }
+
+    
 
     /* Toast */
     #toast {
