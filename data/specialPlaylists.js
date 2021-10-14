@@ -141,7 +141,7 @@ var listSpecialPlaylist = [
     {
         header: {
             explication: "Nghe lại",
-            topicName: "",
+            topicName: "On Air",
             image: "./assets/img/tabRadio/specialPlaylists/headerAvatars/playlistList3.jpg",
         },
         playlists: [

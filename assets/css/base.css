@@ -22,6 +22,7 @@
     --player-height: 90px;
     --header-height: 70px;
     --sidebar-height: calc(100% - var(--player-height));
+    --sidebar-width: 240px;
     --offset-x-second: calc(0px - ((230px - (230px * var(--scale-rate-second))) / 2 + 20px));
     --offset-x-third: calc(0px - ((230px - (230px * var(--scale-rate-third))) / 2 + 40px));
     --scale-rate-second: calc(196 / 230);
@@ -33,6 +34,7 @@
     box-sizing: inherit;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -46,8 +48,28 @@ html {
 }
 
 body {
-    overflow: hidden;
     background: var(--layout-bg);
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+ /* Track */
+body::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+}
+  
+  /* Handle */
+body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--sidebar-bg);
+}
+  
+  /* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+    background: var(--sidebar-bg);
 }
 
 
@@ -173,6 +195,7 @@ a {
 }
 
 .is-oneline {
+    max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -356,6 +379,7 @@ a {
 
 .media__left {
     display: flex;
+    max-width: 100%;
     flex-wrap: wrap;
     flex-basis: auto;
     margin-right: 10px;
@@ -381,6 +405,7 @@ a {
     flex: 1;
     height: 100%;
     display: flex;
+    max-width: 100%;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -1000,6 +1025,7 @@ a {
     height: 500px;
     padding: 0 30px;
     overflow: hidden overlay;
+    overscroll-behavior: contain;
     will-change: scroll-position;
 }
 

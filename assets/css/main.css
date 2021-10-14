@@ -1,20 +1,23 @@
 /* Main CSS */
 .app {
-    display: flex;
-    overflow: hidden overlay;
+    overflow: hidden;
     background-repeat: repeat;
     background-size: 1920px auto;
-    will-change: scroll-position;
     background-color: var(--layout-bg);
     -webkit-tap-highlight-color: transparent;
-    height: calc(100vh - var(--player-height));
 }
 
 /* Siderbar CSS */
 .app__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
     width: 240px;
-    height: 100%;
+    display: flex;
     overflow: hidden;
+    flex-direction: column;
+    height: var(--sidebar-height);
     background-color: var(--sidebar-bg);
     -webkit-tap-highlight-color: transparent;
 }
@@ -126,6 +129,10 @@
     transform: translateY(1px)
 }
 
+.sidebar__item-link .sidebar__link-topic {
+    padding-left: 0;
+}
+
 .sidebar__nav-label {
     font-size: 1rem;
     line-height: 1.6rem;
@@ -139,11 +146,12 @@
 }
 
 .sidebar__subnav {
+    flex: 1;
     width: 100%;
-    height: 223px;
-    margin: 30px 0 0;
+    margin: 10px 0 0;
     overflow: hidden overlay;
     will-change: scroll-position;
+    overscroll-behavior: contain;
 }
 
 .sidebar__subnav.has-mask {
@@ -265,15 +273,23 @@
 
 .sidebar__create-playlist {
     width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.sidebar__create-container {
+    width: 100%;
     height: 54px;
     padding: 0 29px;
-    color: var(--text-color);
     display: flex;
+    cursor: pointer;
     align-items: center;
+    justify-self: flex-end;
+    color: var(--text-color);
     border-top: 1px solid var(--border-primary);
 }
 
-.sidebar__create-playlist i {
+.sidebar__create-container i {
     font-size: 1.6rem;
     margin-right: 10px;
 }
@@ -287,9 +303,6 @@
 .sidebar__expand {
     width: 100%;
     display: none;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     padding: 10px 10px;
     justify-content: center;
 }
@@ -319,46 +332,24 @@
 .app__container {
     position: relative;
     top: 0;
-    flex: 1;
-    left: 0;
     right: 0;
-    height: 100%;
     display: none;
     scroll-behavior: smooth;
-    overflow: hidden overlay;
+    left: var(--sidebar-width);
+    bottom: var(--player-height);
     will-change: scroll-position;
     overflow-anchor: none !important;
     scroll-snap-stop: normal !important;
     scroll-behavior: unset !important;
+    padding-bottom: var(--player-height);
     overscroll-behavior: unset !important;
+    width: calc(100% - var(--sidebar-width));
 }
 
 .app__container.active {
     display: block;
 }
 
-.app__container::-webkit-scrollbar {
-    width: 4px;
-}
-
-
-
- /* Track */
-.app__container::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background: transparent;
-}
-  
-  /* Handle */
-.app__container::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--sidebar-bg);
-}
-  
-  /* Handle on hover */
-.app__container::-webkit-scrollbar-thumb:hover {
-    background: var(--sidebar-bg);
-}
 
 .header {
     position: fixed;
@@ -370,7 +361,6 @@
     width: calc(100% - 240px);
     height: var(--header-height);
     justify-content: space-between;
-    background-color: var(--layout-bg);
 }
 
 .header__with-search {
@@ -922,7 +912,7 @@
 }
 
 .container__section {
-    
+
 }
 
 .container__header {
@@ -1056,7 +1046,7 @@ label .container__header-icon {
     height: 244px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     transform-style: preserve-3d;
     position: relative;
 }
@@ -1145,9 +1135,10 @@ label .container__header-icon {
     font-weight: 500;
     font-size: 1.2rem;
     flex-direction: column;
-    overflow:hidden overlay;
     scroll-behavior: smooth;
+    overflow: hidden overlay;
     justify-content: flex-start;
+    overscroll-behavior: contain;
     will-change: scroll-position;
 }
 
@@ -1726,13 +1717,13 @@ label .container__header-icon {
 .progress__track-update::after {
     content: "";
     top: 49.9%;
-    right: -4px;
+    right: 0;
     width: 12px;
     height: 12px;
     display: none;
     border-radius: 50%;
     position: absolute;
-    transform: translateY(-50%);
+    transform: translate(50%, -50%);
     background-color: var(--text-item-hover);
 }
 
@@ -1772,7 +1763,7 @@ label .container__header-icon {
     will-change: opacity;
     -webkit-appearance: none;
     -webkit-transition: 0.2s;
-    /* transition: opacity 0.2s; */
+    transition: opacity 0.2s;
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
 }
@@ -1781,7 +1772,7 @@ label .container__header-icon {
   
 .progress::-webkit-slider-thumb {
     appearance: none;
-    width: 18px;
+    width: 1px;
     height: 18px;
     cursor: pointer;
     border-radius: 999px;
@@ -1877,7 +1868,7 @@ label .container__header-icon {
 }
 
 .volume__range::-webkit-slider-thumb {
-    width: 8px;
+    width: 1px;
     height: 20px;
     cursor: pointer;
     appearance: none;
@@ -1955,6 +1946,7 @@ label .container__header-icon {
     background-repeat: repeat;
     justify-content: flex-start;
     background-size: 1920px auto;
+    overscroll-behavior: contain;
     background-color: var(--primary-bg);
 }
 
@@ -2681,7 +2673,7 @@ label .container__header-icon {
     font-weight: 500;
     font-size: 1.2rem;
     flex-direction: column;
-    overflow:hidden overlay;
+    overflow: hidden overlay;
     scroll-behavior: smooth;
     justify-content: flex-start;
     will-change: scroll-position;
@@ -2857,6 +2849,14 @@ label .container__header-icon {
     margin-bottom: 10px;
 }
 
+.row__item-info.story__header-info .media__left {
+    width: 100%;
+}
+
+.row__item-info.story__header-info .media__info {
+    max-width: calc(100% - 50px);
+}
+
 .story__header-info {
     margin-bottom: 10px;
 }
@@ -2866,11 +2866,13 @@ label .container__header-icon {
     font-weight: 500;
     line-height: 2rem;
     font-size: 1.4rem;
+    width: 100%;
     color: var(--text-color);
 }
 
 .story__header-info .follow-btn {
     cursor: pointer;
+    white-space: nowrap;
     color: var(--link-text-hover);
 }
 

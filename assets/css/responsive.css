@@ -8,7 +8,6 @@
 
     .playlist__song-time.media__content,
     .playlist__header-time,
-    .sidebar__create-playlist,
     .sidebar__login,
     .sidebar__item-link .sidebar__nav-label {
         display: none;
@@ -59,21 +58,18 @@
     }
 
     :root {
-        
+        --sidebar-width: 70px;
     }
 
 
     /* App container */
     .app__container {
-        margin-left: 70px;
+    
     }
 
     /* Sidebar */
     .app__sidebar {
-        position: fixed;
         width: 70px;
-        z-index: 300;
-        height: var(--sidebar-height);
         background-color: var(--sidebar-popup-bg);
     }
 
@@ -155,8 +151,9 @@
 
 
     .sidebar__subnav {
-        height: calc(100% - 425px);
+        /* flex: 0; */
         margin-top: 10px;
+        height: calc(100% - 425px);
     }
 
     .sidebar__menu-item {
@@ -186,6 +183,15 @@
     .sidebar__expand {
         display: flex;
     }
+
+    /* Content play music slide */
+    /* .container__slide-show {
+    }
+
+    .container__slide-item {
+        width: 230px;
+        height: 230px;
+    } */
     
 
     /* Player */
@@ -216,6 +222,12 @@
     
     .explore__slide-item {
     }
+
+    /* Tab following */
+    .media__info-header .info__title {
+        max-width: calc(100% - 90px)
+    }
+
 }
 
 /* Mobile */
@@ -230,7 +242,6 @@
 
     /* App */
     .app {
-        height: calc(100vh - 2 * var(--player-height));
     }
 
     .header__button {
@@ -242,6 +253,7 @@
     /* Sidebar */
     .app__sidebar {
         position: fixed;
+        top: unset;
         left: 0;
         bottom: 0;
         width: 100%;
@@ -326,6 +338,15 @@
         height: 156px;
     }
 
+
+    /* App container */
+    .app__container {
+        left: 0;
+        width: 100%;
+        padding-bottom: calc(2 * var(--player-height));
+    }
+
+    
     /* Content */
     .content {
         padding-top: 170px;
@@ -353,6 +374,7 @@
 
 
 
+
     /* Playlist - list song */
     .container__playlist .playlist__header-title {
         padding-left: 0;
@@ -364,6 +386,10 @@
     }
 
     .playlist__song-info > i {
+        display: none;
+    }
+
+    .row__item-actions .action-btn {
         display: none;
     }
 
@@ -502,9 +528,7 @@
     /* Player pop-up window */
     .player__popup {
         height: 100%;
-    }
-    .player.open-popup .player__popup {
-        z-index: 501;
+        top: calc(100% + 90px);
     }
 
     .player__logo-img {
@@ -539,11 +563,12 @@
 
     /* Modal theme */
     .modal-container {
-        max-height: 70vh;
+        max-height: 400px;
+        min-height: unset
     }
 
     .theme__content {
-        height: 400px;
+        height: 300px;
     }
 
     .theme__item-actions.row__item-actions {
@@ -637,6 +662,11 @@
         font-size: 1.2rem;
     }
 
+    .display__content-artist {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+    }
+
 
 
     /* Tab charts */
@@ -658,6 +688,16 @@
     .following__navbar-item {
         min-width: 70px;
     }
+
+    .row__item-info.story__header-info .media__left {
+        flex-wrap: nowrap;
+    }
+
+    .media__info-header .info__title {
+        max-width: 55%;
+    }
+
+    
 
     /* Toast */
     #toast {

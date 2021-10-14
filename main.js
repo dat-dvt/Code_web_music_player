@@ -216,7 +216,7 @@ const app = {
                             <div class="playlist__song-btn btn--mic option-btn hide-on-mobile">
                                 <i class="btn--icon song__icon bi bi-mic-fill"></i>
                             </div>
-                            <div class="playlist__song-btn btn--heart option-btn hide-on-mobile">
+                            <div class="playlist__song-btn song-btn--heart option-btn hide-on-mobile">
                                 <i class="btn--icon song__icon icon--heart bi bi-heart-fill primary"></i>
                             </div>
                             <div class="playlist__song-btn option-btn ${songIndex === 0 && 'hide-on-tablet'}">
@@ -236,7 +236,7 @@ const app = {
                     <div class="row__item  playlist--create item--playlist">
                         <div class="row__item-container flex--center item-create--properties">
                             <i class="bi bi-plus-lg album__create-icon"></i>
-                            <span class="album__create-annotate">Tạo playlist mới</span>
+                            <span class="album__create-annotate text-center">Tạo playlist mới</span>
                         </div>
                     </div>
                 </div>
@@ -263,7 +263,7 @@ const app = {
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="row__item-info">
-                                        <a href="#" class="row__info-name">${playlist.name}</a>
+                                        <a href="#" class="row__info-name is-twoline">${playlist.name}</a>
                                         <h3 class="row__info-creator">${playlist.creator}</h3>
                                     </div>
                                 </div>
@@ -300,7 +300,7 @@ const app = {
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="row__item-info">
-                                        <a href="#" class="row__info-name">${album.name}</a>
+                                        <a href="#" class="row__info-name is-twoline">${album.name}</a>
                                     </div>
                                 </div>
                             </div>
@@ -338,7 +338,7 @@ const app = {
                                         <div class="media__left">
                                             <div class="media__thumb is-rounded mr-10" style="background: url('${mv.authorAvatar}') no-repeat center center / cover"></div>
                                             <div class="media__info">
-                                                <span class="info__title is-active">${mv.name}</span>
+                                                <span class="info__title is-active is-twoline">${mv.name}</span>
                                                 <p class="info__author">
                                                     ${mv.author.map((author, index) => {
                                                         return app.html`
@@ -507,7 +507,7 @@ const app = {
                                     <div class="row__item-info media radio--info">
                                         <div class="media__left">
                                             <div class="media__info text-center">
-                                                <span class="info__title is-active">${radio.name}</span>
+                                                <span class="info__title is-active is-oneline">${radio.name}</span>
                                                 <h3 class="row__info-creator text-center">${radio.viewers} đang nghe</h3>
                                             </div>
                                         </div>
@@ -636,7 +636,7 @@ const app = {
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="row__item-info new-playlist--info">
-                                        <a href="#" class="row__info-name">${newPlaylist.name}</a>
+                                        <a href="#" class="row__info-name is-twoline">${newPlaylist.name}</a>
                                         <h3 class="row__info-creator">
                                             ${newPlaylist.singer.map((singer, index) => {
                                                 return app.html`
@@ -687,8 +687,8 @@ const app = {
                                         <div class="overlay"></div>
                                         <div class="blur"></div>
                                         <div class="row__item-display-content">
-                                            <h3 class="display__content-explication">${favArtist.explication}</h3>
-                                            <p class="display__content-artist">${favArtist.name}</p>
+                                            <h3 class="display__content-explication is-oneline">${favArtist.explication}</h3>
+                                            <p class="display__content-artist is-oneline">${favArtist.name}</p>
                                             <div class="display__content-list">
                                                 ${favArtist.songs.map((song, index) => {
                                                     return app.html`
@@ -769,7 +769,7 @@ const app = {
                                                 <div class="overlay"></div>
                                             </div>
                                             <div class="row__item-info explore-playlist--info">
-                                                <a href="#" class="row__info-name is-oneline">${playlist.name}</a>
+                                                <a href="#" class="row__info-name ${playlistListIndex < 2 && 'is-oneline' || 'is-twoline'}">${playlist.name}</a>
                                                 <p class="info__artist">
                                                     ${playlist.artists.map((artist, artistIndex) => {
                                                         return app.html`
@@ -948,7 +948,7 @@ const app = {
                                             <div class="media__thumb is-rounded mr-10" style="background: url('${post.authorAvatar}') no-repeat center center / cover"></div>
                                             <div class="media__info">
                                                 <div class="media__info-header">
-                                                    <div class="info__title is-active">${post.name}</div>
+                                                    <div class="info__title is-active is-oneline">${post.name}</div>
                                                     <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
                                                     <span class="follow-btn">Quan tâm</span>
                                                 </div>
@@ -1081,22 +1081,20 @@ const app = {
 
 
         // Set background for header when scroll
-        appContainers.forEach(appContainer => {
-            appContainer.onscroll = function() {
-                const scrollTop = appContainer.scrollY || appContainer.scrollTop;
-                if(scrollTop > 5) {
-                    Object.assign(header.style, {
-                        backgroundColor: 'var(--layout-bg)',
-                        boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
-                    })
-                } else {
-                    Object.assign(header.style, {
-                        backgroundColor: 'transparent',
-                        boxShadow: 'none',
-                    })
-                }
+        document.onscroll = function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if(scrollTop > 5) {
+                Object.assign(header.style, {
+                    backgroundColor: 'var(--layout-bg)',
+                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
+                })
+            } else {
+                Object.assign(header.style, {
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                })
             }
-        })
+        }
 
         // Handle when click play
         playBtns.forEach(playBtn => {
@@ -1176,10 +1174,10 @@ const app = {
                         trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
                     })
                     progress.forEach(progressChild => {
-                        progressChild.value = Math.floor(audio.currentTime / audio.duration * 100);
+                        progressChild.value = Math.round(audio.currentTime / audio.duration * 100);
                     })
                     progressTracks.forEach(progressTrack => {
-                        progressTrack.style.width = Math.floor(audio.currentTime / audio.duration * 100) + '%';
+                        progressTrack.style.width = Math.round(audio.currentTime / audio.duration * 100) + '%';
                     })
                     if(listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
                         _this.durationList[_this.currentPlaylist].splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
@@ -1211,7 +1209,6 @@ const app = {
                         seekTime = e.target.value * audio.duration / 100;
                         progressTracks.forEach(progressTrack => {
                             progressTrack.style.width = e.target.value + '%';
-
                         })
                         trackTimes.forEach(trackTime => {
                             trackTime.innerHTML = _this.audioCalTime(seekTime);
@@ -1286,7 +1283,9 @@ const app = {
             randomBtn.onclick = function() {
                 _this.isRandom = !_this.isRandom;
                 _this.setConfig('isRandom', _this.isRandom)
-                this.classList.toggle('active', _this.isRandom)
+                randomBtns.forEach(randomBtn => {
+                    randomBtn.classList.toggle('active', _this.isRandom)
+                })
             }
         })
 
@@ -1295,7 +1294,9 @@ const app = {
             repeatBtn.onclick = function() {
                 _this.isRepeat = !_this.isRepeat;
                 _this.setConfig('isRepeat', _this.isRepeat)
-                this.classList.toggle('active', _this.isRepeat)
+                repeatBtns.forEach(repeatBtn => {
+                    repeatBtn.classList.toggle('active', _this.isRepeat)
+                })
             }
         })
 
@@ -1314,11 +1315,15 @@ const app = {
             const popDownBtn = e.target.closest('.popup__action-btn.btn--pop-down')
             if(!player.classList.contains('open-popup') &&!actionNode &&!authorNode && !controlNode && !progressNode && !optionNode && !popUpNode) {
                 player.classList.add('open-popup')
+                setTimeout(function() {
+                    App.style.display = 'none';
+                }, 300)
             }
             // Handle close pop-up window
             if(popUpNode) {
                 if(popDownBtn) {
                     player.classList.remove('open-popup')
+                    App.style.display = 'block'
                 }
             }
         }
@@ -1329,6 +1334,9 @@ const app = {
                 const checkNode = e.target.closest('.playlist__list-song:not(.active) .playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.playlist__song-option')
+                const heartIconBtn = e.target.closest('.song-btn--heart');
+                const micIconBtn = e.target.closest('.btn--mic')
+
                 if(songNode && !optionNode && !checkNode) {
                     // Handle when clicking on the song
                     if(songNode) {
@@ -1358,6 +1366,20 @@ const app = {
     
                 // Handle when clicking on the song option
                 if(optionNode) {
+                
+                }
+                // Handle when click on icons heart
+                if(heartIconBtn) {
+                    const heartIcon = heartIconBtn.firstElementChild
+                    if(heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
+                    else heartIcon.classList.replace('bi-heart', 'bi-heart-fill')
+                    heartIcon.classList.toggle('primary')
+                }
+
+                //Handle when click on icons micro
+                if(micIconBtn) {
+                    const micIcon = micIconBtn.firstElementChild
+                    micIcon.classList.toggle('primary')
                 }
             }
         })
@@ -1580,15 +1602,6 @@ const app = {
             }
         })
 
-        //Handle when click on icons micro
-        const micIconBtns = $$('.btn--mic')
-        Array.from(micIconBtns).forEach(micIconBtn => {
-            micIconBtn.onclick = () => {
-                const micIcon = micIconBtn.firstElementChild
-                micIcon.classList.toggle('primary')
-            }
-        })
-
         //Open and close modal theme
         navThemeBtn.onclick = (e) => {
             modalTheme.classList.add('open')
@@ -1674,10 +1687,6 @@ const app = {
         // Handle when click on sidebar items 
         sidebarNavItems.forEach((sidebarNavItem, index) => {
             sidebarNavItem.onclick = (e) => {
-                Object.assign(header.style, {
-                    backgroundColor: 'var(--layout-bg)',
-                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
-                })
                 $('.app__container.active').classList.remove('active')
                 appContainers[index].classList.add('active')
 
@@ -1694,10 +1703,10 @@ const app = {
         })
 
 
-        // Handle when click on slide show move buttons
+        // Handle when click on explore slide show move buttons
         function exploreSlideShow() {
             _this.nextSlide();
-            let autoMoveSlideId = setTimeout(exploreSlideShow, 5000)
+            let autoMoveSlideId = setTimeout(exploreSlideShow, 4000)
             slideMove.onclick = (e) => {
                 const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
                 const nextBtn = e.target.closest('.slide__move-btn.btn--next')
@@ -1705,13 +1714,13 @@ const app = {
                 if(prevBtn) {
                     _this.prevSlide();
                     clearTimeout(autoMoveSlideId);
-                    autoMoveSlideId = setTimeout(exploreSlideShow, 5000)
+                    autoMoveSlideId = setTimeout(exploreSlideShow, 4000)
                 }
     
                 if(nextBtn) {
                     _this.nextSlide();
                     clearTimeout(autoMoveSlideId);
-                    autoMoveSlideId = setTimeout(exploreSlideShow, 5000)
+                    autoMoveSlideId = setTimeout(exploreSlideShow, 4000)
                 }
             }
            
@@ -1730,7 +1739,7 @@ const app = {
             }
             let singerSlideId = setTimeout(function() {
                 singerSlideShow(step, order, index, listBtns)
-            }, 5000)
+            }, 4000)
 
 
             singerSlideContainers.forEach(singerSlideContainer => {
@@ -1738,7 +1747,7 @@ const app = {
                     clearTimeout(singerSlideId)
                     singerSlideId = setTimeout(function() {
                         singerSlideShow(step, order, index, listBtns)
-                    }, 5000)
+                    }, 4000)
                 }
             })
             // Handle when click on singer slide move buttons
@@ -1751,14 +1760,14 @@ const app = {
                         clearTimeout(singerSlideId)
                         singerSlideId = setTimeout(function() {
                             singerSlideShow(step, order, index, listBtns)
-                        }, 5000)
+                        }, 4000)
                     }
                     if(prevBtn) {
                         _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
                         singerSlideId = setTimeout(function() {
                             singerSlideShow(step, order, index, listBtns)
-                        }, 5000)
+                        }, 4000)
                     }
                 }
             }
@@ -1772,14 +1781,14 @@ const app = {
                         clearTimeout(singerSlideId)
                         singerSlideId = setTimeout(function() {
                             singerSlideShow(step, order, index, listBtns)
-                        }, 5000)
+                        }, 4000)
                     }
                     if(prevBtn) {
                         _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
                         singerSlideId = setTimeout(function() {
                             singerSlideShow(step, order, index, listBtns)
-                        }, 5000)
+                        }, 4000)
                     }
                 }
             }
@@ -1807,14 +1816,14 @@ const app = {
             }
             let newPlaylistId = setTimeout(function() {
                 newPlaylistSlideShow(step)
-            }, 5000)
+            }, 4000)
 
             newPlaylistLists.forEach(newPlaylistList => {
                 newPlaylistList.ontouchmove = (e) => {
                     clearTimeout(newPlaylistId)
                     newPlaylistId = setTimeout(function() {
                         newPlaylistSlideShow(step)
-                    }, 5000)
+                    }, 4000)
                 }
             })
 
@@ -1827,14 +1836,14 @@ const app = {
                         clearTimeout(newPlaylistId)
                         newPlaylistId = setTimeout(function() {
                             newPlaylistSlideShow(step)
-                        }, 5000)
+                        }, 4000)
                 }
                 if(prevBtn) {
                         _this.showSlides(-step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
                         clearTimeout(newPlaylistId)
                         newPlaylistId = setTimeout(function() {
                             newPlaylistSlideShow(step)
-                        }, 5000)
+                        }, 4000)
                 }
             }
         }
@@ -1858,14 +1867,14 @@ const app = {
             }
             let favArtistId = setTimeout(function() {
                 favArtistSlideShow(step)
-            }, 5000)
+            }, 4000)
 
             favArtistLists.forEach(favArtist => {
                 favArtist.ontouchmove = (e) => {
                     clearTimeout(favArtistId)
                     favArtistId = setTimeout(function() {
                         favArtistSlideShow(step)
-                    }, 5000)
+                    }, 4000)
                 }
             })
 
@@ -1878,7 +1887,7 @@ const app = {
                         clearTimeout(favArtistId)
                         favArtistId = setTimeout(function() {
                             favArtistSlideShow(step)
-                        }, 5000)
+                        }, 4000)
                 }
                 if(prevBtn) {
                         _this.showSlides(-step, 7, favArtistLists[0], favArtistMoveBtns)
@@ -1946,12 +1955,13 @@ const app = {
             
             `;
         })
+        
         popUpSongAuthor.innerHTML = app.html`
-        ${this.currentSong.singer.map((singer, index) => {
-            return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
-        })}
-    
-    `;
+            ${this.currentSong.singer.map((singer, index) => {
+                return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
+            })}
+        `;
+
         this.setPlayerInfoWidth()
         popUpCdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         cdThumbs.forEach(cdThumb => {
@@ -2076,7 +2086,6 @@ const app = {
     },
 
     setUpRender: function() {
-        console.log(this.durationList)
         this.songs = this.songPlaylists[this.currentPlaylist]
         if(this.durationList[this.currentPlaylist].length === 0) {
             this.songs.forEach((song, index) => this.durationList[this.currentPlaylist].push('--/--'))
@@ -2150,7 +2159,6 @@ const app = {
             newIndex = Math.floor(Math.random() * this.songs.length);
         } while (newIndex === this.currentIndex || this.indexArray.includes(newIndex))
         this.indexArray.push(newIndex);
-        console.log(this.indexArray)
         this.currentIndex = newIndex;
         this.loadCurrentSong();
         if(this.indexArray.length === this.songs.length) {

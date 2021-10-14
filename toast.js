@@ -5,9 +5,7 @@ function toast ({
     type = 'info', 
     duration = 3000
 }) {
-    console.log(title, message, type, duration)
     const main = document.getElementById('toast');
-    console.log(main)
     if (main) {
         const toast = document.createElement('div');
 
