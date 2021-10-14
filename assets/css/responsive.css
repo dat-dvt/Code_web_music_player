@@ -659,4 +659,14 @@
         min-width: 70px;
     }
 
+    /* Toast */
+    #toast {
+        right: 10px;
+    }
+
+    .toast {
+        max-width: calc(90vw - 10px);
+        min-width: calc(80vw - 10px);
+    }
+
 }

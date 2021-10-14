@@ -2838,3 +2838,62 @@ label .container__header-icon {
     line-height: 1.2rem;
     text-transform: uppercase;
 }
+
+
+/* Following content */
+.story__item {
+
+}
+
+.story__item-container {
+    padding: 20px;
+    border-radius: 8px;
+    background: var(--bg-content-color);
+    box-shadow: 0 2px 10px var(--main-box-shadow);
+}
+
+.story__item-header {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.story__header-info {
+    margin-bottom: 10px;
+}
+
+.media__info-header {
+    display: flex;
+    font-weight: 500;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+.story__header-info .follow-btn {
+    cursor: pointer;
+    color: var(--link-text-hover);
+}
+
+.story__header-info .follow-btn:hover {
+    opacity: 0.8;
+}
+
+.story__header-content {
+    width: 100%;
+}
+
+.story__header-content span {
+    width: 100%;
+    display: block;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    color: var(--text-color);
+}
+
+.story__item-display {
+    
+}
+
+.story__item-img {
+    width: 100%;
+}

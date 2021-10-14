@@ -19,6 +19,7 @@
 </head>
 <body>
     <div class="app grid" style="background-image: url('./assets/img/themes/listTheme3/theme1.jpg')">
+        <!-- Header -->
         <header class="header grid">
             <div class="header__with-search">
                 <button class="header__button">
@@ -147,6 +148,8 @@
             </div>
         </header>
 
+
+        <!-- Sidebar -->
         <div class="app__sidebar">
             <div class="sidebar__logo hide-on-mobile">
                 <a href="#" class="sidebar__logo-link">
@@ -156,7 +159,7 @@
             </div>
             <div class="sidebar__nav">
                 <ul class="sidebar__nav-list sidebar__nav-list--separate ">
-                    <li class="sidebar__nav-item">
+                    <li class="sidebar__nav-item active">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-music-player"></i>
                             <span>Cá Nhân</span>
@@ -168,7 +171,7 @@
                             <span>Khám Phá</span>
                         </a>
                     </li>
-                    <li class="sidebar__nav-item active">
+                    <li class="sidebar__nav-item">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-music-note-list"></i>
                             <span>#zingchart</span>
@@ -191,25 +194,25 @@
             </div>
             <div class="sidebar__subnav hide-on-mobile">
                 <ul class="sidebar__nav-list">
-                    <li class="sidebar__nav-item">
+                    <li class="sidebar__nav-item subnab--item">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-music-note-beamed"></i>
                             <span>Nhạc Mới</span>
                         </a>
                     </li>
-                    <li class="sidebar__nav-item">
+                    <li class="sidebar__nav-item subnab--item">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-slack"></i>
                             <span>Thể Loại</span>
                         </a>
                     </li>
-                    <li class="sidebar__nav-item">
+                    <li class="sidebar__nav-item subnab--item">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-star"></i>
                             <span>Top 100</span>
                         </a>
                     </li>
-                    <li class="sidebar__nav-item">
+                    <li class="sidebar__nav-item subnab--item">
                         <a href="#" class="sidebar__item-link">
                             <i class="bi bi-camera-video"></i>
                             <span>MV</span>
@@ -357,7 +360,9 @@
             </div>
         </div>
 
-        <div class="app__container tab--personal">
+
+        <!-- Tab personal -->
+        <div class="app__container tab--personal active">
             <div class="app__header">
                 <div class="app__header-bg" style="background: url('./assets/img/avatars/avatar.jpg') no-repeat center center / cover;"></div>
                 <div class="app__header-overlay"></div>
@@ -382,7 +387,7 @@
                 </div>
             </div>
 
-            
+            <!-- Content -->
             <div class="content">
                 <div class="content__navbar">
                     <div class="content__navbar-container">
@@ -412,7 +417,10 @@
                     </div>
                 </div>
                 <div class="content__container">
+
+                    <!-- Tab Home -->
                     <div class="grid container__tab tab-home active">
+                        <!-- Play music -->
                         <div class="container__control row">
                             <div class="col l-12 m-12 c-12 mb-10">
                                 <div class="container__header">
@@ -492,6 +500,7 @@
                             </div>
                         </div>
 
+                        <!-- Playlist -->
                         <div class="container__section row">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -516,6 +525,7 @@
                             </div>
                         </div>
 
+                        <!-- Album -->
                         <div class="container__section row mt-50">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -540,6 +550,7 @@
                             </div>
                         </div>
 
+                        <!-- MV -->
                         <div class="container__section row mt-50">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -564,6 +575,7 @@
                             </div>
                         </div>
 
+                        <!-- Artist -->
                         <div class="container__section row mt-30">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -589,6 +601,7 @@
                         </div>
                     </div>
 
+                    <!-- Song section -->
                     <div class="grid container__tab tab-song">
                         <div class="row no-gutters">
                             <div class="col l-12 m-12 c-12">
@@ -647,6 +660,7 @@
                         </div>
                     </div>
 
+                    <!-- Playlist section -->
                     <div class="grid container__tab tab-playlist">
                         <div class="container__section row">
                             <div class="col l-12 m-12 c-12 mb-16">
@@ -664,6 +678,7 @@
                         </div>
                     </div>
 
+                    <!-- Album section -->
                     <div class="grid container__tab tab-album">
                         <div class="container__section row">
                             <div class="col l-12 m-12 c-12 mb-16">
@@ -680,6 +695,7 @@
                         </div>
                     </div>
 
+                    <!-- MV section -->
                     <div class="grid container__tab tab-mv">
                         <div class="container__section row">
                             <div class="col l-12 m-12 c-12 mb-16">
@@ -697,6 +713,7 @@
                         </div>
                     </div>
 
+                    <!-- Artist section -->
                     <div class="grid container__tab tab-artist">
                         <div class="container__section row">
                             <div class="col l-12 m-12 c-12 mb-10">
@@ -713,6 +730,7 @@
                         </div>
                     </div>
 
+                    <!-- Upload section -->
                     <div class="grid container__tab tab-upload">
                         <div class="container__section row">
                             <div class="container__header col l-12 m-12 c-12 mb-10">
@@ -732,16 +750,20 @@
             </div>
         </div>
 
+        <!-- Tab explore -->
         <div class="app__container tab--explore">
             <div class="app__container-content">
                 <div class="explore__container">
                     <div class="grid">
+                        <!-- Slide -->
                         <div class="row container__section">
                             <div class="col l-12 m-12 c-12">
                                 <div class="row explore__slide--container">
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Playlists -->
                         <div class="row container__section normal-playlist--section mt-30">
                         </div>
                         <div class="row container__section normal-playlist--section mt-30">
@@ -750,6 +772,8 @@
                         </div>
                         <div class="row container__section special-playlist--section mt-30">
                         </div>
+
+                        <!-- Radio -->
                         <div class="row container__section mt-30">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -773,24 +797,34 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Playlist -->
                         <div class="row container__section normal-playlist--section mt-30">
                         </div>
                         <div class="row container__section normal-playlist--section mt-30">
                         </div>
+
+                        <!-- Label -->
                         <div class="row container__section mt-30">
                             <div class="col l-12 m-12 c-12">
                                 <div class="row no-wrap label--container">
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Singer slide -->
                         <div class="row container__section">
                             <div class="col l-12 m-12 c-12 singer__slide-row">
                                 <div class="row no-wrap singer-slide--container">
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Playlist -->
                         <div class="row container__section normal-playlist--section mt-30">
                         </div>
+
+                        <!-- Event -->
                         <div class="row container__section mt-30">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -805,8 +839,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Playlist -->
                         <div class="row container__section special-playlist--section mt-30">
                         </div>
+
+                        <!-- New Playlist -->
                         <div class="row container__section mt-30">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -831,6 +869,8 @@
                         </div>
                         <div class="row container__section normal-playlist--section mt-30">
                         </div>
+
+                        <!-- Favorite artist -->
                         <div class="row container__section mt-30">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -853,6 +893,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Brand -->
                         <footer class="container__footer row mt-40">
                             <div class="col l-12 m-12 c-12 container__footer-header">
                                 <span>Đối Tác Âm Nhạc</span>
@@ -866,12 +908,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Tab charts -->
         <div class="app__container tab--charts">
         </div>
+
+        <!-- Tab radio -->
         <div class="app__container tab--radio">
             <div class="app__container-content">
                 <div class="radio__container">
                     <div class="grid">
+                        <!-- Radio list -->
                         <div class="row container__section mt-30">
                             <div class="col l-12 m-12 c-12 mb-16">
                                 <div class="container__header">
@@ -894,6 +941,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Playlist -->
                         <div class="row container__section special-playlist--section mt-30">
                         </div>
                         <div class="row container__section special-playlist--section mt-30">
@@ -906,10 +955,13 @@
                 </div>
             </div>
         </div>
-        <div class="app__container tab--following active">
+
+        <!-- Tab following -->
+        <div class="app__container tab--following">
             <div class="app__container-content">
                 <div class="following__container">
                     <div class="grid">
+                        <!-- Following Navbar -->
                         <div class="following__navbar">
                             <div class="following__navbar-container">
                                 <ul class="following__navbar-menu">
@@ -928,9 +980,23 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row container__section">
+
+                        <!-- Singer slide -->
+                        <div class="row container__section mb-50">
                             <div class="col l-12 m-12 c-12 singer__slide-row">
                                 <div class="row no-wrap singer-slide--container">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Story posts -->
+                        <div class="row container__section">
+                            <div class="col l-12 m-12 c-12">
+                                <div class="row">
+                                    <div class="col l-6 m-6 c-12 story--container">
+                                    </div>
+                                    <div class="col l-6 m-6 c-12 story--container">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -938,6 +1004,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Player -->
         <div class="player grid">
             <div class="player__container">
                 <div class="player__container-song">
@@ -1182,7 +1250,7 @@
         </div>
     </div>
 
-
+    <!-- Theme -->
     <div class="modal-theme grid">
         <div class="modal-container">
             <div class="modal__close-btn">
@@ -1223,6 +1291,10 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Toast -->
+    <div id="toast"></div>
     <script>
             // localStorage.clear();
     </script>
@@ -1244,6 +1316,8 @@
     <script src="./data/specialPlaylists.js"></script>
     <script src="./data/normalPlaylists.js"></script>
     <script src="./data/tabCharts/playlistCharts.js"></script>
+    <script src="./data/tabFollowing/posts.js"></script>
+    <script src="./toast.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>

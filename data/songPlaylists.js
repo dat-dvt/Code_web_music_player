@@ -109,6 +109,24 @@ var listSong = [
             path: "./assets/music/listSong1/song18.mp3",
             image: "./assets/img/music/listSong1/song18.jpg"
         },
+        {
+            name: "Tộc Ca",
+            singer: ["Phúc Du", "SONBEAT"],
+            path: "./assets/music/listSong1/song19.mp3",
+            image: "./assets/img/music/listSong1/song19.jpg"
+        },
+        {
+            name: "Thiên Lý Ơi",
+            singer: ["Jack", "Bikay"],
+            path: "./assets/music/listSong1/song20.mp3",
+            image: "./assets/img/music/listSong1/song20.jpg"
+        },
+        {
+            name: "Phố Đã Lên Đèn",
+            singer: ["Phố Đã Lên Đèn"],
+            path: "./assets/music/listSong1/song21.mp3",
+            image: "./assets/img/music/listSong1/song21.jpg"
+        },
     ],
     [
         {
@@ -166,14 +184,14 @@ var listSong = [
             image: "./assets/img/music/listSong2/song9.jpg"
         },
         {
-            name: "Xích Thêm Chút",
-            singer: ["RPT Groovie", "TLinh", "RPT MCK"],
+            name: "Yêu Đơn Phương",
+            singer: ["OnlyC", "Karik"],
             path: "./assets/music/listSong2/song10.mp3",
             image: "./assets/img/music/listSong2/song10.jpg"
         },
         {
-            name: "Tay To",
-            singer: ["RPT MCK", "RPT PhongKhin"],
+            name: "Trời Giấu Trời Mang Đi",
+            singer: ["AMEE", "VIRUSS"],
             path: "./assets/music/listSong2/song11.mp3",
             image: "./assets/img/music/listSong2/song11.jpg"
         },
@@ -219,6 +237,18 @@ var listSong = [
             path: "./assets/music/listSong2/song18.mp3",
             image: "./assets/img/music/listSong2/song18.jpg"
         },
+        {
+            name: "Đi Đu Đưa Đi",
+            singer: ["Bích Phương"],
+            path: "./assets/music/listSong2/song19.mp3",
+            image: "./assets/img/music/listSong2/song19.jpg"
+        },
+        {
+            name: "BlackJack",
+            singer: ["Soobin", "Binz"],
+            path: "./assets/music/listSong2/song20.webm",
+            image: "./assets/img/music/listSong2/song20.jpg"
+        },
     ],
     [
         {
@@ -228,8 +258,8 @@ var listSong = [
             image: "./assets/img/music/listSong3/song1.jpg"
         },
         {
-            name: "SummerTime",
-            singer: ["K-391"],
+            name: "I Do",
+            singer: ["911"],
             path: "./assets/music/listSong3/song2.mp3",
             image: "./assets/img/music/listSong3/song2.jpg"
         },
@@ -306,6 +336,18 @@ var listSong = [
             path: "./assets/music/listSong3/song14.mp3",
             image: "./assets/img/music/listSong3/song14.jpg"
         },
+        {
+            name: "Hero",
+            singer: ["Cash Cash", "Christina Perri"],
+            path: "./assets/music/listSong3/song15.mp3",
+            image: "./assets/img/music/listSong3/song15.jpg"
+        },
+        {
+            name: "Mood",
+            singer: ["24Kgoldn"],
+            path: "./assets/music/listSong3/song16.mp3",
+            image: "./assets/img/music/listSong3/song16.jpg"
+        },
     ],
     [
         {
@@ -364,14 +406,14 @@ var listSong = [
             image: "./assets/img/music/listSong4/song9.jpg"
         },
         {
-            name: "Va Vào Giai Điệu Này",
-            singer: ["RPT MCK"],
+            name: "Xích Thêm Chút",
+            singer: ["RPT Groovie", "TLinh", "RPT MCK"],
             path: "./assets/music/listSong4/song10.mp3",
             image: "./assets/img/music/listSong4/song10.jpg"
         },
-         {
-            name: "Em Gái",
-            singer: ["Blaise", "Low G"],
+        {
+            name: "Tay To",
+            singer: ["RPT MCK", "RPT PhongKhin"],
             path: "./assets/music/listSong4/song11.mp3",
             image: "./assets/img/music/listSong4/song11.jpg"
         },
@@ -380,6 +422,36 @@ var listSong = [
             singer: ["Obito", "Seachains", "Davis", "Lena"],
             path: "./assets/music/listSong4/song12.mp3",
             image: "./assets/img/music/listSong4/song12.jpg"
+        },
+        {
+            name: "Va Vào Giai Điệu Này",
+            singer: ["RPT MCK"],
+            path: "./assets/music/listSong4/song13.mp3",
+            image: "./assets/img/music/listSong4/song13.jpg"
+        },
+         {
+            name: "Em Gái",
+            singer: ["Blaise", "Low G"],
+            path: "./assets/music/listSong4/song14.mp3",
+            image: "./assets/img/music/listSong4/song14.jpg"
+        },
+        {
+            name: "OK",
+            singer: ["Binz"],
+            path: "./assets/music/listSong4/song15.mp3",
+            image: "./assets/img/music/listSong4/song15.jpg"
+        },
+        {
+            name: "Gene",
+            singer: ["Binz"],
+            path: "./assets/music/listSong4/song16.mp3",
+            image: "./assets/img/music/listSong4/song16.jpg"
+        },
+         {
+            name: "They Said",
+            singer: ["Binz"],
+            path: "./assets/music/listSong4/song17.mp3",
+            image: "./assets/img/music/listSong4/song17.jpg"
         },
     ],
 ];

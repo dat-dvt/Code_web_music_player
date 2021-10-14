@@ -49,6 +49,7 @@ const popUpSongName = $('.player__popup-cd-info h2');
 const popUpSongAuthor = $('.player__popup-cd-info h3');
 const popUpCdThumb = $('.player__popup-cd-display .player__popup-cd-img');
 const popUpCdDisplay = $('.player__popup-cd-display');
+const postLists = Array.from($$('.story--container'));
 const playlistLists = Array.from($$('.playlist--container'));
 const playlistScrollBtns = $$('.container__move-btn.move-btn--playlist');
 const playBtns = Array.from($$('.btn-toggle-play'));
@@ -68,6 +69,7 @@ const sidebarNavItems = Array.from($$('.sidebar__nav .sidebar__nav-item'))
 const sidebarShrinkBtn = $('.sidebar__expand-btn.btn--shrink');
 const slideImgs = $$('.container__slide-item');
 const sidebarSubnav = $('.sidebar__subnav');
+const sidebarSubnavItems = Array.from($$('.sidebar__subnav .subnab--item'))
 const singerSlideContainers = Array.from($$('.singer-slide--container'));
 const songLists = Array.from($$('.playlist__list'));
 const songAnimateTitles = Array.from($$('.player__title-animate'));
@@ -141,14 +143,14 @@ const app = {
 
     listSongCharts: JSON.parse(localStorage.getItem(SONG_CHARTS_STORAGE_KEY) || '[]'),
 
-    durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `
-        [
-            ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05"],
-            ["04:02","02:57","03:21","14:51","03:57","04:21","04:45","03:06","04:46","04:04","02:45","04:27","08:26","04:48","03:01","03:25","04:24","03:19"],
-            ["03:16","04:45","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:17","02:37","03:28"],
-            ["03:25","04:45","03:14","04:15","02:54","02:51","02:01","04:28","03:23","03:21","02:28","03:57"]
-        ]
-    `),
+    posts: JSON.parse(localStorage.getItem(POST_STORAGE_KEY) || '[]'),
+
+    durationList: JSON.parse(localStorage.getItem(DURATION_STORAGE_KEY) || `[
+        ["04:30","03:18","04:33","04:20","03:24","06:05","03:55","03:22","03:44","03:08","04:15","03:53","04:07","04:13","04:42","04:08","03:17","04:05","03:11","04:16","04:04"],
+        ["04:02","02:57","03:21","14:50","03:57","04:21","04:45","03:06","04:46","05:02","04:24","04:27","08:26","04:48","03:01","03:25","04:24","03:19","03:43","03:34"],
+        ["03:16","03:21","02:38","03:28","03:48","03:32","03:04","03:37","03:31","03:11","03:28","03:17","02:37","03:28","03:16","05:32"],
+        ["03:25","04:45","03:14","04:15","02:54","02:51","02:01","04:28","03:23","04:04","02:45","03:57","03:21","02:28","02:34","04:03","03:56"]
+    ]`),
 
     themeLists: JSON.parse(localStorage.getItem(THEME_LIST_STORAGE_KEY) || '[]'), // List theme image to render to view
 
@@ -933,6 +935,56 @@ const app = {
         `
     },
 
+    renderPost() {
+        postLists.forEach((postList, postIndex) => {
+            postList.innerHTML = app.html`
+                ${this.posts[postIndex].map((post, index) => {
+                    return app.html`
+                        <div class="story__item mb-30">
+                            <div class="story__item-container">
+                                <div class="story__item-header">
+                                    <div class="row__item-info media story__header-info">
+                                        <div class="media__left">
+                                            <div class="media__thumb is-rounded mr-10" style="background: url('${post.authorAvatar}') no-repeat center center / cover"></div>
+                                            <div class="media__info">
+                                                <div class="media__info-header">
+                                                    <div class="info__title is-active">${post.name}</div>
+                                                    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+                                                    <span class="follow-btn">Quan tâm</span>
+                                                </div>
+                                                <p class="info__time">
+                                                    <a href="#" class="is-active">${post.time}</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="story__header-content">
+                                        <span>${post.content}</span>
+                                    </div>
+                                </div>
+                                <div class="row__item-display br-5 story__item-display">
+                                    <div 
+                                        class=
+                                        "
+                                            story__item-img 
+                                            ${postIndex === 0 && index < 2 && 'img--rec'}
+                                            ${postIndex === 0 && index === 2 && 'img--rec-vertical'}
+                                            ${postIndex === 0 && index === 3 && 'img--square'}
+                                            ${postIndex === 0 && index === 4 && 'img--rec'}
+                                            ${postIndex === 1 && index < 4 && 'img--square'}
+                                            ${postIndex === 1 && index === 4 && 'img--rec'}
+                                        " 
+                                        style="background: url('${post.image}') no-repeat center center / cover">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                })}
+            `
+        })
+    },
+
 
     render : function() {
         // Render songs
@@ -985,6 +1037,9 @@ const app = {
 
         // Render tab charts
         this.renderTabCharts()
+
+        //Render post
+        this.renderPost()
 
         this.scrollToActiveSong();
 
@@ -1512,6 +1567,7 @@ const app = {
         })
 
 
+
         
         // Handle when click on icons heart
         const heartIconBtns = $$('.btn--heart');
@@ -1618,11 +1674,22 @@ const app = {
         // Handle when click on sidebar items 
         sidebarNavItems.forEach((sidebarNavItem, index) => {
             sidebarNavItem.onclick = (e) => {
+                Object.assign(header.style, {
+                    backgroundColor: 'var(--layout-bg)',
+                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
+                })
                 $('.app__container.active').classList.remove('active')
                 appContainers[index].classList.add('active')
 
                 $('.sidebar__nav .sidebar__nav-item.active').classList.remove('active')
                 sidebarNavItem.classList.add('active')
+            }
+        })
+
+        // Handle when click on sidebar subnav
+        sidebarSubnavItems.forEach(subnavItem => {
+            subnavItem.onclick = (e) => {
+                showNotificationToast('Tính năng hiện chưa được cập nhật, bạn vui lòng thông cảm!')
             }
         })
 
@@ -1857,7 +1924,7 @@ const app = {
                 this.setConfig('currentPlaylist', this.currentPlaylist)
                 this.scrollToActiveSong();
             } else {
-                alert('VUI LÒNG CHỌN PLAYLIST KHÁC')
+                showNotificationToast('Trang web hiện tại chưa hoàn thiện, bạn vui lòng chọn 4 playlist đã được cập nhật!')
             }
         }
     },
@@ -1966,7 +2033,7 @@ const app = {
             randomBtn.classList.toggle('active', this.isRandom);
         })
         repeatBtns.forEach(repeatBtn => {
-            repeatBtn.classList.toggle('active', this.isRandom);
+            repeatBtn.classList.toggle('active', this.isRepeat);
         })
     },
 
@@ -2009,6 +2076,7 @@ const app = {
     },
 
     setUpRender: function() {
+        console.log(this.durationList)
         this.songs = this.songPlaylists[this.currentPlaylist]
         if(this.durationList[this.currentPlaylist].length === 0) {
             this.songs.forEach((song, index) => this.durationList[this.currentPlaylist].push('--/--'))
