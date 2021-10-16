@@ -34,6 +34,7 @@
     box-sizing: inherit;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -51,7 +52,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-    width: 4px;
+    display: none;
 }
 
  /* Track */

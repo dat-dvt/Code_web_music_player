@@ -1,6 +1,5 @@
 /* Main CSS */
 .app {
-    /* display: none; */
     overflow: hidden;
     background-repeat: repeat;
     background-size: 1920px auto;
@@ -362,7 +361,6 @@
     width: calc(100% - 240px);
     height: var(--header-height);
     justify-content: space-between;
-    background-color: var(--layout-bg);
 }
 
 .header__with-search {
@@ -1948,6 +1946,7 @@ label .container__header-icon {
     background-repeat: repeat;
     justify-content: flex-start;
     background-size: 1920px auto;
+    overscroll-behavior: contain;
     background-color: var(--primary-bg);
 }
 

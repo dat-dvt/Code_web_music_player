@@ -530,9 +530,6 @@
         height: 100%;
         top: calc(100% + 90px);
     }
-    .player.open-popup .player__popup {
-        z-index: 501;
-    }
 
     .player__logo-img {
         margin-left: 5px;
