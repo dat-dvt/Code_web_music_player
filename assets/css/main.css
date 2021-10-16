@@ -1,22 +1,24 @@
 /* Main CSS */
 .app {
-    display: flex;
-    overflow: hidden overlay;
+    /* display: none; */
+    overflow: hidden;
     background-repeat: repeat;
     background-size: 1920px auto;
-    will-change: scroll-position;
     background-color: var(--layout-bg);
     -webkit-tap-highlight-color: transparent;
-    height: calc(100vh - var(--player-height));
 }
 
 /* Siderbar CSS */
 .app__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
     width: 240px;
-    height: 100%;
     display: flex;
     overflow: hidden;
     flex-direction: column;
+    height: var(--sidebar-height);
     background-color: var(--sidebar-bg);
     -webkit-tap-highlight-color: transparent;
 }
@@ -150,6 +152,7 @@
     margin: 10px 0 0;
     overflow: hidden overlay;
     will-change: scroll-position;
+    overscroll-behavior: contain;
 }
 
 .sidebar__subnav.has-mask {
@@ -330,46 +333,24 @@
 .app__container {
     position: relative;
     top: 0;
-    flex: 1;
-    left: 0;
     right: 0;
-    height: 100%;
     display: none;
     scroll-behavior: smooth;
-    overflow: hidden overlay;
+    left: var(--sidebar-width);
+    bottom: var(--player-height);
     will-change: scroll-position;
     overflow-anchor: none !important;
     scroll-snap-stop: normal !important;
     scroll-behavior: unset !important;
+    padding-bottom: var(--player-height);
     overscroll-behavior: unset !important;
+    width: calc(100% - var(--sidebar-width));
 }
 
 .app__container.active {
     display: block;
 }
 
-.app__container::-webkit-scrollbar {
-    width: 4px;
-}
-
-
-
- /* Track */
-.app__container::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background: transparent;
-}
-  
-  /* Handle */
-.app__container::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--sidebar-bg);
-}
-  
-  /* Handle on hover */
-.app__container::-webkit-scrollbar-thumb:hover {
-    background: var(--sidebar-bg);
-}
 
 .header {
     position: fixed;
@@ -933,7 +914,7 @@
 }
 
 .container__section {
-    
+
 }
 
 .container__header {
@@ -1156,9 +1137,10 @@ label .container__header-icon {
     font-weight: 500;
     font-size: 1.2rem;
     flex-direction: column;
-    overflow:hidden overlay;
     scroll-behavior: smooth;
+    overflow: hidden overlay;
     justify-content: flex-start;
+    overscroll-behavior: contain;
     will-change: scroll-position;
 }
 
@@ -2692,7 +2674,7 @@ label .container__header-icon {
     font-weight: 500;
     font-size: 1.2rem;
     flex-direction: column;
-    overflow:hidden overlay;
+    overflow: hidden overlay;
     scroll-behavior: smooth;
     justify-content: flex-start;
     will-change: scroll-position;

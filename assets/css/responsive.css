@@ -58,21 +58,18 @@
     }
 
     :root {
-        
+        --sidebar-width: 70px;
     }
 
 
     /* App container */
     .app__container {
-        margin-left: 70px;
+    
     }
 
     /* Sidebar */
     .app__sidebar {
-        position: fixed;
         width: 70px;
-        z-index: 300;
-        height: var(--sidebar-height);
         background-color: var(--sidebar-popup-bg);
     }
 
@@ -245,7 +242,6 @@
 
     /* App */
     .app {
-        height: calc(100vh - 2 * var(--player-height));
     }
 
     .header__button {
@@ -257,6 +253,7 @@
     /* Sidebar */
     .app__sidebar {
         position: fixed;
+        top: unset;
         left: 0;
         bottom: 0;
         width: 100%;
@@ -341,6 +338,15 @@
         height: 156px;
     }
 
+
+    /* App container */
+    .app__container {
+        left: 0;
+        width: 100%;
+        padding-bottom: calc(2 * var(--player-height));
+    }
+
+    
     /* Content */
     .content {
         padding-top: 170px;
@@ -522,6 +528,7 @@
     /* Player pop-up window */
     .player__popup {
         height: 100%;
+        top: calc(100% + 90px);
     }
     .player.open-popup .player__popup {
         z-index: 501;
