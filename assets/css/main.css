@@ -334,15 +334,8 @@
     top: 0;
     right: 0;
     display: none;
-    scroll-behavior: smooth;
     left: var(--sidebar-width);
-    bottom: var(--player-height);
-    will-change: scroll-position;
-    overflow-anchor: none !important;
-    scroll-snap-stop: normal !important;
-    scroll-behavior: unset !important;
     padding-bottom: var(--player-height);
-    overscroll-behavior: unset !important;
     width: calc(100% - var(--sidebar-width));
 }
 
