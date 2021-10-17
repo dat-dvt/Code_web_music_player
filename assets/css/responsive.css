@@ -87,7 +87,9 @@
         display: none;
     }
 
-
+    .sidebar__logo-img {
+        margin-left: 23px;
+    }
 
 
     .app__sidebar.expand {
@@ -522,6 +524,7 @@
     /* Player pop-up window */
     .player__popup {
         height: 100%;
+        top: calc(100% + 90px);
     }
     .player.open-popup .player__popup {
         z-index: 501;

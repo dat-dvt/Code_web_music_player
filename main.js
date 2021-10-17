@@ -1502,6 +1502,7 @@ const app = {
 
         Array.from(headerNavTitles).forEach((headerNavTitle,index) => {
             headerNavTitle.onclick = (e) => {
+                appContainers[0].scrollTop = 0
                 $('.content__navbar-item.active').classList.remove('active')
                 navbarItems[index + 1].classList.add('active')
 
@@ -1686,14 +1687,15 @@ const app = {
         sidebarNavItems.forEach((sidebarNavItem, index) => {
             sidebarNavItem.onclick = (e) => {
                 Object.assign(header.style, {
-                    backgroundColor: 'var(--layout-bg)',
-                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
                 })
                 $('.app__container.active').classList.remove('active')
                 appContainers[index].classList.add('active')
 
                 $('.sidebar__nav .sidebar__nav-item.active').classList.remove('active')
                 sidebarNavItem.classList.add('active')
+                appContainers[index].scrollTop = 0;
             }
         })
 

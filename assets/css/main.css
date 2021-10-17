@@ -1,7 +1,7 @@
 /* Main CSS */
 .app {
     display: flex;
-    overflow: hidden overlay;
+    overflow: hidden;
     background-repeat: repeat;
     background-size: 1920px auto;
     will-change: scroll-position;
@@ -47,7 +47,7 @@
 .sidebar__logo-img {
     height: 34px;
     display: block;
-    margin-left: 23px;
+    margin-left: 31px;
     color: var(--text-color);
 }
 
@@ -149,6 +149,7 @@
     width: 100%;
     margin: 10px 0 0;
     overflow: hidden overlay;
+    overscroll-behavior: contain;
     will-change: scroll-position;
 }
 
@@ -381,7 +382,6 @@
     width: calc(100% - 240px);
     height: var(--header-height);
     justify-content: space-between;
-    background-color: var(--layout-bg);
 }
 
 .header__with-search {
@@ -1834,20 +1834,6 @@ label .container__header-icon {
     display: block;
 }
 
-
-.volume__background {
-    content: "";
-    display: none;
-    width: 134%;
-    height: 25px;
-    border-radius: 10px;
-    background-color: #353535;
-    position: absolute;
-    top: -169%;
-    right: -16%;
-    z-index: -1;
-}
-
 .volume:active .volume__range.horizontal ~ .volume__background,
 .volume:hover .volume__range.horizontal ~ .volume__background {
     display:block;
@@ -1870,17 +1856,6 @@ label .container__header-icon {
 }
 
 
-.volume__range::before {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 150%;
-    height: 60px;
-    position:absolute;
-    top: -30px;
-    right: -30%;
-    z-index: -1;
-}
 
 .volume:hover .volume__range,
 .volume:active .volume__range {
