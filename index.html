@@ -18,7 +18,7 @@
         <![endif]-->
     </head>
     <body>
-        <div class="app grid" style="background-image: url('./assets/img/themes/listTheme3/theme1.jpg')">
+        <div class="app grid" style="background-image: none">
             <!-- Header -->
             <header class="header grid">
                 <div class="header__with-search">
@@ -68,20 +68,20 @@
                 <div class="header__nav">
                     <ul class="header__nav-list">
                         <li class="header__nav-item">
-                            <button class="header__nav-btn nav-btn--theme">
+                            <div class="header__nav-btn nav-btn--theme">
                                 <svg width="20" height="20" class="header__nav-icon" viewBox="0 0 20 20"><defs><linearGradient id="j32lhg93hd" x1="62.206%" x2="18.689%" y1="70.45%" y2="39.245%"><stop offset="0%" stop-color="#F81212"></stop><stop offset="100%" stop-color="red"></stop></linearGradient><linearGradient id="hjoavsus6g" x1="50%" x2="11.419%" y1="23.598%" y2="71.417%"><stop offset="0%" stop-color="#00F"></stop><stop offset="100%" stop-color="#0031FF"></stop></linearGradient><linearGradient id="la1y5u3dvi" x1="65.655%" x2="25.873%" y1="18.825%" y2="56.944%"><stop offset="0%" stop-color="#FFA600"></stop><stop offset="100%" stop-color="orange"></stop></linearGradient><linearGradient id="2dsmrlvdik" x1="24.964%" x2="63.407%" y1="8.849%" y2="55.625%"><stop offset="0%" stop-color="#13EFEC"></stop><stop offset="100%" stop-color="#00E8DF"></stop></linearGradient><filter id="4a7imk8mze" width="230%" height="230%" x="-65%" y="-65%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><filter id="301mo6jeah" width="312.7%" height="312.7%" x="-106.4%" y="-106.4%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><filter id="b2zvzgq7fj" width="295%" height="295%" x="-97.5%" y="-97.5%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><filter id="a1wq161tvl" width="256%" height="256%" x="-78%" y="-78%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceGraphic" stdDeviation="3.9"></feGaussianBlur></filter><path id="qtpqrj1oda" d="M3.333 14.167V5.833l-1.666.834L0 3.333 3.333 0h3.334c.04 1.57.548 2.4 1.524 2.492l.142.008C9.403 2.478 9.958 1.645 10 0h3.333l3.334 3.333L15 6.667l-1.667-.834v8.334h-10z"></path><path id="jggzvnjgfc" d="M0 0H20V20H0z"></path><path id="2eiwxjmc7m" d="M3.333 14.167V5.833l-1.666.834L0 3.333 3.333 0h3.334c.04 1.57.548 2.4 1.524 2.492l.142.008C9.403 2.478 9.958 1.645 10 0h3.333l3.334 3.333L15 6.667l-1.667-.834v8.334h-10z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(2 3)"><mask id="tinejqaasb" fill="#fff"><use xlink:href="#qtpqrj1oda"></use></mask><use fill="#FFF" fill-opacity="0" xlink:href="#qtpqrj1oda"></use><g mask="url(#tinejqaasb)"><g transform="translate(-2 -3)"><mask id="uf3ckvfvpf" fill="#fff"><use xlink:href="#jggzvnjgfc"></use></mask><use fill="#D8D8D8" xlink:href="#jggzvnjgfc"></use><circle cx="8.9" cy="6.8" r="9" fill="url(#j32lhg93hd)" filter="url(#4a7imk8mze)" mask="url(#uf3ckvfvpf)"></circle><circle cx="9.3" cy="13.7" r="5.5" fill="url(#hjoavsus6g)" filter="url(#301mo6jeah)" mask="url(#uf3ckvfvpf)"></circle><circle cx="15.9" cy="6.9" r="6" fill="url(#la1y5u3dvi)" filter="url(#b2zvzgq7fj)" mask="url(#uf3ckvfvpf)"></circle><circle cx="16.4" cy="17.7" r="7.5" fill="url(#2dsmrlvdik)" filter="url(#a1wq161tvl)" mask="url(#uf3ckvfvpf)"></circle></g></g><use fill="#FFF" fill-opacity="0.05" xlink:href="#2eiwxjmc7m"></use></g></svg>
-                            </button>
+                            </div>
                         </li>
                         <li class="header__nav-item hide-on-mobile">
-                            <button class="header__nav-btn">
+                            <div class="header__nav-btn">
                                     <input type="file" name="upload song" id="header__nav-input">
                                     <label for="header__nav-input">
                                         <i class="bi bi-upload header__nav-icon"></i>
                                     </label>
-                            </button>
+                            </div>
                         </li>
                         <li class="header__nav-item hide-on-mobile">
-                            <button class="header__nav-btn btn--nav-setting">
+                            <div class="header__nav-btn btn--nav-setting">
                                 <i class="bi bi-gear header__nav-icon"></i>
                                 <div class="setting__menu">
                                     <div class="setting__nav">
@@ -139,7 +139,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </button>
+                            </div>
                         </li>
                         <li class="header__nav-item">
                             <img src="./assets/img/avatars/avatar.jpg" alt="" class="header__nav-btn">
@@ -345,6 +345,7 @@
                                 <span class="sidebar__link-topic">Sky Ơi</span>
                             </a>
                         </li>
+                    </ul>
                 </div>
                 <div class="sidebar__create-playlist">
                     <div class="sidebar__create-container hide-on-tablet-mobile">
@@ -432,13 +433,13 @@
                                         </a>
                                         <h3 class="container__header-subtitle">Bài Hát</h3>
                                         <div class="container__header-actions">
-                                            <button class="button is-small container__header-btn hide-on-mobile">
-                                                <input type="file" name="upload song" id="container__header-input">
-                                                <label for="container__header-input">
+                                            <div class="button is-small container__header-btn hide-on-mobile">
+                                                <input type="file" name="upload song" id="home__upload-input" class="container__header-input">
+                                                <label for="home__upload-input">
                                                     <i class="bi bi-upload container__header-icon"></i>
                                                     Tải lên
                                                 </label>
-                                            </button>
+                                            </div>
                                             <button class="button is-small button-primary container__header-btn btn--play-all">
                                                 <i class="bi bi-play-fill container__header-icon"></i>
                                                 <span>Phát tất cả</span>
@@ -613,13 +614,13 @@
                                         </a>
                                         <h3 class="container__header-subtitle">Bài Hát</h3>
                                         <div class="container__header-actions">
-                                            <button class="button is-small container__header-btn hide-on-mobile">
-                                                <input type="file" name="upload song" id="container__header-input">
-                                                <label for="container__header-input">
+                                            <div class="button is-small container__header-btn hide-on-mobile">
+                                                <input type="file" name="upload song" id="song__upload-input" class="container__header-input">
+                                                <label for="song__upload-input">
                                                     <i class="bi bi-upload container__header-icon"></i>
                                                     Tải lên
                                                 </label>
-                                            </button>
+                                            </div>
                                             <button class="button is-small button-primary container__header-btn btn--play-all">
                                                 <i class="bi bi-play-fill container__header-icon"></i>
                                                 <span>Phát tất cả</span>
@@ -633,7 +634,7 @@
                                             <span class="playlist__header-title">Bài hát</span>
                                             <span class="playlist__header-time">Thời gian</span>
                                         </div>
-                                        <div class="playlist__list overflow-visible">
+                                        <div class="playlist__list mb-30 overflow-visible">
                                             <div class="playlist__list-song">
                                                 <div class="playlist__song-info">
                                                     <i class="bi bi-music-note-beamed playlist__song-icon mr-10"></i>
@@ -1077,7 +1078,7 @@
                         </div>
                         <div class="progress-block hide-on-mobile">
                             <span class="tracktime">00:00</span>
-                            <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+                            <input id="progress--main" class="progress" type="range" value="0" step="1" min="0" max="100">
                             <div class="progress__track song--track">
                                 <div class="progress__track-update"></div>
                             </div>
@@ -1216,7 +1217,7 @@
                             </div>
                             <div class="progress-block">
                                 <span class="tracktime">00:00</span>
-                                <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+                                <input id="progress--pop-up" class="progress" type="range" value="0" step="1" min="0" max="100">
                                 <div class="progress__track song--track">
                                     <div class="progress__track-update"></div>
                                 </div>
@@ -1262,32 +1263,6 @@
                 </div>
                 <div class="theme__content">
                     <div class="grid theme__container">
-                        <div class="row sm-gutter">
-                            <div class="col l-12 m-12 c-12">
-                                <div class="theme__container-info">
-                                    <h3 class="theme__info-name">Dynamic</h3>
-                                </div>
-                            </div>
-                            <div class="col l-2">
-                                <div class="theme__container-item">
-                                    <div class="theme__item-display row__item-display br-5">
-                                        <div class="theme__item-img row__item-img" style="background: url('./assets/img/themes/listTheme2/theme1.jpg') no-repeat center center / cover"></div>
-                                        <div class="overlay"></div>
-                                        <div class="theme__item-actions row__item-actions">
-                                            <button class="button theme__actions-btn btn--apply-theme button-primary">
-                                                <span class="theme__btn-title">Áp dụng</span>
-                                            </button>
-                                            <button class="button theme__actions-btn">
-                                                <span class="theme__btn-title">Xem trước</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="theme__item-info">
-                                        <div class="theme__item-name">Sáng Tối</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

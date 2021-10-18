@@ -1,3 +1,5 @@
+'use strict';
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
@@ -490,7 +492,7 @@ const app = {
                                         </svg>
                                         <div class="row__item-display is-rounded">
                                             <div class="row__item-img img--square is-rounded" style="background: url('${radio.image}') no-repeat center center / contain"></div>
-                                            <div class="row__item-actions">
+                                            <div class="row__item-actions hide-on-mobile">
                                                 <div class="btn--play-playlist">
                                                     <div class="control-btn btn-toggle-play">
                                                         <i class="bi bi-play-fill icon-play"></i>
@@ -977,6 +979,16 @@ const app = {
                                         style="background: url('${post.image}') no-repeat center center / cover">
                                     </div>
                                 </div>
+                                <div class="story__item-action">
+                                    <div class="action-btn story-btn--heart">
+                                        <i class="btn--icon icon--heart bi bi-heart"></i>
+                                        <span class="action__number">${Math.floor(Math.random() * 1000)}</span>
+                                    </div>
+                                    <div class="action-btn story-btn--comment">
+                                        <i class="btn--icon icon--comment bi bi-chat-dots"></i>
+                                        <span class="action__number">${Math.floor(Math.random() * 100)}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     `
@@ -1067,6 +1079,7 @@ const app = {
         const favArtistMove = $('.container__header-actions.fav-artist--move');
         const chartExpandBtn = $('.button.charts__expand-btn');
         const chartSongContainer = $('.row.chart--container');
+        const storyActions = Array.from($$('.story__item-action'))
 
 
         // hide and visible shadow of subnav on sidebar
@@ -1917,6 +1930,31 @@ const app = {
         chartExpandBtn.onclick = (e) => {
             chartSongContainer.classList.add('expand-song');
         }
+
+
+        // ****** Tab following
+        storyActions.forEach(storyAction => {
+            storyAction.onclick = (e) => {
+                const btnHeart = e.target.closest('.story-btn--heart .btn--icon.icon--heart')
+                const btnComment = e.target.closest('.story-btn--comment .btn--icon.icon--comment')
+                if(btnHeart) {
+                    const numberNode = btnHeart.parentElement.querySelector('.action__number')
+                    const numberLike = numberNode.innerText
+                    if(btnHeart.classList.contains('primary')) {
+                        btnHeart.classList.remove('primary')
+                        btnHeart.classList.replace('bi-heart-fill', 'bi-heart')
+                        numberNode.innerText = Number(numberLike) - 1
+                    } else {
+                        btnHeart.classList.add('primary')
+                        btnHeart.classList.replace('bi-heart', 'bi-heart-fill')
+                        numberNode.innerText = Number(numberLike) + 1
+                    }
+                }
+                if(btnComment) {
+                    showNotificationToast('Tính năng hiện tại chưa được cập nhật, bạn vui lòng thông cảm!')
+                }
+            }
+        })
 
 
     },

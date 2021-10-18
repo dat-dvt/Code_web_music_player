@@ -585,7 +585,6 @@
     margin: auto;
     outline: none;
     display: flex;
-    display: block;
     cursor: pointer;
     border-radius: 50%;
     background: var(--bg-content-color);
@@ -618,9 +617,16 @@
     margin: auto;
     padding: 5px;
     display: block;
+    text-align: center;
     font-size: 1.8rem;
     line-height: 1.8rem;
     color: var(--text-color);
+}
+
+.header__nav-icon:before {
+    display: block;
+    width: 100%;
+    line-height: 2rem;
 }
 
 .header__nav-btn.btn--nav-setting {
@@ -1020,7 +1026,7 @@ label .container__header-icon {
     transform: translateY(1px);
 }
 
-#container__header-input {
+.container__header-input {
     height: 100%;
     width: 100%;
     border-radius: 20px;
@@ -2892,4 +2898,43 @@ label .container__header-icon {
 
 .story__item-img {
     width: 100%;
+}
+
+.story__item-action {
+    display: flex;
+    margin-top: 12px;
+}
+
+.story__item-action .action-btn {
+    padding: 0;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.story__item-action .action-btn:first-child {
+    margin-right: 25px;
+}
+
+.action__number {
+    min-width: 30px;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+}
+
+.story__item-action .action-btn:hover {
+    background-color: transparent;
+}
+
+.story__item-action .action-btn i {
+    margin-right: 5px;
+}
+
+.story__item-action .action-btn:first-child i {
+    font-size: 1.6rem;
+}
+
+.story__item-action .action-btn:last-child i {
+    transform: translateY(-1px);
 }
