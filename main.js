@@ -1525,7 +1525,7 @@ const app = {
         })
 
 
-        //**  Handle when click button move Album, Playlist, MV and Artist on tab HOME
+        //***  Handle when click button move Album, Playlist, MV and Artist on tab HOME
         // Playlist
         
         playlistScrollBtns[0].onclick = function() {
@@ -2017,7 +2017,7 @@ const app = {
     },
 
     setPlayerInfoWidth() {
-        const animateTitleItems = $$('.player__title-animate .title__item')
+        // const animateTitleItems = $$('.player__title-animate .title__item')
         const playerSongTitles = Array.from($$('.player__song-title.info__title'))
         playerSongTitles.forEach(playerSongTitle => {
             playerSongTitle.style.width = songAnimateTitles[0].offsetWidth / 2 + 'px'

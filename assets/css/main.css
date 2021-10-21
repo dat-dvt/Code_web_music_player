@@ -862,9 +862,9 @@
 
 /* Content CSS */
 .content {
-    padding: 205px 4vw 0;
     display: flex;
     flex-direction: column;
+    padding: 205px 0 0;
 }
 
 .content__navbar {
@@ -897,7 +897,7 @@
     height: 100%;
     cursor: pointer;
     min-width: 100px;
-    padding: 7px 0;
+    padding: 7px 25px;
     text-align: center;
     border-radius: 15px;
     color: var(--text-color);
@@ -910,11 +910,13 @@
 }
 
 .content__navbar-item span {
-    width: 100%;
+    flex: 1;
     height: 12px;
+    font-weight: 100;
     font-size: 1.2rem;
     text-align: center;
     line-height: 1.2rem;
+    white-space: nowrap;
     text-transform: uppercase;
 }
 
@@ -922,6 +924,7 @@
 /* Content container */
 .content__container {
     width: 100%;
+    padding: 0 4vw 0;
 }
 
 .container__tab {
