@@ -94,6 +94,7 @@ const app = {
     isChangeVolume: false,
     scrollToRight: [true, true, true, true, true, true, true, true, true, true], //use when click move btn
     currentScreen: [],
+    currentIndex: 0,
     currentPlaylist: 0, //choose playlist
     themeList: 0, //Theme list index (have > 1 lists)
     currentTheme: 0, //Current theme index in theme list
@@ -387,7 +388,7 @@ const app = {
                                                     <div class="icon-overlay"></div>
                                                 </i>
                                             </div>
-                                            <h3 class="row__info-creator text-center">${artist.folowers} quan tâm</h3>
+                                            <h3 class="row__info-creator text-center">${artist.followers} quan tâm</h3>
                                         </div>
                                     </div>
                                     <div class="row__item-btn">
@@ -1209,7 +1210,6 @@ const app = {
                     progressChild.onchange = function(e) {
                         const seekTime = e.target.value * audio.duration / 100;
                         audio.currentTime = seekTime;
-                        _this.isSeeking = false;
                     }
                 })
             }
@@ -1240,13 +1240,24 @@ const app = {
 
 
         function seekStart() {
-            _this.isSeeking = true;
+            if(audio.duration) {
+                _this.isSeeking = true;
+            }
+        }
+
+        function seekEnd() {
+            _this.isSeeking = false;
         }
 
         // progressBlock.addEventListener('touchstart', seekStart);
         progress.forEach(progressChild => {
             progressChild.onmousedown = seekStart;
             progressChild.ontouchstart = seekStart;
+        })
+
+        progress.forEach(progressChild => {
+            progressChild.onmouseup = seekEnd;
+            progressChild.ontouchend = seekEnd;
         })
 
 
