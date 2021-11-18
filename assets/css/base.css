@@ -761,6 +761,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #fff;
 }
 
 .play-song--actions .btn-toggle-play i {

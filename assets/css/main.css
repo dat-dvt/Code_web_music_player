@@ -1204,7 +1204,7 @@ label .container__header-icon {
     padding: 10px;
     cursor: pointer;
     box-shadow: 0 1px 1px var(--bg-color);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--bg-content-color);
 }
 
 .playlist__list-song:hover,
@@ -1320,6 +1320,12 @@ label .container__header-icon {
 .play-song--actions {
     background: rgba(0,0,0,0.5);
     display: none;
+    height: 100%;
+}
+
+.play-song--actions .control-btn {
+    height: 100%;
+    min-width: unset;
 }
 
 
@@ -2542,6 +2548,11 @@ label .container__header-icon {
 
 .row__item.item--fav-artist .control-btn.btn-toggle-play {
     font-size: 4.5rem;
+}
+
+.btn--fav-artist .btn-toggle-play i {
+    color: var(--white-color);
+    border-color: var(--white-color);
 }
 
 
